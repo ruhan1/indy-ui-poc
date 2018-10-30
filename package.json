@@ -34,7 +34,7 @@
   },
   "scripts": {
     "start": "webpack-dev-server --open",
-    "deploy": "cp -r ./src/html/* ./src/images/ ./build/",
+    "deploy": "cp -r ./src/html/* ./build/",
     "build": "npm run clean && npm run compile && npm run deploy",
     "clean": "rm -rf ./build/*",
     "compile": "NODE_ENV=production webpack --config ./webpack.config.js --progress",
