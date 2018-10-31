@@ -2,41 +2,43 @@
 
 import React from 'react';
 import {render} from 'react-dom';
-import 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 
 export default class IndyNavFooter extends React.Component {
   constructor(props){
     super(props);
-    this.toggle = this.toggle.bind(this);
-    this.state = {
-      isOpen: false
-    };
-  }
-  toggle() {
-    this.setState({
-      isOpen: !this.state.isOpen
-    });
   }
 
   render(){
-    // stats will be render based on the backend addons response, this is a mock;
+    //TODO: stats will be render based on the backend addons response, this is a mock;
     let stats = {
       version: "1.6.0",
       commitId: "f472176",
-      builder: "gli",
+      builder: "ligangty",
       timestamp: "2018-10-24 05:54 +0000"
     }
-    let splitter = " | ";
+    const gridClass = "col-md-auto border-right border-secondary"
     return (
       <nav className="navbar fixed-bottom navbar-expand-lg navbar-light bg-light" role="navigation">
         <div className="container">
-            <span><a target="_new" href="http://commonjava.github.io/indy/">Docs</a></span>{splitter}
-            <span><a target="_new" href="http://github.com/commonjava/indy/issues">Issues</a></span>{splitter}
-            <span>Version:</span> <span>{stats.version}</span>{splitter}
-            <span>Commit ID:</span> <span><a target="_new" href={`http://github.com/commonjava/indy/commit/${stats.commitId}`}>{stats.commitId}</a></span>{splitter}
-            <span>Built on {stats.timestamp} by <a target="_new" href={`http://github.com/${stats.builder}`}>{stats.builder}</a></span>
+          <div className="row">
+            <div className={gridClass}>
+              <a target="_new" href="http://commonjava.github.io/indy/">Docs</a>
+            </div>
+            <div className={gridClass}>
+              <a target="_new" href="http://github.com/commonjava/indy/issues">Issues</a>
+            </div>
+            <div className={gridClass}>
+              Version:{stats.version}
+            </div>
+            <div className={gridClass}>
+              Commit ID: <a target="_new" href={`http://github.com/commonjava/indy/commit/${stats.commitId}`}>{stats.commitId}</a>
+            </div>
+            <div className="col-md-auto">
+              Built on {stats.timestamp} by <a target="_new" href={`http://github.com/${stats.builder}`}>{stats.builder}</a>
+            </div>
+          </div>
         </div>
       </nav>
     );
