@@ -28,14 +28,15 @@ export default class IndyNavFooter extends React.Component {
       builder: "gli",
       timestamp: "2018-10-24 05:54 +0000"
     }
+    let splitter = " | ";
     return (
       <nav className="navbar fixed-bottom navbar-expand-lg navbar-light bg-light" role="navigation">
         <div className="container">
-            <span><a target="_new" className="nav-link" href="http://commonjava.github.io/indy/">Docs</a></span>
-            | <span><a target="_new" className="nav-link" href="http://github.com/commonjava/indy/issues">Issues</a></span>
-            | <span>Version:</span> <span>{stats.version}</span>
-            | <span>Commit ID:</span> <span><a target="_new" className="nav-link" href={`http://github.com/commonjava/indy/commit/${stats.commitId}`}>{stats.commitId}</a></span>
-            | <span>Built on {stats.timestamp} by <a target="_new" className="nav-link" href={`http://github.com/${stats.builder}`}>{stats.builder}</a></span>
+            <span><a target="_new" href="http://commonjava.github.io/indy/">Docs</a></span>{splitter}
+            <span><a target="_new" href="http://github.com/commonjava/indy/issues">Issues</a></span>{splitter}
+            <span>Version:</span> <span>{stats.version}</span>{splitter}
+            <span>Commit ID:</span> <span><a target="_new" href={`http://github.com/commonjava/indy/commit/${stats.commitId}`}>{stats.commitId}</a></span>{splitter}
+            <span>Built on {stats.timestamp} by <a target="_new" href={`http://github.com/${stats.builder}`}>{stats.builder}</a></span>
         </div>
       </nav>
     );
