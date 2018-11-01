@@ -1,5 +1,6 @@
 const express = require('express');
 const os = require('os');
+const remoteList  = require('./FakeRemoteList.json');
 
 const app = express();
 
@@ -12,3 +13,7 @@ let server = app.listen(4000, function () {
 });
 
 app.use(express.static('build'));
+
+app.get('/api/admin/stores/_all/remote', function (req, res){
+  res.status(200).json(remoteList);
+} );

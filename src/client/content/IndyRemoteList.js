@@ -3,6 +3,9 @@
 import React from 'react';
 import {render} from 'react-dom';
 import {Utils} from '../IndyUtils.js';
+import $ from 'jquery/src/core';
+import 'jquery/src/ajax';
+import 'jquery/src/ajax/xhr';
 import '../styles/indy.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -12,140 +15,41 @@ const options = [
   {icon: "R", title: "Releases allowed"}
 ];
 
-const listing = [
-  {
-    "type" : "remote",
-    "key" : "maven:remote:koji-org.jboss.ws-jbossws-common-tools-1.2.4.Final_redhat_1-1",
-    "metadata" : {
-      "koji-NVR" : "org.jboss.ws-jbossws-common-tools-1.2.4.Final_redhat_1-1",
-      "origin" : "koji",
-      "creation-trigger-GAV" : "org.jboss.ws:jbossws-common-tools:pom:1.2.4.Final-redhat-1"
-    },
-    "disabled" : false,
-    "host" : "download.eng.bos.redhat.com",
-    "port" : 80,
-    "name" : "koji-org.jboss.ws-jbossws-common-tools-1.2.4.Final_redhat_1-1",
-    "type" : "remote",
-    "packageType" : "maven",
-    "disable_timeout" : -1,
-    "path_style" : "plain",
-    "path_mask_patterns" : [ "org/jboss/ws/jbossws-common-tools/1.2.4.Final-redhat-1/jbossws-common-tools-1.2.4.Final-redhat-1.jar", "org/jboss/ws/jbossws-common-tools/1.2.4.Final-redhat-1/jbossws-common-tools-1.2.4.Final-redhat-1.pom", "org/jboss/ws/jbossws-common-tools/1.2.4.Final-redhat-1/jbossws-common-tools-1.2.4.Final-redhat-1-scm-sources.zip", "org/jboss/ws/jbossws-common-tools/1.2.4.Final-redhat-1/jbossws-common-tools-1.2.4.Final-redhat-1-sources.jar", "org/jboss/ws/jbossws-common-tools/1.2.4.Final-redhat-1/jbossws-common-tools-1.2.4.Final-redhat-1-project-sources.tar.gz", "org/jboss/ws/jbossws-common-tools/1.2.4.Final-redhat-1/jbossws-common-tools-1.2.4.Final-redhat-1-javadoc.jar" ],
-    "authoritative_index" : true,
-    "allow_snapshots" : true,
-    "allow_releases" : true,
-    "url" : "http://download.eng.bos.redhat.com/brewroot/packages/org.jboss.ws-jbossws-common-tools/1.2.4.Final_redhat_1/1/maven",
-    "timeout_seconds" : 600,
-    "max_connections" : 30,
-    "ignore_hostname_verification" : false,
-    "nfc_timeout_seconds" : 0,
-    "is_passthrough" : false,
-    "cache_timeout_seconds" : 0,
-    "metadata_timeout_seconds" : 0,
-    "proxy_port" : 0,
-    "prefetch_priority" : 0,
-    "prefetch_rescan" : false,
-    "prefetch_listing_type" : "html"
-  }, {
-    "type" : "remote",
-    "key" : "maven:remote:i-maven-restlet-4",
-    "description" : "Implicitly created repo for: Public online Restlet repository (maven-restlet) from repository declaration removed by PME in build 516 (repo: build_org-apache-camel-camel-2-20-0-fuse-000120fuse_test_1_20180128.1929)",
-    "metadata" : {
-      "changelog" : "Creating extra remote repository Public online Restlet repository (maven-restlet) for build: 516 (repo: build_org-apache-camel-camel-2-20-0-fuse-000120fuse_test_1_20180128.1929)",
-      "origin" : "implied-repos"
-    },
-    "disabled" : false,
-    "host" : "maven.restlet.org",
-    "port" : 80,
-    "name" : "i-maven-restlet-4",
-    "type" : "remote",
-    "packageType" : "maven",
-    "disable_timeout" : 0,
-    "path_style" : "plain",
-    "authoritative_index" : false,
-    "allow_snapshots" : true,
-    "allow_releases" : true,
-    "url" : "http://maven.restlet.org",
-    "timeout_seconds" : 0,
-    "max_connections" : 30,
-    "ignore_hostname_verification" : false,
-    "nfc_timeout_seconds" : 0,
-    "is_passthrough" : false,
-    "cache_timeout_seconds" : 0,
-    "metadata_timeout_seconds" : 0,
-    "proxy_port" : 0,
-    "prefetch_priority" : 0,
-    "prefetch_rescan" : false,
-    "prefetch_listing_type" : "html"
-  }, {
-    "type" : "remote",
-    "key" : "maven:remote:Promote_tmp_jboss-releases20180531.044347.594+0000",
-    "disabled" : false,
-    "host" : "pnc-indy-branch-nightly.project-newcastle.svc.cluster.local",
-    "port" : 80,
-    "name" : "Promote_tmp_jboss-releases20180531.044347.594+0000",
-    "type" : "remote",
-    "packageType" : "maven",
-    "disable_timeout" : 0,
-    "path_style" : "plain",
-    "authoritative_index" : false,
-    "allow_snapshots" : false,
-    "allow_releases" : true,
-    "url" : "http://pnc-indy-branch-nightly.project-newcastle.svc.cluster.local/api/content/maven",
-    "timeout_seconds" : 0,
-    "max_connections" : 30,
-    "ignore_hostname_verification" : false,
-    "nfc_timeout_seconds" : 0,
-    "is_passthrough" : false,
-    "cache_timeout_seconds" : 0,
-    "metadata_timeout_seconds" : 0,
-    "proxy_port" : 0,
-    "prefetch_priority" : 0,
-    "prefetch_rescan" : false,
-    "prefetch_listing_type" : "html"
-  }, {
-    "type" : "remote",
-    "key" : "maven:remote:koji-io.dropwizard.metrics-metrics-parent-3.1.2.redhat_1-1",
-    "metadata" : {
-      "koji-NVR" : "io.dropwizard.metrics-metrics-parent-3.1.2.redhat_1-1",
-      "origin" : "koji",
-      "creation-trigger-GAV" : "io.dropwizard.metrics:metrics-core:pom:3.1.2.redhat-1"
-    },
-    "disabled" : false,
-    "host" : "download.eng.bos.redhat.com",
-    "port" : 80,
-    "name" : "koji-io.dropwizard.metrics-metrics-parent-3.1.2.redhat_1-1",
-    "type" : "remote",
-    "packageType" : "maven",
-    "disable_timeout" : -1,
-    "path_style" : "plain",
-
-    "authoritative_index" : true,
-    "allow_snapshots" : true,
-    "allow_releases" : true,
-    "url" : "http://download.eng.bos.redhat.com/brewroot/packages/io.dropwizard.metrics-metrics-parent/3.1.2.redhat_1/1/maven",
-    "timeout_seconds" : 600,
-    "max_connections" : 30,
-    "ignore_hostname_verification" : false,
-    "nfc_timeout_seconds" : 0,
-    "is_passthrough" : false,
-    "cache_timeout_seconds" : 0,
-    "metadata_timeout_seconds" : 0,
-    "proxy_port" : 0,
-    "prefetch_priority" : 0,
-    "prefetch_rescan" : false,
-    "prefetch_listing_type" : "html"
-  }
-]
-
 export default class IndyRemoteList extends React.Component {
   constructor(props){
     super(props);
+    this.state = {
+      listing: []
+    }
     this.createNew = this.createNew.bind(this);
+    this.handleDebug = this.handleDebug.bind(this);
+  }
+  componentDidMount() {
+    $.getJSON({
+      url: '/api/admin/stores/_all/remote',
+      type: "GET",
+      responseType: "application/json",
+      contentType: "application/json",
+      dataType: "json"
+    }).done((response) => {
+      this.setState({
+        listing: response
+      });
+    }).fail((jqxhr, textStatus, error) => {
+      this.setState({
+        message: JSON.parse(jqxhr.responseText).error,
+        messageStyle: 'red'
+      });
+    });
   }
   createNew(){
     //mock
   }
+  handleDebug(){
+    //mock
+  }
   render(){
+    let listing = this.state.listing;
     return (
       <div className="container-fluid">
         <div className="control-panel">
@@ -183,7 +87,7 @@ export default class IndyRemoteList extends React.Component {
             </div>
           </div>
           <div className="cp-row cp-debug">
-            <input type="checkbox" name="enableDebug" checked={false} /> Debug Data
+            <input type="checkbox" name="enableDebug" checked={false} onChange={this.handleDebug} /> Debug Data
           </div>
         </div>
         <div className="content-panel">
@@ -202,7 +106,7 @@ export default class IndyRemoteList extends React.Component {
                       <div className="two-col">
                         <div className="field left-half">
                           <label>Local URL:</label>
-                          <a href={store.storeHref} target="_new">{store.storeHref}</a>
+                          <a href={Utils.storeHref(store.key)} target="_new">{Utils.storeHref(store.key)}</a>
                         </div>
                         <div className="field right-half">
                           <label>Remote URL:</label>
