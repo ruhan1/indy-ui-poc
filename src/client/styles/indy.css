@@ -69,11 +69,6 @@ a.button:hover{
 	font-weight: bold;
 }
 
-.cp-debug{
-	color: #aaa;
-	float: right;
-}
-
 .vdiv{
   border-left: 1px solid black;
   min-width: 2px;
@@ -238,9 +233,6 @@ div.sidebyside{
   margin-right: 20px;
 }
 
-.options-field{
-}
-
 .options{
   list-style: none;
   display: inline;
@@ -263,6 +255,8 @@ li.option{
 .cp-debug{
   display: block;
   font-style: italic;
+  color: #aaa;
+	float: right;
 }
 
 .debug{

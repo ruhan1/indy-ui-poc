@@ -19,17 +19,15 @@ export default class IndyContainer extends React.Component {
   }
   render(){
     return (
-      <div className="content-wrapper">
+      <div>
          {/*browseCompatible*/}
-        <div className="view-container">
-          <div className="view-frame">
+        <div>          
            {
              isHome?
              "Welcome! Make a selection from the menu above to proceed.":
              <IndyRemoteList />
            }
           </div>
-        </div>
       </div>
     );
   }

@@ -57,10 +57,10 @@ export default class IndyRemoteList extends React.Component {
             <button onClick={this.createNew}>New...</button>
           </div>
           <div className="cp-row">
-            Search: <input name="query" />
+            Search:&nbsp;<input name="query" />
           </div>
           <div className="cp-row">
-            Sort by:
+            Sort by:&nbsp;
             <select name="orderProp">
               <option value="key">Name</option>
               <option value="url">Remote URL</option>
@@ -68,21 +68,21 @@ export default class IndyRemoteList extends React.Component {
           </div>
           <div className="cp-row">
             <div className="legend">
-              <div className="label">Capability Legend:</div>
+              <div className="label" style={{fontSize:"75%", padding: ".2em .6em .3em"}}>Capability Legend:</div>
               <ul>
-                <li>
-                  {
-                    options.map(
-                      option =>
-                       (
-                        <div key={option.title}>
-                          <span className="key">{option.icon}</span>
-                          <span className="value">{option.title}</span>
-                        </div>
-                      )
+                {
+                  options.map(
+                    option =>
+                     (
+                       <li key={option.title}>
+                         <div>
+                           <span className="key">{option.icon} </span>
+                           <span>{option.title}</span>
+                         </div>
+                       </li>
                     )
-                  }
-                </li>
+                  )
+                }
               </ul>
             </div>
           </div>
@@ -95,33 +95,33 @@ export default class IndyRemoteList extends React.Component {
             {
               listing.map(function(store){
                 return (
-                  <div key={store.key} className="listing-item list-item store-listing-item listing-item-start">
+                  <div key={store.key} className="store-listing-item">
                     <div className="fieldset-caption">
                         <a href={`view/remote/${store.packageType}/view/${store.name}`}>
                             <span className="enabled-store" ng-if="!isDisabled(store.key)">{store.packageType}-{store.name}</span>
                             <span className="disabled-store" ng-if="isDisabled(store.key)">{store.packageType}-{store.name}</span>
                         </a>
                     </div>
-                    <div className="fieldset two-col">
-                      <div className="two-col">
-                        <div className="field left-half">
+                    <div className="fieldset">
+                      <div>
+                        <div className="left-half">
                           <label>Local URL:</label>
                           <a href={Utils.storeHref(store.key)} target="_new">{Utils.storeHref(store.key)}</a>
                         </div>
-                        <div className="field right-half">
+                        <div className="right-half">
                           <label>Remote URL:</label>
                           <a href={store.url} target="_new">{store.url}</a>
                         </div>
                       </div>
-                      <div className="two-col">
-                        <div className="options-field field left-half">
+                      <div>
+                        <div className="left-half">
                           <label>Capabilities:</label>
                           {
                             Utils.remoteOptions(store).map(
                               option =>
                               (
                                 <div key={option.title} className="options">
-                                  <span className="key">{option.icon}</span>
+                                  <span className="key">{option.icon} </span>
                                 </div>
                               )
                             )
