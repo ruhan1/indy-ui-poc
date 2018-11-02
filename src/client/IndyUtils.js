@@ -2,7 +2,7 @@
 
 export const Utils = {
   remoteOptions: store => {
-    var options = [];
+    let options = [];
 
     if ( store.allow_snapshots ){
       options.push({icon: 'S', title: 'Snapshots allowed'});
@@ -22,18 +22,33 @@ export const Utils = {
         hostAndPort += window.location.port;
       }
 
-      var basepath = window.location.pathname;
+      let basepath = window.location.pathname;
       basepath = basepath.replace('/app', '');
       basepath = basepath.replace(/index.html.*/, '');
 
 
-      var proto = window.location.protocol;
+      let proto = window.location.protocol;
 
       // TODO: In-UI browser that allows simple searching
       return proto + "//" + hostAndPort + basepath + 'api/content/' + parts[0] + '/' + parts[1] + '/' + parts[2];
   },
-  isDisabled: key => {
-      var result = key in scope.disabledMap;
+  setDisableMap: (listing, stores) => {
+    let disabledMap = {};
+
+    let items = listing.items;
+    if ( items ) {
+      for(let i = 0; i<items.length; i++){
+        let item = items[i];
+        let parts = item.group.split(':');
+        let key = parts[0] + ':' + parts[1] + ':' + parts[2];
+        console.log("DISABLED: " + key + " (until: " + item.expiration + ")");
+        disabledMap[key] = item.expiration;
+      }
+    }
+    return disabledMap;
+  },
+  isDisabled: (key, disabledMap) => {
+      let result = key in disabledMap;
       return result;
   }
 };

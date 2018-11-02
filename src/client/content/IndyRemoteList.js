@@ -8,23 +8,25 @@ import 'jquery/src/ajax';
 import 'jquery/src/ajax/xhr';
 import '../styles/indy.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import {remoteOptionLegend as options} from "../IndyConstants.js";
 
-// mock data
-const options = [
-  {icon: "S", title: "Snapshots allowed"},
-  {icon: "R", title: "Releases allowed"}
-];
 
 export default class IndyRemoteList extends React.Component {
   constructor(props){
     super(props);
     this.state = {
-      listing: []
+      listing: [],
+      disabledMap: {}
     }
     this.createNew = this.createNew.bind(this);
     this.handleDebug = this.handleDebug.bind(this);
+    this.ajaxGetStores = this.ajaxGetStores.bind(this);
+    this.ajaxGetDisTimeouts = this.ajaxGetDisTimeouts.bind(this);
   }
   componentDidMount() {
+    this.ajaxGetStores();
+  }
+  ajaxGetStores(){
     $.getJSON({
       url: '/api/admin/stores/_all/remote',
       type: "GET",
@@ -35,10 +37,28 @@ export default class IndyRemoteList extends React.Component {
       this.setState({
         listing: response
       });
+      this.ajaxGetDisTimeouts();
     }).fail((jqxhr, textStatus, error) => {
       this.setState({
-        message: JSON.parse(jqxhr.responseText).error,
-        messageStyle: 'red'
+        message: JSON.parse(jqxhr.responseText).error
+      });
+    });
+  }
+  ajaxGetDisTimeouts(){
+    $.getJSON({
+      url: '/api/admin/schedule/store/all/disable-timeout',
+      type: "GET",
+      responseType: "application/json",
+      contentType: "application/json",
+      dataType: "json"
+    }).done((response) => {
+      let disabledMap = Utils.setDisableMap(response, this.state.listing);
+      this.setState({
+        disabledMap: disabledMap
+      });
+    }).fail((jqxhr, textStatus, error) => {
+      this.setState({
+        message: JSON.parse(jqxhr.responseText).error
       });
     });
   }
@@ -50,6 +70,7 @@ export default class IndyRemoteList extends React.Component {
   }
   render(){
     let listing = this.state.listing;
+    let disMap = this.state.disabledMap;
     return (
       <div className="container-fluid">
         <div className="control-panel">
@@ -94,13 +115,13 @@ export default class IndyRemoteList extends React.Component {
           <div className="store-listing">
             {
               listing.map(function(store){
+                let storeClass = Utils.isDisabled(store.key, disMap)? "disabled-store":"enabled-store";
                 return (
                   <div key={store.key} className="store-listing-item">
                     <div className="fieldset-caption">
-                        <a href={`view/remote/${store.packageType}/view/${store.name}`}>
-                            <span className="enabled-store" ng-if="!isDisabled(store.key)">{store.packageType}-{store.name}</span>
-                            <span className="disabled-store" ng-if="isDisabled(store.key)">{store.packageType}-{store.name}</span>
-                        </a>
+                      <a href={`view/remote/${store.packageType}/view/${store.name}`}>
+                        <span className={storeClass}>{store.packageType}-{store.name}</span>
+                      </a>
                     </div>
                     <div className="fieldset">
                       <div>
