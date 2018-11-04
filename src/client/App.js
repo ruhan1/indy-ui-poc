@@ -2,18 +2,18 @@
 
 import React from 'react';
 import {render} from 'react-dom';
-import IndyNavHeader from './nav/IndyNavHeader.js';
-import IndyNavFooter from './nav/IndyNavFooter.js';
-import IndyContainer from './content/IndyContainer.js';
+import NavHeader from './nav/NavHeader.js';
+import NavFooter from './nav/NavFooter.js';
+import Container from './content/Container.js';
 import './styles/indy.css';
 
 
 export const App = (props)=>{
   return (
     <div>
-      <IndyNavHeader />
-      <IndyContainer />
-      <IndyNavFooter />
+      <NavHeader />
+      <Container />
+      <NavFooter />
     </div>
   );
 };

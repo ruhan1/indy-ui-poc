@@ -2,16 +2,16 @@
 
 import React from 'react';
 import {render} from 'react-dom';
-import {Utils} from '../IndyUtils.js';
+import {Utils} from '../Utils.js';
 import '../styles/indy.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import {remoteOptionLegend as options} from "../IndyConstants.js";
+import {remoteOptionLegend as options} from "../Constants.js";
 import ListControl from "./ListControl.js";
 import {jsonGet} from "../RestClient.js";
 import {JsonDebugger} from './JsonDebugger.js';
 
 
-export default class IndyRemoteList extends React.Component {
+export default class RemoteList extends React.Component {
   constructor(props){
     super(props);
     this.state = {

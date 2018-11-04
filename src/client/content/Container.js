@@ -4,8 +4,8 @@ import React from 'react';
 import {render} from 'react-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../styles/indy.css';
-import IndyRemoteList from './IndyRemoteList.js';
-import IndyHostedList from './IndyHostedList.js';
+import RemoteList from './RemoteList.js';
+import HostedList from './HostedList.js';
 
 
 const browseCompatible=`<!--[if lt IE 7]>
@@ -14,7 +14,7 @@ const browseCompatible=`<!--[if lt IE 7]>
 
 const isHome = false;
 
-export default class IndyContainer extends React.Component {
+export default class Container extends React.Component {
   constructor(props){
     super(props);
   }
@@ -26,8 +26,8 @@ export default class IndyContainer extends React.Component {
            {
              isHome?
              "Welcome! Make a selection from the menu above to proceed.":
-             <IndyRemoteList />
-             /*<IndyHostedList />*/
+             <RemoteList />
+             /*<HostedList />*/
            }
           </div>
       </div>

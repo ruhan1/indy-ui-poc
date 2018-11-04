@@ -5,7 +5,7 @@ import {render} from 'react-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 
-export default class IndyNavFooter extends React.Component {
+export default class NavFooter extends React.Component {
   constructor(props){
     super(props);
   }
