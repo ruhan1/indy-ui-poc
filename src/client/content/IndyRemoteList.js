@@ -3,12 +3,11 @@
 import React from 'react';
 import {render} from 'react-dom';
 import {Utils} from '../IndyUtils.js';
-import $ from 'jquery/src/core';
-import 'jquery/src/ajax';
-import 'jquery/src/ajax/xhr';
 import '../styles/indy.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {remoteOptionLegend as options} from "../IndyConstants.js";
+import {jsonGet} from "../RestClient.js";
+import JSONPretty from 'react-json-pretty';
 
 
 export default class IndyRemoteList extends React.Component {
@@ -16,57 +15,54 @@ export default class IndyRemoteList extends React.Component {
     super(props);
     this.state = {
       listing: [],
-      disabledMap: {}
+      disabledMap: {},
+      enableDebug: false
     }
     this.createNew = this.createNew.bind(this);
     this.handleDebug = this.handleDebug.bind(this);
-    this.ajaxGetStores = this.ajaxGetStores.bind(this);
-    this.ajaxGetDisTimeouts = this.ajaxGetDisTimeouts.bind(this);
+    this.getStores = this.getStores.bind(this);
+    this.getDisTimeouts = this.getDisTimeouts.bind(this);
   }
   componentDidMount() {
-    this.ajaxGetStores();
+    this.getStores();
   }
-  ajaxGetStores(){
-    $.getJSON({
-      url: '/api/admin/stores/_all/remote',
-      type: "GET",
-      responseType: "application/json",
-      contentType: "application/json",
-      dataType: "json"
-    }).done((response) => {
-      this.setState({
-        listing: response
-      });
-      this.ajaxGetDisTimeouts();
-    }).fail((jqxhr, textStatus, error) => {
-      this.setState({
-        message: JSON.parse(jqxhr.responseText).error
-      });
-    });
+  getStores(){
+    jsonGet('/api/admin/stores/_all/remote',
+      response => {
+        this.setState({
+          listing: response
+        });
+        this.getDisTimeouts();
+      },
+      jqxhr => {
+        this.setState({
+          message: JSON.parse(jqxhr.responseText).error
+        });
+      }
+    );
   }
-  ajaxGetDisTimeouts(){
-    $.getJSON({
-      url: '/api/admin/schedule/store/all/disable-timeout',
-      type: "GET",
-      responseType: "application/json",
-      contentType: "application/json",
-      dataType: "json"
-    }).done((response) => {
-      let disabledMap = Utils.setDisableMap(response, this.state.listing);
-      this.setState({
-        disabledMap: disabledMap
-      });
-    }).fail((jqxhr, textStatus, error) => {
-      this.setState({
-        message: JSON.parse(jqxhr.responseText).error
-      });
-    });
+  getDisTimeouts(){
+    jsonGet('/api/admin/schedule/store/all/disable-timeout',
+      response => {
+        let disabledMap = Utils.setDisableMap(response, this.state.listing);
+        this.setState({
+          disabledMap: disabledMap
+        });
+      },
+      jqxhr => {
+        this.setState({
+          message: JSON.parse(jqxhr.responseText).error
+        });
+      }
+    );
   }
   createNew(){
     //mock
   }
-  handleDebug(){
-    //mock
+  handleDebug(event){
+    this.setState({
+      enableDebug: event.target.checked
+    })
   }
   render(){
     let listing = this.state.listing;
@@ -108,7 +104,7 @@ export default class IndyRemoteList extends React.Component {
             </div>
           </div>
           <div className="cp-row cp-debug">
-            <input type="checkbox" name="enableDebug" checked={false} onChange={this.handleDebug} /> Debug Data
+            <input type="checkbox" name="enableDebug" checked={this.state.enableDebug} onChange={this.handleDebug} /> Debug Data
           </div>
         </div>
         <div className="content-panel">
@@ -157,13 +153,15 @@ export default class IndyRemoteList extends React.Component {
             }
           </div>
         </div>
-
-        {/*
-        <div ng-if="enableDebug" className="debug">
-            JSON:
-            <pre>{{listing | json}}</pre>
-        </div>
-        */}
+        {
+          this.state.enableDebug &&
+          (
+            <div className="debug">
+                JSON:
+                <JSONPretty id="json-pretty" json={this.state.listing}></JSONPretty>
+            </div>
+          )
+        }
       </div>
     );
   }
