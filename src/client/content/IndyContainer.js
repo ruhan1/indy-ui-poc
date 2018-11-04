@@ -5,6 +5,7 @@ import {render} from 'react-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../styles/indy.css';
 import IndyRemoteList from './IndyRemoteList.js';
+import IndyHostedList from './IndyHostedList.js';
 
 
 const browseCompatible=`<!--[if lt IE 7]>
@@ -21,11 +22,12 @@ export default class IndyContainer extends React.Component {
     return (
       <div>
          {/*browseCompatible*/}
-        <div>          
+        <div>
            {
              isHome?
              "Welcome! Make a selection from the menu above to proceed.":
              <IndyRemoteList />
+             /*<IndyHostedList />*/
            }
           </div>
       </div>

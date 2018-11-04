@@ -13,6 +13,23 @@ export const Utils = {
     }
     return options;
   },
+  hostedOptions: store => {
+    var options = [];
+
+    if ( store.allow_snapshots ){
+      options.push({icon: 'S', title: 'Snapshots allowed'});
+    }
+
+    if ( store.allow_releases ){
+      options.push({icon: 'R', title: 'Releases allowed'});
+    }
+
+    if ( store.allow_snapshots || store.allow_releases ){
+      options.push({icon: 'D', title: 'Deployment allowed'});
+    }
+
+    return options;
+  },
   storeHref: key => {
       let parts = key.split(':');
 

@@ -6,4 +6,10 @@ const remoteOptionLegend = [
   {icon: "R", title: "Releases allowed"}
 ];
 
-export {remoteOptionLegend};
+const hostedOptionLegend = [
+  {icon: 'S', title: 'Snapshots allowed'},
+  {icon: 'R', title: 'Releases allowed'},
+  {icon: 'D', title: 'Deployment allowed'}
+];
+
+export {remoteOptionLegend, hostedOptionLegend};
