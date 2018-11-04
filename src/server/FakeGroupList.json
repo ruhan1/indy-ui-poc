@@ -1,0 +1,89 @@
+{
+  "items" : [
+    {
+      "type" : "group",
+      "key" : "maven:group:build_org-keycloak-keycloak-parent-4-x_20180515.1724",
+      "description" : "Aggregation group for PNC build #1859",
+      "metadata" : {
+        "changelog" : "Creating repository group for resolving artifacts in build: 1859 (repo: build_org-keycloak-keycloak-parent-4-x_20180515.1724)"
+      },
+      "disabled" : false,
+      "constituents" : [ "maven:hosted:build_org-keycloak-keycloak-parent-4-x_20180515.1724", "maven:group:builds-untested", "maven:hosted:shared-imports", "maven:group:public", "maven:remote:i-jboss-public-repository-group", "maven:remote:i-jboss-2", "maven:remote:spring-milestone", "maven:remote:spring-snapshot", "maven:remote:spring-milestones", "maven:remote:central", "maven:remote:spring-snapshots", "maven:remote:spring-releases", "maven:remote:UCAR", "maven:remote:confluent", "maven:remote:sonatype-snapshots", "maven:remote:repo.eclipse.org", "maven:remote:microprofile.repo.eclipse.org" ],
+      "packageType" : "maven",
+      "name" : "build_org-keycloak-keycloak-parent-4-x_20180515.1724",
+      "type" : "group",
+      "disable_timeout" : 0,
+      "path_style" : "plain",
+      "authoritative_index" : false,
+      "prepend_constituent" : false
+    },
+    {
+      "type" : "group",
+      "key" : "maven:group:build_org-keycloak-keycloak-parent-4-x_20180531.0218",
+      "description" : "Aggregation group for PNC build #1981",
+      "metadata" : {
+        "changelog" : "Creating repository group for resolving artifacts in build: 1981 (repo: build_org-keycloak-keycloak-parent-4-x_20180531.0218)"
+      },
+      "disabled" : false,
+      "constituents" : [ "maven:hosted:build_org-keycloak-keycloak-parent-4-x_20180531.0218", "maven:group:builds-untested", "maven:hosted:shared-imports", "maven:group:public", "maven:remote:i-jboss-public-repository-group", "maven:remote:i-jboss", "maven:remote:confluent", "maven:remote:sonatype-snapshots" ],
+      "packageType" : "maven",
+      "name" : "build_org-keycloak-keycloak-parent-4-x_20180531.0218",
+      "type" : "group",
+      "disable_timeout" : 0,
+      "path_style" : "plain",
+      "authoritative_index" : false,
+      "prepend_constituent" : false
+    },
+    {
+      "type" : "group",
+      "key" : "maven:group:build_org-keycloak-keycloak-nodejs-auth-utils-3-xnpm_1-2-stage-4_20180104.1216",
+      "description" : "Aggregation group for PNC build #333",
+      "metadata" : {
+        "changelog" : "Creating repository group for resolving artifacts in build: 333 (repo: build_org-keycloak-keycloak-nodejs-auth-utils-3-xnpm_1-2-stage-4_20180104.1216)"
+      },
+      "disabled" : false,
+      "constituents" : [ "maven:hosted:build_org-keycloak-keycloak-nodejs-auth-utils-3-xnpm_1-2-stage-4_20180104.1216", "maven:group:builds-untested", "maven:hosted:shared-imports", "maven:group:public", "maven:remote:ops4j", "maven:remote:aqute", "maven:remote:jetty-releases", "maven:remote:jgit-repository", "maven:remote:nexus-codehaus-snapshot", "maven:remote:sevntu-maven", "maven:remote:spring-milestone", "maven:remote:spring-snapshot", "maven:remote:spring-milestones", "maven:remote:central", "maven:remote:spring-snapshots", "maven:remote:spring-releases", "maven:remote:UCAR", "maven:remote:confluent", "maven:remote:sonatype-snapshots", "maven:remote:repo.eclipse.org", "maven:remote:microprofile.repo.eclipse.org" ],
+      "packageType" : "maven",
+      "name" : "build_org-keycloak-keycloak-nodejs-auth-utils-3-xnpm_1-2-stage-4_20180104.1216",
+      "type" : "group",
+      "disable_timeout" : 0,
+      "path_style" : "plain",
+      "authoritative_index" : false,
+      "prepend_constituent" : false
+    },
+    {
+      "type" : "group",
+      "key" : "maven:group:build_vertx-infinispan-3-5-1_20180705.1313",
+      "description" : "Aggregation group for PNC build #2759",
+      "metadata" : {
+        "changelog" : "Creating repository group for resolving artifacts in build: 2759 (repo: build_vertx-infinispan-3-5-1_20180705.1313)"
+      },
+      "disabled" : false,
+      "constituents" : [ "maven:hosted:build_vertx-infinispan-3-5-1_20180705.1313", "maven:group:builds-untested", "maven:hosted:shared-imports", "maven:group:public" ],
+      "packageType" : "maven",
+      "name" : "build_vertx-infinispan-3-5-1_20180705.1313",
+      "type" : "group",
+      "disable_timeout" : 0,
+      "path_style" : "plain",
+      "authoritative_index" : false,
+      "prepend_constituent" : false
+    },
+    {
+      "type" : "group",
+      "key" : "maven:group:build_org-freemarker-freemarker-3-x_20171206.1203",
+      "description" : "Aggregation group for PNC build #160",
+      "metadata" : {
+        "changelog" : "Creating repository group for resolving artifacts in build: 160 (repo: build_org-freemarker-freemarker-3-x_20171206.1203)"
+      },
+      "disabled" : false,
+      "constituents" : [ "maven:hosted:build_org-freemarker-freemarker-3-x_20171206.1203", "maven:group:builds-untested", "maven:hosted:shared-imports", "maven:group:public", "maven:remote:ops4j", "maven:remote:aqute", "maven:remote:jetty-releases", "maven:remote:jgit-repository", "maven:remote:nexus-codehaus-snapshot", "maven:remote:sevntu-maven", "maven:remote:spring-milestone", "maven:remote:spring-snapshot", "maven:remote:spring-milestones", "maven:remote:central", "maven:remote:spring-snapshots", "maven:remote:spring-releases", "maven:remote:UCAR", "maven:remote:confluent", "maven:remote:sonatype-snapshots", "maven:remote:repo.eclipse.org", "maven:remote:microprofile.repo.eclipse.org" ],
+      "packageType" : "maven",
+      "name" : "build_org-freemarker-freemarker-3-x_20171206.1203",
+      "type" : "group",
+      "disable_timeout" : 0,
+      "path_style" : "plain",
+      "authoritative_index" : false,
+      "prepend_constituent" : false
+    }
+  ]
+}

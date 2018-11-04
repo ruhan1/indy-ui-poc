@@ -76,7 +76,7 @@ export default class HostedList extends React.Component {
           useSearch={true}
           useLegend={true} legends={options}
           useDebug={true} handleDebug={this.handleDebug}
-          createNew={this.createNew} />
+          handleCreateNew={this.createNew} />
         <div className="content-panel">
           <div className="store-listing">
           {

@@ -11,6 +11,14 @@
     {
       "name" : "Disable-Timeout",
       "group" : "maven:hosted:FisZYfNgpR"
+    },
+    {
+      "name" : "Disable-Timeout",
+      "group" : "maven:group:build_org-keycloak-keycloak-parent-4-x_20180515.1724"
+    },
+    {
+      "name" : "Disable-Timeout",
+      "group" : "maven:group:build_org-keycloak-keycloak-parent-4-x_20180531.0218"
     }
   ]
 }

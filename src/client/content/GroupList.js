@@ -5,7 +5,6 @@ import {render} from 'react-dom';
 import {Utils} from '../Utils.js';
 import '../styles/indy.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import {remoteOptionLegend as options} from "../IndyConstants.js";
 import ListControl from "./ListControl.js";
 import {jsonGet} from "../RestClient.js";
 import {JsonDebugger} from './JsonDebugger.js';
@@ -21,6 +20,7 @@ export default class GroupList extends React.Component {
     }
     this.createNew = this.createNew.bind(this);
     this.handleDebug = this.handleDebug.bind(this);
+    this.hideAll = this.hideAll.bind(this);
     this.getStores = this.getStores.bind(this);
     this.getDisTimeouts = this.getDisTimeouts.bind(this);
   }
@@ -60,6 +60,9 @@ export default class GroupList extends React.Component {
   createNew(){
     //mock
   }
+  hideAll(){
+    //mock
+  }
   handleDebug(event){
     this.setState({
       enableDebug: event.target.checked
@@ -68,27 +71,22 @@ export default class GroupList extends React.Component {
   render(){
     let listing = this.state.listing;
     let disMap = this.state.disabledMap;
-    let orderBys = [
-      {value: 'key', text: 'Name'},
-      {value: 'url', text: 'Remote URL'}
-    ]
     return (
       <div className="container-fluid">
         <ListControl
+          useHideAll={true} handleHideAll={this.hideAll}
           useSearch={true}
-          useOrderBy={true} orderBys={orderBys}
-          useLegend={true} legends={options}
           useDebug={true} handleDebug={this.handleDebug}
-          createNew={this.createNew} />
+          handleCreateNew={this.createNew} />
         <div className="content-panel">
           <div className="store-listing">
             {
-              listing.map(function(store){
+              listing.map( store => {
                 let storeClass = Utils.isDisabled(store.key, disMap)? "disabled-store":"enabled-store";
                 return (
                   <div key={store.key} className="store-listing-item">
                     <div className="fieldset-caption">
-                      <a href={`view/remote/${store.packageType}/view/${store.name}`}>
+                      <a href={`view/group/${store.packageType}/view/${store.name}`}>
                         <span className={storeClass}>{store.packageType}-{store.name}</span>
                       </a>
                     </div>
@@ -98,25 +96,31 @@ export default class GroupList extends React.Component {
                           <label>Local URL:</label>
                           <a href={Utils.storeHref(store.key)} target="_new">{Utils.storeHref(store.key)}</a>
                         </div>
-                        <div className="right-half">
-                          <label>Remote URL:</label>
-                          <a href={store.url} target="_new">{store.url}</a>
-                        </div>
-                      </div>
-                      <div>
-                        <div className="left-half">
-                          <label>Capabilities:</label>
-                          {
-                            Utils.remoteOptions(store).map(
-                              option =>
-                              (
-                                <div key={option.title} className="options">
-                                  <span className="key">{option.icon} </span>
-                                </div>
-                              )
-                            )
-                          }
-                        </div>
+                        <div class="options-field field right-half">
+                          <div class="inline-label">
+                            {store.constituents.length} Constituent(s) [
+                            <!-- span class="option">
+                              <a href="" ng-if="!store.display" ng-click="displayConstituents(store)">View</a>
+                              <a href="" ng-if="store.display" ng-click="hideConstituents(store)">Hide</a>
+                            </span -->
+                            <span class="option">
+                              <a href="" ng-if="!store.display" ng-click="displayConstituents(store)">+</a>
+                              <a href="" ng-if="store.display" ng-click="hideConstituents(store)">-</a>
+                            </span>
+                            ]
+                          </div>
+          					      <ol ng-if="store.display" class="content-panel item-expanded subsection">
+          					        <li ng-repeat="item in store.constituents">
+          					          <a href="#/{{item.type}}/{{item.packageType}}/view/{{item.name}}">
+                                  <span class="enabled-store" ng-if="!isDisabled(item.key)">{{item.key}}</span>
+                                  <span class="disabled-store" ng-if="isDisabled(item.key)">{{item.key}}</span>
+                              </a>
+          					          <div ng-if="item.type == 'remote'" class="subfields">
+          					           <span class="description field">(Remote URL: <a target="_new" href="{{item.storeHref}}">{{item.storeHref}}</a>)</span>
+          					          </div>
+          					        </li>
+          					      </ol>
+          					    </div>
                       </div>
                       <div className="description field"><span>{store.description}</span></div>
                     </div>

@@ -18,7 +18,13 @@ export default class ListControl extends React.Component {
     return (
       <div className="control-panel">
         <div className="cp-row">
-          <button onClick={this.props.createNew}>New...</button>
+          <button onClick={this.props.handleCreateNew}>New...</button>
+          {
+            this.props.useHideAll &&
+            (
+              <button onClick={this.props.handleHideAll}>Hide All</button>
+            )
+          }
         </div>
         {
           this.props.useSearch &&

@@ -2,6 +2,7 @@ const express = require('express');
 const os = require('os');
 const remoteList  = require('./FakeRemoteList.json');
 const hostedList = require('./FakeHostedList.json');
+const groupList = require('./FakeGroupList.json');
 const disableTimeouts = require('./FakeDisableTimeouts.json');
 
 const app = express();
@@ -22,6 +23,10 @@ app.get('/api/admin/stores/_all/remote', function (req, res){
 
 app.get('/api/admin/stores/_all/hosted', function (req, res){
   res.status(200).json(hostedList);
+} );
+
+app.get('/api/admin/stores/_all/group', function (req, res){
+  res.status(200).json(groupList);
 } );
 
 app.get('/api/admin/schedule/store/all/disable-timeout', function (req, res){
