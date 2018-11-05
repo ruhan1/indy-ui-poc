@@ -1,4 +1,5 @@
 'use strict'
+import $ from 'jquery/src/core';
 
 export const Utils = {
   remoteOptions: store => {
@@ -30,6 +31,22 @@ export const Utils = {
 
     return options;
   },
+  detailHref: key => {
+    var parts = key.split(':');
+    return "#/" + parts[1] + '/' + parts[0] + "/view/" + parts[2];
+  },
+  typeFromKey: key=>{
+    var parts = key.split(':');
+    return parts[1];
+  },
+  packageTypeFromKey: key => {
+    var parts = key.split(':');
+    return parts[0];
+  },
+  nameFromKey: key => {
+    var parts = key.split(':');
+    return parts[parts.length-1];
+  },
   storeHref: key => {
       let parts = key.split(':');
 
@@ -58,7 +75,7 @@ export const Utils = {
         let item = items[i];
         let parts = item.group.split(':');
         let key = parts[0] + ':' + parts[1] + ':' + parts[2];
-        console.log("DISABLED: " + key + " (until: " + item.expiration + ")");
+        // console.log("DISABLED: " + key + " (until: " + item.expiration + ")");
         disabledMap[key] = item.expiration;
       }
     }
@@ -67,5 +84,22 @@ export const Utils = {
   isDisabled: (key, disabledMap) => {
       let result = key in disabledMap;
       return result;
+  },
+  reConstituents: store => {
+    var oldConstituents = store.constituents;
+    let constituents = [oldConstituents.length];
+    for( var j=0; j<oldConstituents.length; j++ ){
+      var key = oldConstituents[j];
+      var c = {
+          key: oldConstituents[j],
+          detailHref: Utils.detailHref(key),
+          storeHref: Utils.storeHref(key),
+          type: Utils.typeFromKey( key ),
+          packageType: Utils.packageTypeFromKey(key),
+          name: Utils.nameFromKey(key),
+      }
+      constituents[j] = c;
+    }
+    return constituents;
   }
 };

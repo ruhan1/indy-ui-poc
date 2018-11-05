@@ -5,7 +5,7 @@ import {render} from 'react-dom';
 import {Utils} from '../Utils.js';
 import '../styles/indy.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import {remoteOptionLegend as options} from "../Constants.js";
+import {remoteOptionLegend as options, APP_ROOT} from "../Constants.js";
 import ListControl from "./ListControl.js";
 import {jsonGet} from "../RestClient.js";
 import {JsonDebugger} from './JsonDebugger.js';
@@ -88,7 +88,7 @@ export default class RemoteList extends React.Component {
                 return (
                   <div key={store.key} className="store-listing-item">
                     <div className="fieldset-caption">
-                      <a href={`view/remote/${store.packageType}/view/${store.name}`}>
+                      <a href={`${APP_ROOT}/remote/${store.packageType}/view/${store.name}`}>
                         <span className={storeClass}>{store.packageType}-{store.name}</span>
                       </a>
                     </div>
@@ -121,7 +121,7 @@ export default class RemoteList extends React.Component {
                       <div className="description field"><span>{store.description}</span></div>
                     </div>
                   </div>
-                )
+                );
               })
             }
           </div>

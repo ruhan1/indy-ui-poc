@@ -30,7 +30,7 @@ export default class ListControl extends React.Component {
           this.props.useSearch &&
           (
             <div className="cp-row">
-              Search:&nbsp;<input name="query" />
+              Search:&nbsp;<input name="query" onChange={this.props.handleSearch}/>
             </div>
           )
         }
