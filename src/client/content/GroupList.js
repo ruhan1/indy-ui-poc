@@ -16,13 +16,14 @@ export default class GroupList extends React.Component {
     super(props);
     this.state = {
       listing: [],
+      rawListing: [],
       disabledMap: {},
       enableDebug: false
     }
     this.createNew = this.createNew.bind(this);
     this.handleDebug = this.handleDebug.bind(this);
     this.hideAll = this.hideAll.bind(this);
-    this.query = this.query.bind(this);
+    this.handleSearch = this.handleSearch.bind(this);
     this.getStores = this.getStores.bind(this);
     this.getDisTimeouts = this.getDisTimeouts.bind(this);
   }
@@ -33,7 +34,8 @@ export default class GroupList extends React.Component {
     jsonGet('/api/admin/stores/_all/group',
       response => {
         this.setState({
-          listing: response.items
+          listing: response.items,
+          rawListing: response.items,
         });
         this.getDisTimeouts();
       },
@@ -59,14 +61,16 @@ export default class GroupList extends React.Component {
       }
     );
   }
-  createNew(){
+  createNew(event){
     //mock
   }
-  hideAll(){
+  hideAll(event){
     //mock
   }
-  query(){
-    //mock
+  handleSearch(event){
+    this.setState({
+      listing: Utils.searchByKeyForNewStores(event.target.value, this.state.rawListing)
+    });
   }
   handleDebug(event){
     this.setState({
@@ -80,7 +84,7 @@ export default class GroupList extends React.Component {
       <div className="container-fluid">
         <ListControl
           useHideAll={true} handleHideAll={this.hideAll}
-          useSearch={true} handleSearch={this.query}
+          useSearch={true} handleSearch={this.handleSearch}
           useDebug={true} handleDebug={this.handleDebug}
           handleCreateNew={this.createNew} />
         <div className="content-panel">

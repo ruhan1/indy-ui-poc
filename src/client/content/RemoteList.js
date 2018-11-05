@@ -16,11 +16,13 @@ export default class RemoteList extends React.Component {
     super(props);
     this.state = {
       listing: [],
+      rawListing: [],
       disabledMap: {},
       enableDebug: false
     }
     this.createNew = this.createNew.bind(this);
     this.handleDebug = this.handleDebug.bind(this);
+    this.handleSearch = this.handleSearch.bind(this);
     this.getStores = this.getStores.bind(this);
     this.getDisTimeouts = this.getDisTimeouts.bind(this);
   }
@@ -31,7 +33,8 @@ export default class RemoteList extends React.Component {
     jsonGet('/api/admin/stores/_all/remote',
       response => {
         this.setState({
-          listing: response.items
+          listing: response.items,
+          rawListing: response.items
         });
         this.getDisTimeouts();
       },
@@ -65,6 +68,11 @@ export default class RemoteList extends React.Component {
       enableDebug: event.target.checked
     })
   }
+  handleSearch(event){
+    this.setState({
+      listing: Utils.searchByKeyForNewStores(event.target.value, this.state.rawListing)
+    });
+  }
   render(){
     let listing = this.state.listing;
     let disMap = this.state.disabledMap;
@@ -75,7 +83,7 @@ export default class RemoteList extends React.Component {
     return (
       <div className="container-fluid">
         <ListControl
-          useSearch={true}
+          useSearch={true} handleSearch={this.handleSearch}
           useOrderBy={true} orderBys={orderBys}
           useLegend={true} legends={options}
           useDebug={true} handleDebug={this.handleDebug}

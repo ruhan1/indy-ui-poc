@@ -101,5 +101,10 @@ export const Utils = {
       constituents[j] = c;
     }
     return constituents;
+  },
+  searchByKeyForNewStores: (searchString, rawStoresList)=>{
+    let newListing=[];
+    rawStoresList.forEach(item=>item.key.toLowerCase().includes(searchString.toLowerCase()) && newListing.push(item));
+    return newListing;
   }
 };
