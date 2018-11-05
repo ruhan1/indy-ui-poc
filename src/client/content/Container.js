@@ -5,7 +5,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import '../styles/indy.css';
 import RemoteList from './RemoteList.js';
 import HostedList from './HostedList.js';
-import GroupList from './GroupList.js'
+import GroupList from './GroupList.js';
+import RemoteView from './RemoteView.js';
 
 
 const browseCompatible=`<!--[if lt IE 7]>
@@ -26,9 +27,10 @@ export default class Container extends React.Component {
            {
              isHome?
              "Welcome! Make a selection from the menu above to proceed.":
-             <RemoteList />
+             /*<RemoteList />*/
              /*<HostedList />*/
              /*<GroupList />*/
+             <RemoteView />
            }
           </div>
       </div>
