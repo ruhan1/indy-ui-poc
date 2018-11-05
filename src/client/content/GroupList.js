@@ -4,11 +4,10 @@ import React from 'react';
 import {Utils} from '../Utils.js';
 import '../styles/indy.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import ListControl from "./ListControl.js";
-import {jsonGet} from "../RestClient.js";
-import {JsonDebugger} from './JsonDebugger.js';
 import {APP_ROOT} from '../Constants.js';
-
+import ListControl from "./common/ListControl.js";
+import {jsonGet} from "../RestClient.js";
+import {JsonDebugger} from './common/JsonDebugger.js';
 
 export default class GroupList extends React.Component {
   constructor(props){

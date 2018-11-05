@@ -1,14 +1,14 @@
 'use strict'
 
 import React from 'react';
+import {render} from 'react-dom';
 import {Utils} from '../Utils.js';
 import '../styles/indy.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {remoteOptionLegend as options, APP_ROOT} from "../Constants.js";
-import ListControl from "./ListControl.js";
+import ListControl from "./common/ListControl.js";
 import {jsonGet} from "../RestClient.js";
-import {JsonDebugger} from './JsonDebugger.js';
-
+import {JsonDebugger} from './common/JsonDebugger.js';
 
 export default class RemoteList extends React.Component {
   constructor(props){
