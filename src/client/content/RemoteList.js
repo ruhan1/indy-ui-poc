@@ -1,7 +1,6 @@
 'use strict'
 
 import React from 'react';
-import {render} from 'react-dom';
 import {Utils} from '../Utils.js';
 import '../styles/indy.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
