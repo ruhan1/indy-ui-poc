@@ -1,12 +1,11 @@
 'use strict'
 import React from 'react';
-import {render} from 'react-dom';
 import {Utils} from '../Utils.js';
 import {Filters} from '../Filters.js';
 import {TimeUtils} from '../TimeUtils.js';
 import '../styles/indy.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import {remoteOptionLegend as options, APP_ROOT} from '../Constants.js';
+import {APP_ROOT} from '../Constants.js';
 import {jsonGet} from '../RestClient.js';
 import {StoreViewControlPanel as ControlPanel} from './common/StoreControlPanels.js';
 import {DisableTimeoutHint, PrefetchHint, Hint, PasswordMask} from './common/Hints.js';

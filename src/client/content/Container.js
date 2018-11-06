@@ -28,10 +28,10 @@ export default class Container extends React.Component {
            {
              isHome?
              "Welcome! Make a selection from the menu above to proceed.":
-             /*<RemoteList />*/
-             /*<HostedList />*/
-             /*<GroupList />*/
-             /*<RemoteView />*/
+             //<RemoteList />
+             //<HostedList />
+             //<GroupList />
+             //<RemoteView />
              <HostedView />
            }
           </div>
