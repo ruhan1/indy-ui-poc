@@ -11,7 +11,7 @@ import {jsonGet} from '../RestClient.js';
 import {StoreViewControlPanel as ControlPanel} from './common/StoreControlPanels.js';
 import {DisableTimeoutHint, PrefetchHint, Hint, PasswordMask} from './common/Hints.js';
 
-export default class RemoteView extends React.Component {
+export default class HostedView extends React.Component {
   constructor(props){
     super(props);
     this.state = {
@@ -45,7 +45,7 @@ export default class RemoteView extends React.Component {
 
   }
   getStore(){
-    jsonGet('/api/admin/stores/maven/remote/koji-io.dropwizard.metrics-metrics-parent-3.1.2.redhat_1-1',
+    jsonGet('/api/admin/stores/maven/hosted/FisZYfNgpR',
       response => {
         this.setState({
           store: response
@@ -60,7 +60,7 @@ export default class RemoteView extends React.Component {
   }
 
   render() {
-    let store = this.state.store;
+    let store = this.state.store;    
     if(!Utils.isEmptyObj(store))
     {
       return (
@@ -108,16 +108,16 @@ export default class RemoteView extends React.Component {
             <RemoteAccessSection store={store} />
           </div>
           {/*
-          <div ng-if="enableDebug" className="debug">
-              <div className="debug-section">
-                  <span className="debug-title">JSON FROM SERVER:</span>
-                <pre>{store | json}</pre>
+            <div ng-if="enableDebug" class="debug">
+              <div class="debug-section">
+                  <span class="debug-title">JSON FROM SERVER:</span>
+                <pre>{{store | json}}</pre>
               </div>
-              <div className="debug-section">
-                  <span className="debug-title">JSON FOR DISPLAY:</span>
-                <pre>{raw | json}</pre>
+              <div class="debug-section">
+                  <span class="debug-title">JSON FOR DISPLAY:</span>
+                <pre>{{raw | json}}</pre>
               </div>
-          </div>
+            </div>
           */}
         </div>
       )
