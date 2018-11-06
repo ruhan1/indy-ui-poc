@@ -1,5 +1,6 @@
 'use strict'
 import $ from 'jquery/src/core';
+import {APP_ROOT} from './Constants.js';
 
 export const Utils = {
   remoteOptions: store => {
@@ -33,7 +34,7 @@ export const Utils = {
   },
   detailHref: key => {
     var parts = key.split(':');
-    return "#/" + parts[1] + '/' + parts[0] + "/view/" + parts[2];
+    return `${APP_ROOT}/${parts[1]}/${parts[0]}/view/${parts[2]}`;
   },
   typeFromKey: key=>{
     var parts = key.split(':');

@@ -1,22 +1,26 @@
 'use strict'
 import React from 'react';
+import {render} from 'react-dom';
 import {Utils} from '../Utils.js';
 import {Filters} from '../Filters.js';
 import {TimeUtils} from '../TimeUtils.js';
 import '../styles/indy.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import {APP_ROOT} from '../Constants.js';
 import {jsonGet} from '../RestClient.js';
 import {StoreViewControlPanel as ControlPanel} from './common/StoreControlPanels.js';
 import {DisableTimeoutHint} from './common/Hints.js';
 
-export default class HostedView extends React.Component {
+export default class GroupView extends React.Component {
   constructor(props){
     super(props);
     this.state = {
-      store: {}
+      store: {},
+      disabledMap: []
     };
 
     this.getStore = this.getStore.bind(this);
+    this.getDisTimeouts = this.getDisTimeouts.bind(this);
     this.handleDisable = this.handleDisable.bind(this);
     this.handleEnable = this.handleEnable.bind(this);
     this.handleEdit = this.handleEdit.bind(this);
@@ -43,10 +47,26 @@ export default class HostedView extends React.Component {
 
   }
   getStore(){
-    jsonGet('/api/admin/stores/maven/hosted/FisZYfNgpR',
+    jsonGet('/api/admin/stores/maven/group/build_org-freemarker-freemarker-3-x_20171206.1203',
       response => {
         this.setState({
           store: response
+        });
+        this.getDisTimeouts();
+      },
+      jqxhr => {
+        this.setState({
+          message: JSON.parse(jqxhr.responseText).error
+        });
+      }
+    );
+  }
+  getDisTimeouts(){
+    jsonGet('/api/admin/schedule/store/all/disable-timeout',
+      response => {
+        let disabledMap = Utils.setDisableMap(response, this.state.listing);
+        this.setState({
+          disabledMap: disabledMap
         });
       },
       jqxhr => {
@@ -84,36 +104,33 @@ export default class HostedView extends React.Component {
               </div>
             </div>
 
-            <div className="fieldset-caption">Capabilities</div>
-            <div className="detail-table">
-              {
-                (store.allow_releases || store.allow_snapshots) &&
-                (
-                  <div>
-                    <div class="detail-field">
-                      <span>{Filters.checkmark((store.allow_releases || store.allow_snapshots))}</span>
-                      <label>Allow Uploads</label>
-                    </div>
-                    <div className="detail-field">
-                      <span>{Filters.checkmark(store.allow_releases)}</span>
-                      <label>Allow Releases</label>
-                    </div>
-                    <div className="detail-field">
-                      <span>{Filters.checkmark(store.allow_snapshots)}</span>
-                      <label>Snapshots Allowed?</label>
-                    </div>
-                    {
-                      store.allow_snapshots &&
-                      <div class="sub-fields">
-                        <div class="detail-field">
-                          <label>Snapshot Timeout:</label>
-                          <span>{TimeUtils.secondsToDuration(store.snapshotTimeoutSeconds)}</span>
-                        </div>
-                      </div>
-                    }
-                  </div>
-                )
-              }
+            <div className="fieldset-caption">Constituents</div>
+            <div className="fieldset">
+            {
+              store.constituents && store.constituents.length>0 &&
+              (
+                <ol className="detail-value detail-value-list">
+                  {
+                    store.constituents.map((item)=>{
+                      let href = Utils.detailHref(item);
+                      let isDisabled = Utils.isDisabled(item, this.state.disabledMap);
+                      let storeClassName = isDisabled? 'disabled-store': 'enabled-store';
+                      return (
+                        <li key={item} className="detail-value-list-item">
+                        {
+                          href?
+                          <a href={href}>
+                            <span className={storeClassName} >{item}</span>
+                          </a>:
+                          <span>{item}</span>
+                        }
+                        </li>
+                      );
+                    })
+                  }
+              	</ol>
+              )
+            }
             </div>
           </div>
           {/*
@@ -156,22 +173,6 @@ const BasicSection = (props)=>{
             <span className="hint">Set to automatically re-enable at {TimeUtils.timestampToDateFormat(store.disableExpiration)}</span>
           }
       </div>
-      <div class="detail-field">
-        <span>{Filters.checkmark(store.readonly)}</span>
-        <label>Readonly?</label>
-        {
-          !store.readonly &&
-          <span class="hint">If set to readonly, all uploading and deleting operations to this repo are prohibited</span>
-        }
-      </div>
-      <div className="detail-field">
-        <span>{Filters.checkmark(store.authoritative_index || store.readonly)}</span>
-        <label>Authoritative index enabled?</label>
-        {
-          !store.authoritative_index && store.readonly &&
-          <span className="hint">Make the content index authoritative to this repository</span>
-        }
-      </div>
       <div className="sub-fields">
         <div className="detail-field">
           <label>Disable Timeout:</label>
@@ -188,13 +189,6 @@ const BasicSection = (props)=>{
           <span><a href={Utils.storeHref(store.key)} target="_new">{Utils.storeHref(store.key)}</a></span>
         }
       </div>
-      {
-        store.storage &&
-        <div class="detail-field">
-          <label>Alternative Storage Directory:</label>
-          <span>{store.storage}</span>
-        </div>
-      }
     </div>
   );
 };

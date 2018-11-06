@@ -81,7 +81,7 @@ export default class RemoteView extends React.Component {
             <div className="fieldset-caption">Description</div>
             <div className="fieldset">
               <div className="text-field">
-                <textarea readOnly className="text-description">{store.description}</textarea>
+                <textarea readOnly className="text-description" value={store.description} />
               </div>
             </div>
 
@@ -310,7 +310,7 @@ const RemoteAccessSection = (props)=> {
                   <label>Client Key</label><span className="hint">(PEM Format)</span>
                 </div>
                 {/* 64 columns is the original PEM line-length spec*/}
-                <textarea readOnly className="cert">{store.key_certificate_pem}</textarea>
+                <textarea readOnly className="cert" value={store.key_certificate_pem} />
               </div>
             }
             {
@@ -321,7 +321,7 @@ const RemoteAccessSection = (props)=> {
                     Format)</span>
                 </div>
                 {/* 64 columns is the original PEM line-length spec*/}
-                <textarea readOnly className="cert">{store.server_certificate_pem}</textarea>
+                <textarea readOnly className="cert" value={store.server_certificate_pem} />
               </div>
             }
             </div>

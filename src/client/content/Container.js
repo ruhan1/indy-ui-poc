@@ -8,6 +8,7 @@ import HostedList from './HostedList.js';
 import GroupList from './GroupList.js';
 import RemoteView from './RemoteView.js';
 import HostedView from './HostedView.js';
+import GroupView from './GroupView.js';
 
 
 const browseCompatible=`<!--[if lt IE 7]>
@@ -28,11 +29,12 @@ export default class Container extends React.Component {
            {
              isHome?
              "Welcome! Make a selection from the menu above to proceed.":
-             //<RemoteList />
-             //<HostedList />
-             //<GroupList />
-             //<RemoteView />
-             <HostedView />
+             // <RemoteList />
+             // <HostedList />
+             // <GroupList />
+             // <RemoteView />
+             // <HostedView />
+             <GroupView />
            }
           </div>
       </div>
