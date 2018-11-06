@@ -7,6 +7,7 @@ import RemoteList from './RemoteList.js';
 import HostedList from './HostedList.js';
 import GroupList from './GroupList.js';
 import RemoteView from './RemoteView.js';
+import HostedView from './HostedView.js';
 
 
 const browseCompatible=`<!--[if lt IE 7]>
@@ -30,7 +31,8 @@ export default class Container extends React.Component {
              /*<RemoteList />*/
              /*<HostedList />*/
              /*<GroupList />*/
-             <RemoteView />
+             /*<RemoteView />*/
+             <HostedView />
            }
           </div>
       </div>

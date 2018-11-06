@@ -60,14 +60,15 @@ export default class HostedView extends React.Component {
   }
 
   render() {
-    let store = this.state.store;    
+    let store = this.state.store;
     if(!Utils.isEmptyObj(store))
     {
+      let disabled = store.disabled === undefined ? false : store.disabled;
       return (
         <div className="container-fluid">
           <div className="control-panel">
             <ControlPanel
-              enabled={store.enabled} handleEnable={this.handleEnable}
+              enabled={!disabled} handleEnable={this.handleEnable}
               handleDisable={this.handleDisable}
               handleEdit={this.handleEdit}
               handleCreate={this.handleCreate}
@@ -86,11 +87,15 @@ export default class HostedView extends React.Component {
             </div>
 
             <div className="fieldset-caption">Capabilities</div>
-            <div className="fieldset">
+            <div className="detail-table">
               {
                 (store.allow_releases || store.allow_snapshots) &&
                 (
                   <div>
+                    <div class="detail-field">
+                      <span>{Filters.checkmark((store.allow_releases || store.allow_snapshots))}</span>
+                      <label>Allow Uploads</label>
+                    </div>
                     <div className="detail-field">
                       <span>{Filters.checkmark(store.allow_releases)}</span>
                       <label>Allow Releases</label>
@@ -99,13 +104,19 @@ export default class HostedView extends React.Component {
                       <span>{Filters.checkmark(store.allow_snapshots)}</span>
                       <label>Snapshots Allowed?</label>
                     </div>
+                    {
+                      store.allow_snapshots &&
+                      <div class="sub-fields">
+                        <div class="detail-field">
+                          <label>Snapshot Timeout:</label>
+                          <span>{TimeUtils.secondsToDuration(store.snapshotTimeoutSeconds)}</span>
+                        </div>
+                      </div>
+                    }
                   </div>
                 )
               }
             </div>
-
-            <div className="fieldset-caption">Remote Access</div>
-            <RemoteAccessSection store={store} />
           </div>
           {/*
             <div ng-if="enableDebug" class="debug">
@@ -128,6 +139,7 @@ export default class HostedView extends React.Component {
 
 const BasicSection = (props)=>{
   let store = props.store;
+  let disabled = store.disabled === undefined ? false : store.disabled;
   return (
     <div className="fieldset">
       <div className="detail-field">
@@ -139,18 +151,26 @@ const BasicSection = (props)=>{
           <span className="key">{store.name}</span>
       </div>
       <div className="detail-field">
-          <span>{Filters.checkmark(store.enabled)}</span>
+          <span>{Filters.checkmark(!disabled)}</span>
           <label>Enabled?</label>
           {
-            !store.enabled && store.disableExpiration &&
+            disabled && store.disableExpiration &&
             <span className="hint">Set to automatically re-enable at {TimeUtils.timestampToDateFormat(store.disableExpiration)}</span>
           }
       </div>
+      <div class="detail-field">
+        <span>{Filters.checkmark(store.readonly)}</span>
+        <label>Readonly?</label>
+        {
+          !store.readonly &&
+          <span class="hint">If set to readonly, all uploading and deleting operations to this repo are prohibited</span>
+        }
+      </div>
       <div className="detail-field">
-        <span>{Filters.checkmark(store.authoritative_index)}</span>
+        <span>{Filters.checkmark(store.authoritative_index || store.readonly)}</span>
         <label>Authoritative index enabled?</label>
         {
-          !store.authoritative_index &&
+          !store.authoritative_index && store.readonly &&
           <span className="hint">Make the content index authoritative to this repository</span>
         }
       </div>
@@ -170,163 +190,13 @@ const BasicSection = (props)=>{
           <span><a href={Utils.storeHref(store.key)} target="_new">{Utils.storeHref(store.key)}</a></span>
         }
       </div>
-      <div className="detail-field">
-        <label>Remote URL:</label>
-        <span><a href={store.url} target="_new">{store.url}</a></span>
-      </div>
-      <div className="sub-fields">
-        <div className="detail-field">
-          <span>{Filters.checkmark(!store.is_passthrough)}</span>
-          <label>Allow Content Caching</label>
-          <span><Hint hintKey="passthrough" /></span>
+      {
+        store.storage &&
+        <div class="detail-field">
+          <label>Alternative Storage Directory:</label>
+          <span>{store.storage}</span>
         </div>
-        {
-          !store.is_passthrough &&
-          (
-            <div>
-              <div className="detail-field">
-                <label>Content Cache Timeout:</label>
-                <span>{TimeUtils.secondsToDuration(store.cache_timeout_seconds)}</span>
-              </div>
-              <div className="detail-field">
-                <label>Metadata Cache Timeout:</label>
-                <span>{TimeUtils.secondsToDuration(store.metadata_timeout_seconds, true)}</span>
-              </div>
-            </div>
-          )
-        }
-      </div>
-
-      <div className="sub-fields">
-        <div className="detail-field">
-          <label>Pre-fetching Priority:</label>
-          <span>{store.prefetch_priority}</span>
-          <PrefetchHint />
-        </div>
-        <div className="detail-field">
-          <span>{Filters.checkmark(store.prefetch_rescan)}</span>
-          <label>Allow Pre-fetching Rescan?</label>
-        </div>
-        <div className="detail-field">
-          <label>Pre-fetching Listing Type:</label>
-          <span>{store.prefetch_listing_type}</span>
-        </div>
-      </div>
+      }
     </div>
   );
 };
-
-const RemoteAccessSection = (props)=> {
-  let store = props.store;
-  return (
-    <div className="fieldset">
-      <div className="detail-field">
-        <label>Request Timeout:</label>
-        <span>{TimeUtils.secondsToDuration(store.timeout_seconds)}</span>
-        <span><Hint hintKey="request_timeout" /></span>
-      </div>
-
-      {/* HTTP Proxy */}
-      <div className="detail-field">
-        <span>{Filters.checkmark(store.use_proxy)}</span>
-        <label>Use Proxy?</label>
-      </div>
-      {
-        store.use_proxy &&
-        (
-          <div className="sub-fields">
-            <div className="detail-field">
-              <label>Proxy Host:</label>
-              <span>{store.proxy_host}</span>
-            </div>
-            <div className="detail-field">
-              <label>Proxy Port:</label>
-              <span>{store.proxy_port}</span>
-            </div>
-          </div>
-        )
-      }
-      {/* X.509 / auth */}
-      <div className="detail-field">
-        <span>{Filters.checkmark(store.use_auth)}</span>
-        <label>Use Authentication?</label>
-      </div>
-      {
-         store.use_auth &&
-         (
-           <div className="sub-fields">
-           {
-             store.user &&
-             <div className="detail-field">
-               <label>Username:</label>
-               <span>{store.user}</span>
-             </div>
-           }
-           {
-             store.password &&
-             <div className="detail-field">
-               <label>Password:</label>
-               <span><PasswordMask /></span>
-             </div>
-           }
-           {
-             store.use_proxy && store.proxy_user &&
-             <div className="detail-field">
-               <label>Proxy Username:</label>
-               <span>{store.proxy_user}</span>
-             </div>
-           }
-           {
-             store.use_proxy && store.proxy_password &&
-             <div className="detail-field">
-               <label>Proxy Password:</label>
-               <span><PasswordMask /></span>
-             </div>
-           }
-           </div>
-         )
-      }
-      <div className="detail-field">
-          <span>{Filters.checkmark(store.use_x509)}</span>
-          <label>Use Custom X.509 Configuration?</label>
-      </div>
-      {
-        store.use_x509 &&
-        (
-          <div className="sub-fields">
-          {
-            store.key_password &&
-            <div className="detail-field">
-              <label>Client Key Password:</label>
-              <span><ap-password-mask></ap-password-mask></span>
-            </div>
-          }
-            <div className="fieldset two-col">
-            {
-              store.key_certificate_pem &&
-              <div className="left-col">
-                <div className="textarea-label">
-                  <label>Client Key</label><span className="hint">(PEM Format)</span>
-                </div>
-                {/* 64 columns is the original PEM line-length spec*/}
-                <textarea readOnly className="cert">{store.key_certificate_pem}</textarea>
-              </div>
-            }
-            {
-              store.server_certificate_pem &&
-              <div className="right-col">
-                <div className="textarea-label">
-                  <label>Server Certificate</label><span className="hint">(PEM
-                    Format)</span>
-                </div>
-                {/* 64 columns is the original PEM line-length spec*/}
-                <textarea readOnly className="cert">{store.server_certificate_pem}</textarea>
-              </div>
-            }
-            </div>
-          </div>
-        )
-      }
-    </div>
-  )
-}

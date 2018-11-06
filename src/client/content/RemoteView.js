@@ -63,11 +63,12 @@ export default class RemoteView extends React.Component {
     let store = this.state.store;
     if(!Utils.isEmptyObj(store))
     {
+      let disabled = store.disabled === undefined ? false : store.disabled;
       return (
         <div className="container-fluid">
           <div className="control-panel">
             <ControlPanel
-              enabled={store.enabled} handleEnable={this.handleEnable}
+              enabled={!disabled} handleEnable={this.handleEnable}
               handleDisable={this.handleDisable}
               handleEdit={this.handleEdit}
               handleCreate={this.handleCreate}
@@ -128,6 +129,7 @@ export default class RemoteView extends React.Component {
 
 const BasicSection = (props)=>{
   let store = props.store;
+  let disabled = store.disabled === undefined ? false : store.disabled;
   return (
     <div className="fieldset">
       <div className="detail-field">
@@ -139,7 +141,7 @@ const BasicSection = (props)=>{
           <span className="key">{store.name}</span>
       </div>
       <div className="detail-field">
-          <span>{Filters.checkmark(store.enabled)}</span>
+          <span>{Filters.checkmark(!disabled)}</span>
           <label>Enabled?</label>
           {
             !store.enabled && store.disableExpiration &&
