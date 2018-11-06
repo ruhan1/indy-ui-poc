@@ -1,0 +1,33 @@
+{
+  "type" : "remote",
+  "key" : "maven:remote:koji-org.jboss.ws-jbossws-common-tools-1.2.4.Final_redhat_1-1",
+  "metadata" : {
+    "koji-NVR" : "org.jboss.ws-jbossws-common-tools-1.2.4.Final_redhat_1-1",
+    "origin" : "koji",
+    "creation-trigger-GAV" : "org.jboss.ws:jbossws-common-tools:pom:1.2.4.Final-redhat-1"
+  },
+  "disabled" : false,
+  "host" : "download.eng.bos.redhat.com",
+  "port" : 80,
+  "packageType" : "maven",
+  "name" : "koji-org.jboss.ws-jbossws-common-tools-1.2.4.Final_redhat_1-1",
+  "type" : "remote",
+  "disable_timeout" : -1,
+  "path_style" : "plain",
+  "path_mask_patterns" : [ "org/jboss/ws/jbossws-common-tools/1.2.4.Final-redhat-1/jbossws-common-tools-1.2.4.Final-redhat-1.jar", "org/jboss/ws/jbossws-common-tools/1.2.4.Final-redhat-1/jbossws-common-tools-1.2.4.Final-redhat-1.pom", "org/jboss/ws/jbossws-common-tools/1.2.4.Final-redhat-1/jbossws-common-tools-1.2.4.Final-redhat-1-scm-sources.zip", "org/jboss/ws/jbossws-common-tools/1.2.4.Final-redhat-1/jbossws-common-tools-1.2.4.Final-redhat-1-sources.jar", "org/jboss/ws/jbossws-common-tools/1.2.4.Final-redhat-1/jbossws-common-tools-1.2.4.Final-redhat-1-project-sources.tar.gz", "org/jboss/ws/jbossws-common-tools/1.2.4.Final-redhat-1/jbossws-common-tools-1.2.4.Final-redhat-1-javadoc.jar" ],
+  "authoritative_index" : true,
+  "allow_snapshots" : true,
+  "allow_releases" : true,
+  "url" : "http://download.eng.bos.redhat.com/brewroot/packages/org.jboss.ws-jbossws-common-tools/1.2.4.Final_redhat_1/1/maven",
+  "timeout_seconds" : 600,
+  "max_connections" : 30,
+  "ignore_hostname_verification" : false,
+  "nfc_timeout_seconds" : 0,
+  "is_passthrough" : false,
+  "cache_timeout_seconds" : 0,
+  "metadata_timeout_seconds" : 0,
+  "proxy_port" : 0,
+  "prefetch_priority" : 0,
+  "prefetch_rescan" : false,
+  "prefetch_listing_type" : "html"
+}

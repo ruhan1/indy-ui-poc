@@ -1,0 +1,32 @@
+{
+  "type" : "remote",
+  "key" : "maven:remote:i-maven-restlet-4",
+  "description" : "Implicitly created repo for: Public online Restlet repository (maven-restlet) from repository declaration removed by PME in build 516 (repo: build_org-apache-camel-camel-2-20-0-fuse-000120fuse_test_1_20180128.1929)",
+  "metadata" : {
+    "changelog" : "Creating extra remote repository Public online Restlet repository (maven-restlet) for build: 516 (repo: build_org-apache-camel-camel-2-20-0-fuse-000120fuse_test_1_20180128.1929)",
+    "origin" : "implied-repos"
+  },
+  "disabled" : false,
+  "host" : "maven.restlet.org",
+  "port" : 80,
+  "packageType" : "maven",
+  "name" : "i-maven-restlet-4",
+  "type" : "remote",
+  "disable_timeout" : 0,
+  "path_style" : "plain",
+  "authoritative_index" : false,
+  "allow_snapshots" : true,
+  "allow_releases" : true,
+  "url" : "http://maven.restlet.org",
+  "timeout_seconds" : 0,
+  "max_connections" : 30,
+  "ignore_hostname_verification" : false,
+  "nfc_timeout_seconds" : 0,
+  "is_passthrough" : false,
+  "cache_timeout_seconds" : 0,
+  "metadata_timeout_seconds" : 0,
+  "proxy_port" : 0,
+  "prefetch_priority" : 0,
+  "prefetch_rescan" : false,
+  "prefetch_listing_type" : "html"
+}

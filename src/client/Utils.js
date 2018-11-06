@@ -106,5 +106,6 @@ export const Utils = {
     let newListing=[];
     rawStoresList.forEach(item=>item.key.toLowerCase().includes(searchString.toLowerCase()) && newListing.push(item));
     return newListing;
-  }
+  },
+  isEmptyObj: (obj) => Object.keys(obj).length === 0 && obj.constructor === Object
 };
