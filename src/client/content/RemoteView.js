@@ -16,10 +16,13 @@ export default class RemoteView extends React.Component {
   constructor(props){
     super(props);
     this.state = {
-      store: {}
+      store: {},
+      raw: {},
+      message: ''
     };
 
     this.getStore = this.getStore.bind(this);
+    this.getStoreDisableTimeout = this.getStoreDisableTimeout.bind(this);
     this.handleDisable = this.handleDisable.bind(this);
     this.handleEnable = this.handleEnable.bind(this);
     this.handleEdit = this.handleEdit.bind(this);
@@ -46,30 +49,55 @@ export default class RemoteView extends React.Component {
 
   }
   getStore(){
-    jsonGet('/api/admin/stores/maven/remote/koji-io.dropwizard.metrics-metrics-parent-3.1.2.redhat_1-1',
-      response => {
+    jsonGet({
+      url: '/api/admin/stores/maven/remote/i-maven-restlet-4',
+      done: response => {
+        let raw = response;
+        let store = Utils.cloneObj(raw);
+        store.disabled = raw.disabled === undefined ? false : raw.disabled;
+        store.use_x509 = raw.server_certificate_pem || r.key_certificate_pem;
+        store.use_proxy = raw.proxy_host && true;
+        store.use_auth = (store.use_proxy && store.proxy_user) || store.user;
         this.setState({
-          store: response
+          raw: raw
         });
+        this.getStoreDisableTimeout(store);
       },
-      jqxhr => {
+      fail: xhr => {
         this.setState({
-          message: JSON.parse(jqxhr.responseText).error
+          message: JSON.parse(xhr.responseText).error
         });
       }
-    );
+    });
+  }
+  getStoreDisableTimeout(store){
+    jsonGet({
+      url: `/api/admin/schedule/store/${store.packageType}/${store.type}/${store.name}/disable-timeout`,
+      done: response => {
+        let newStore = Utils.cloneObj(store);
+        newStore.disableExpiration = response.expiration;
+        this.setState({
+          store: newStore
+        })
+      },
+      fail: (xhr, status, error) => {
+        console.log("disable timeout getting failed");
+        this.setState({
+          store: store
+        })
+      }
+    });
   }
 
   render() {
     let store = this.state.store;
     if(!Utils.isEmptyObj(store))
     {
-      let disabled = store.disabled === undefined ? false : store.disabled;
       return (
         <div className="container-fluid">
           <div className="control-panel">
             <ControlPanel
-              enabled={!disabled} handleEnable={this.handleEnable}
+              enabled={!store.disabled} handleEnable={this.handleEnable}
               handleDisable={this.handleDisable}
               handleEdit={this.handleEdit}
               handleCreate={this.handleCreate}
@@ -119,7 +147,6 @@ export default class RemoteView extends React.Component {
 
 const BasicSection = (props)=>{
   let store = props.store;
-  let disabled = store.disabled === undefined ? false : store.disabled;
   return (
     <div className="fieldset">
       <div className="detail-field">
@@ -131,10 +158,10 @@ const BasicSection = (props)=>{
           <span className="key">{store.name}</span>
       </div>
       <div className="detail-field">
-          <span>{Filters.checkmark(!disabled)}</span>
+          <span>{Filters.checkmark(!store.disabled)}</span>
           <label>Enabled?</label>
           {
-            !store.enabled && store.disableExpiration &&
+            store.disabled && store.disableExpiration &&
             <span className="hint">Set to automatically re-enable at {TimeUtils.timestampToDateFormat(store.disableExpiration)}</span>
           }
       </div>
@@ -210,9 +237,6 @@ const BasicSection = (props)=>{
 
 const RemoteAccessSection = (props)=> {
   let store = props.store;
-  let useX509 = store.server_certificate_pem || store.key_certificate_pem;
-  let useProxy = store.proxy_host && true;
-  let useAuth = (useProxy && store.proxy_user) || store.user;
   return (
     <div className="fieldset">
       <div className="detail-field">
@@ -223,11 +247,11 @@ const RemoteAccessSection = (props)=> {
 
       {/* HTTP Proxy */}
       <div className="detail-field">
-        <span>{Filters.checkmark(useProxy)}</span>
+        <span>{Filters.checkmark(store.use_proxy)}</span>
         <label>Use Proxy?</label>
       </div>
       {
-        useProxy &&
+        store.use_proxy &&
         (
           <div className="sub-fields">
             <div className="detail-field">
@@ -243,11 +267,11 @@ const RemoteAccessSection = (props)=> {
       }
       {/* X.509 / auth */}
       <div className="detail-field">
-        <span>{Filters.checkmark(useAuth)}</span>
+        <span>{Filters.checkmark(store.use_auth)}</span>
         <label>Use Authentication?</label>
       </div>
       {
-         useAuth &&
+         store.use_auth &&
          (
            <div className="sub-fields">
            {
@@ -282,11 +306,11 @@ const RemoteAccessSection = (props)=> {
          )
       }
       <div className="detail-field">
-          <span>{Filters.checkmark(useX509)}</span>
+          <span>{Filters.checkmark(store.use_x509)}</span>
           <label>Use Custom X.509 Configuration?</label>
       </div>
       {
-        useX509 &&
+        store.use_x509 &&
         (
           <div className="sub-fields">
           {

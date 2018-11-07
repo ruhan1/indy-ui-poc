@@ -16,8 +16,10 @@ export default class GroupView extends React.Component {
   constructor(props){
     super(props);
     this.state = {
+      raw: {},
       store: {},
-      disabledMap: []
+      disabledMap: [],
+      message: ''
     };
 
     this.getStore = this.getStore.bind(this);
@@ -48,46 +50,57 @@ export default class GroupView extends React.Component {
 
   }
   getStore(){
-    jsonGet('/api/admin/stores/maven/group/build_org-freemarker-freemarker-3-x_20171206.1203',
-      response => {
+    jsonGet({
+      url: '/api/admin/stores/maven/group/build_org-freemarker-freemarker-3-x_20171206.1203',
+      done: response => {
+        let raw = response;
+        let store = Utils.cloneObj(raw);
+        store.disabled = raw.disabled === undefined ? false : raw.disabled;
         this.setState({
-          store: response
+          raw: response
         });
-        this.getDisTimeouts();
+        this.getDisTimeouts(store);
       },
-      jqxhr => {
+      fail: jqxhr => {
         this.setState({
           message: JSON.parse(jqxhr.responseText).error
         });
       }
-    );
+    });
   }
-  getDisTimeouts(){
-    jsonGet('/api/admin/schedule/store/all/disable-timeout',
-      response => {
+  getDisTimeouts(store){
+    jsonGet({
+      url: '/api/admin/schedule/store/all/disable-timeout',
+      done: response => {
+        let newStore = Utils.cloneObj(store);
         let disabledMap = Utils.setDisableMap(response, this.state.listing);
+        let expiration = disabledMap[store.key];
+        if(expiration){
+          newStore.disableExpiration = expiration;
+        }
         this.setState({
+          store: newStore,
           disabledMap: disabledMap
         });
       },
-      jqxhr => {
+      fail: jqxhr => {
+        console.log("disable timeout getting failed");
         this.setState({
-          message: JSON.parse(jqxhr.responseText).error
-        });
+          store: store
+        })
       }
-    );
+    });
   }
 
   render() {
     let store = this.state.store;
     if(!Utils.isEmptyObj(store))
     {
-      let disabled = store.disabled === undefined ? false : store.disabled;
       return (
         <div className="container-fluid">
           <div className="control-panel">
             <ControlPanel
-              enabled={!disabled} handleEnable={this.handleEnable}
+              enabled={!store.disabled} handleEnable={this.handleEnable}
               handleDisable={this.handleDisable}
               handleEdit={this.handleEdit}
               handleCreate={this.handleCreate}
@@ -144,7 +157,7 @@ export default class GroupView extends React.Component {
 
 const BasicSection = (props)=>{
   let store = props.store;
-  let disabled = store.disabled === undefined ? false : store.disabled;
+
   return (
     <div className="fieldset">
       <div className="detail-field">
@@ -156,10 +169,10 @@ const BasicSection = (props)=>{
           <span className="key">{store.name}</span>
       </div>
       <div className="detail-field">
-          <span>{Filters.checkmark(!disabled)}</span>
+          <span>{Filters.checkmark(!store.disabled)}</span>
           <label>Enabled?</label>
           {
-            disabled && store.disableExpiration &&
+            store.disabled && store.disableExpiration &&
             <span className="hint">Set to automatically re-enable at {TimeUtils.timestampToDateFormat(store.disableExpiration)}</span>
           }
       </div>

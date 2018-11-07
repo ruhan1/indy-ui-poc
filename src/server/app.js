@@ -33,6 +33,19 @@ app.get('/api/admin/schedule/store/all/disable-timeout', function (req, res){
   res.status(200).json(disableTimeouts);
 } );
 
+app.get('/api/admin/schedule/store/:packageType/:type/:name/disable-timeout', function(req, res){
+  let group = `${req.params.packageType}:${req.params.type}:${req.params.name}`;
+  if(group && group.length > 0){
+    let disList  = require('./mock/FakeDisableTimeouts.json');
+    let result = disList.items.find(item=>item.group.includes(group));
+    if(result){
+      res.status(200).json(result);
+    }else{
+      res.status(404).json({error: "No such store!"});
+    }
+  }
+});
+
 app.get('/api/admin/stores/maven/remote/:name', function(req, res){
   var name=req.params.name;
   if(!name){

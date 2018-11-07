@@ -9,7 +9,7 @@
         "origin" : "koji",
         "creation-trigger-GAV" : "org.jboss.ws:jbossws-common-tools:pom:1.2.4.Final-redhat-1"
       },
-      "disabled" : false,
+      "disabled" : true,
       "host" : "download.eng.bos.redhat.com",
       "port" : 80,
       "name" : "koji-org.jboss.ws-jbossws-common-tools-1.2.4.Final_redhat_1-1",

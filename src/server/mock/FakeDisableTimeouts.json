@@ -2,7 +2,8 @@
   "items" : [
     {
       "name" : "Disable-Timeout",
-      "group" : "maven:remote:koji-org.jboss.ws-jbossws-common-tools-1.2.4.Final_redhat_1-1"
+      "group" : "maven:remote:koji-org.jboss.ws-jbossws-common-tools-1.2.4.Final_redhat_1-1",
+      "expiration": "1541577250077"
     },
     {
       "name" : "Disable-Timeout",

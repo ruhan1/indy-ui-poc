@@ -108,5 +108,14 @@ export const Utils = {
     rawStoresList.forEach(item=>item.key.toLowerCase().includes(searchString.toLowerCase()) && newListing.push(item));
     return newListing;
   },
-  isEmptyObj: (obj) => Object.keys(obj).length === 0 && obj.constructor === Object
+  isEmptyObj: (obj) => Object.keys(obj).length === 0 && obj.constructor === Object,
+  cloneObj: (src) => {
+    let target = {};
+    for (let prop in src) {
+      if (src.hasOwnProperty(prop)) {
+        target[prop] = src[prop];
+      }
+    }
+    return target;
+  }
 };

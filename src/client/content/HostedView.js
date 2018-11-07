@@ -14,7 +14,9 @@ export default class HostedView extends React.Component {
   constructor(props){
     super(props);
     this.state = {
-      store: {}
+      store: {},
+      raw: {},
+      message: ''
     };
 
     this.getStore = this.getStore.bind(this);
@@ -44,30 +46,52 @@ export default class HostedView extends React.Component {
 
   }
   getStore(){
-    jsonGet('/api/admin/stores/maven/hosted/FisZYfNgpR',
-      response => {
+    jsonGet({
+      url: '/api/admin/stores/maven/hosted/FisZYfNgpR',
+      done: response => {
+        let raw = response;
+        let store = Utils.cloneObj(raw);
+        store.disabled = raw.disabled === undefined ? false : raw.disabled;
         this.setState({
-          store: response
+          raw: raw
         });
+        this.getStoreDisableTimeout(store);
       },
-      jqxhr => {
+      fail: xhr => {
         this.setState({
-          message: JSON.parse(jqxhr.responseText).error
+          message: JSON.parse(xhr.responseText).error
         });
       }
-    );
+    });
+  }
+  getStoreDisableTimeout(store){
+    jsonGet({
+      url: `/api/admin/schedule/store/${store.packageType}/${store.type}/${store.name}/disable-timeout`,
+      done: response => {
+        let newStore = Utils.cloneObj(store);
+        newStore.disableExpiration = response.expiration;
+        this.setState({
+          store: newStore
+        })
+      },
+      fail: (xhr, status, error) => {
+        console.log("disable timeout getting failed");
+        this.setState({
+          store: store
+        })
+      }
+    });
   }
 
   render() {
     let store = this.state.store;
     if(!Utils.isEmptyObj(store))
     {
-      let disabled = store.disabled === undefined ? false : store.disabled;
       return (
         <div className="container-fluid">
           <div className="control-panel">
             <ControlPanel
-              enabled={!disabled} handleEnable={this.handleEnable}
+              enabled={!store.disabled} handleEnable={this.handleEnable}
               handleDisable={this.handleDisable}
               handleEdit={this.handleEdit}
               handleCreate={this.handleCreate}
@@ -91,7 +115,7 @@ export default class HostedView extends React.Component {
                 (store.allow_releases || store.allow_snapshots) &&
                 (
                   <div>
-                    <div class="detail-field">
+                    <div className="detail-field">
                       <span>{Filters.checkmark((store.allow_releases || store.allow_snapshots))}</span>
                       <label>Allow Uploads</label>
                     </div>
@@ -105,8 +129,8 @@ export default class HostedView extends React.Component {
                     </div>
                     {
                       store.allow_snapshots &&
-                      <div class="sub-fields">
-                        <div class="detail-field">
+                      <div className="sub-fields">
+                        <div className="detail-field">
                           <label>Snapshot Timeout:</label>
                           <span>{TimeUtils.secondsToDuration(store.snapshotTimeoutSeconds)}</span>
                         </div>
@@ -127,7 +151,6 @@ export default class HostedView extends React.Component {
 
 const BasicSection = (props)=>{
   let store = props.store;
-  let disabled = store.disabled === undefined ? false : store.disabled;
   return (
     <div className="fieldset">
       <div className="detail-field">
@@ -139,19 +162,19 @@ const BasicSection = (props)=>{
           <span className="key">{store.name}</span>
       </div>
       <div className="detail-field">
-          <span>{Filters.checkmark(!disabled)}</span>
+          <span>{Filters.checkmark(!store.disabled)}</span>
           <label>Enabled?</label>
           {
-            disabled && store.disableExpiration &&
+            store.disabled && store.disableExpiration &&
             <span className="hint">Set to automatically re-enable at {TimeUtils.timestampToDateFormat(store.disableExpiration)}</span>
           }
       </div>
-      <div class="detail-field">
+      <div className="detail-field">
         <span>{Filters.checkmark(store.readonly)}</span>
         <label>Readonly?</label>
         {
           !store.readonly &&
-          <span class="hint">If set to readonly, all uploading and deleting operations to this repo are prohibited</span>
+          <span className="hint">If set to readonly, all uploading and deleting operations to this repo are prohibited</span>
         }
       </div>
       <div className="detail-field">
@@ -180,7 +203,7 @@ const BasicSection = (props)=>{
       </div>
       {
         store.storage &&
-        <div class="detail-field">
+        <div className="detail-field">
           <label>Alternative Storage Directory:</label>
           <span>{store.storage}</span>
         </div>
