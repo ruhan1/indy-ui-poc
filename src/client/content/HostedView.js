@@ -8,6 +8,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import {jsonGet} from '../RestClient.js';
 import {StoreViewControlPanel as ControlPanel} from './common/StoreControlPanels.js';
 import {DisableTimeoutHint} from './common/Hints.js';
+import {ViewJsonDebugger} from './common/Debugger.js';
 
 export default class HostedView extends React.Component {
   constructor(props){
@@ -116,18 +117,7 @@ export default class HostedView extends React.Component {
               }
             </div>
           </div>
-          {/*
-            <div ng-if="enableDebug" class="debug">
-              <div class="debug-section">
-                  <span class="debug-title">JSON FROM SERVER:</span>
-                <pre>{{store | json}}</pre>
-              </div>
-              <div class="debug-section">
-                  <span class="debug-title">JSON FOR DISPLAY:</span>
-                <pre>{{raw | json}}</pre>
-              </div>
-            </div>
-          */}
+          {/* <ViewJsonDebugger enableDebug={false} storeJson={store} rawJson={raw} /> */}
         </div>
       )
     }

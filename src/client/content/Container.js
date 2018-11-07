@@ -32,8 +32,8 @@ export default class Container extends React.Component {
              // <RemoteList />
              // <HostedList />
              // <GroupList />
-             // <RemoteView />
-             // <HostedView />
+            //  <RemoteView />
+            //  <HostedView />
              <GroupView />
            }
           </div>

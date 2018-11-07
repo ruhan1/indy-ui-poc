@@ -10,6 +10,7 @@ import {APP_ROOT} from '../Constants.js';
 import {jsonGet} from '../RestClient.js';
 import {StoreViewControlPanel as ControlPanel} from './common/StoreControlPanels.js';
 import {DisableTimeoutHint} from './common/Hints.js';
+import {ViewJsonDebugger} from './common/Debugger.js';
 
 export default class GroupView extends React.Component {
   constructor(props){
@@ -133,18 +134,7 @@ export default class GroupView extends React.Component {
             }
             </div>
           </div>
-          {/*
-            <div ng-if="enableDebug" class="debug">
-              <div class="debug-section">
-                  <span class="debug-title">JSON FROM SERVER:</span>
-                <pre>{{store | json}}</pre>
-              </div>
-              <div class="debug-section">
-                  <span class="debug-title">JSON FOR DISPLAY:</span>
-                <pre>{{raw | json}}</pre>
-              </div>
-            </div>
-          */}
+          {/* <ViewJsonDebugger enableDebug={false} storeJson={store} rawJson={raw} /> */}
         </div>
       )
     }
@@ -173,6 +163,11 @@ const BasicSection = (props)=>{
             <span className="hint">Set to automatically re-enable at {TimeUtils.timestampToDateFormat(store.disableExpiration)}</span>
           }
       </div>
+      <div className="detail-field">
+    		<span>{Filters.checkmark(store.prepend_constituent)}</span>
+    		<label>Prepend Constituents?</label>
+    		<span className="hint">If enabled, all new constituents which are added not manually(like promotion) will be at the top of constituents list</span>
+    	</div>
       <div className="sub-fields">
         <div className="detail-field">
           <label>Disable Timeout:</label>

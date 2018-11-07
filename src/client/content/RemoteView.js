@@ -9,6 +9,8 @@ import {APP_ROOT} from '../Constants.js';
 import {jsonGet} from '../RestClient.js';
 import {StoreViewControlPanel as ControlPanel} from './common/StoreControlPanels.js';
 import {DisableTimeoutHint, PrefetchHint, Hint, PasswordMask} from './common/Hints.js';
+import {ViewJsonDebugger} from './common/Debugger.js';
+
 
 export default class RemoteView extends React.Component {
   constructor(props){
@@ -107,18 +109,7 @@ export default class RemoteView extends React.Component {
             <div className="fieldset-caption">Remote Access</div>
             <RemoteAccessSection store={store} />
           </div>
-          {/*
-          <div ng-if="enableDebug" className="debug">
-              <div className="debug-section">
-                  <span className="debug-title">JSON FROM SERVER:</span>
-                <pre>{store | json}</pre>
-              </div>
-              <div className="debug-section">
-                  <span className="debug-title">JSON FOR DISPLAY:</span>
-                <pre>{raw | json}</pre>
-              </div>
-          </div>
-          */}
+          {/* <ViewJsonDebugger enableDebug={false} storeJson={store} rawJson={raw} /> */}
         </div>
       )
     }
@@ -219,6 +210,9 @@ const BasicSection = (props)=>{
 
 const RemoteAccessSection = (props)=> {
   let store = props.store;
+  let useX509 = store.server_certificate_pem || store.key_certificate_pem;
+  let useProxy = store.proxy_host && true;
+  let useAuth = (useProxy && store.proxy_user) || store.user;
   return (
     <div className="fieldset">
       <div className="detail-field">
@@ -229,11 +223,11 @@ const RemoteAccessSection = (props)=> {
 
       {/* HTTP Proxy */}
       <div className="detail-field">
-        <span>{Filters.checkmark(store.use_proxy)}</span>
+        <span>{Filters.checkmark(useProxy)}</span>
         <label>Use Proxy?</label>
       </div>
       {
-        store.use_proxy &&
+        useProxy &&
         (
           <div className="sub-fields">
             <div className="detail-field">
@@ -249,11 +243,11 @@ const RemoteAccessSection = (props)=> {
       }
       {/* X.509 / auth */}
       <div className="detail-field">
-        <span>{Filters.checkmark(store.use_auth)}</span>
+        <span>{Filters.checkmark(useAuth)}</span>
         <label>Use Authentication?</label>
       </div>
       {
-         store.use_auth &&
+         useAuth &&
          (
            <div className="sub-fields">
            {
@@ -288,11 +282,11 @@ const RemoteAccessSection = (props)=> {
          )
       }
       <div className="detail-field">
-          <span>{Filters.checkmark(store.use_x509)}</span>
+          <span>{Filters.checkmark(useX509)}</span>
           <label>Use Custom X.509 Configuration?</label>
       </div>
       {
-        store.use_x509 &&
+        useX509 &&
         (
           <div className="sub-fields">
           {

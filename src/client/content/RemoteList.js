@@ -8,7 +8,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import {remoteOptionLegend as options, APP_ROOT} from "../Constants.js";
 import ListControl from "./common/ListControl.js";
 import {jsonGet} from "../RestClient.js";
-import {JsonDebugger} from './common/JsonDebugger.js';
+import {ListJsonDebugger} from './common/Debugger.js';
 
 export default class RemoteList extends React.Component {
   constructor(props){

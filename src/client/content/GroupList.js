@@ -7,7 +7,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import {APP_ROOT} from '../Constants.js';
 import ListControl from "./common/ListControl.js";
 import {jsonGet} from "../RestClient.js";
-import {JsonDebugger} from './common/JsonDebugger.js';
+import {ListJsonDebugger} from './common/Debugger.js';
 
 export default class GroupList extends React.Component {
   constructor(props){
