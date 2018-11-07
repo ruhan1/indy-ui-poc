@@ -16,7 +16,8 @@ export default class HostedList extends React.Component {
       listing: [],
       rawListing: [],
       disabledMap: {},
-      enableDebug: false
+      enableDebug: false,
+      message: ''
     }
 
     this.createNew = this.createNew.bind(this);
@@ -30,35 +31,35 @@ export default class HostedList extends React.Component {
     this.getStores();
   }
   getStores(){
-    jsonGet('/api/admin/stores/_all/hosted',
-      response => {
+    jsonGet({
+      url: '/api/admin/stores/_all/hosted',
+      done: response => {
         this.setState({
           listing: response.items,
           rawListing: response.items,
         });
         this.getDisTimeouts();
       },
-      jqxhr => {
+      fail: jqxhr => {
         this.setState({
           message: JSON.parse(jqxhr.responseText).error
         });
       }
-    );
+    });
   }
   getDisTimeouts(){
-    jsonGet('/api/admin/schedule/store/all/disable-timeout',
-      response => {
+    jsonGet({
+      url: '/api/admin/schedule/store/all/disable-timeout',
+      done: response => {
         let disabledMap = Utils.setDisableMap(response, this.state.listing);
         this.setState({
           disabledMap: disabledMap
         });
       },
-      jqxhr => {
-        this.setState({
-          message: JSON.parse(jqxhr.responseText).error
-        });
+      fail: jqxhr => {
+        console.log("disable timeout get failed in hosted listing.")
       }
-    );
+    });
   }
   createNew(){
     //mock
@@ -126,7 +127,7 @@ export default class HostedList extends React.Component {
           </div>
         </div>
 
-        <JsonDebugger enableDebug={this.state.enableDebug} jsonObj={this.state.listing} />
+        <ListJsonDebugger enableDebug={this.state.enableDebug} jsonObj={this.state.listing} />
       </div>
     );
   }
