@@ -1,8 +1,9 @@
+const compression = require('compression');
 const express = require('express');
 const os = require('os');
 
 const app = express();
-
+app.use(compression());
 
 let server = app.listen(4000, function () {
    var host = server.address().address
