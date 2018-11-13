@@ -1,11 +1,12 @@
 'use strict'
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import '../styles/indy.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 
-export default class ListControl extends React.Component {
+class ListControl extends React.Component {
   constructor(props){
     super(props);
     this.state = {
@@ -83,3 +84,19 @@ export default class ListControl extends React.Component {
     );
   }
 }
+
+ListControl.propTypes={
+  handleCreateNew: PropTypes.func,
+  useHideAll: PropTypes.bool,
+  handleHideAll: PropTypes.func,
+  useSearch: PropTypes.bool,
+  handleSearch: PropTypes.func,
+  useOrderBy: PropTypes.bool,
+  orderBys: PropTypes.array,
+  useLegend: PropTypes.bool,
+  legends: PropTypes.array,
+  useDebug: PropTypes.bool,
+  handleDebug: PropTypes.func
+};
+
+export default ListControl;

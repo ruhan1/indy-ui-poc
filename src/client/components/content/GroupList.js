@@ -2,6 +2,7 @@
 
 import React from 'react';
 import {Link} from 'react-router-dom';
+import PropTypes from 'prop-types';
 import {Utils} from '../CompUtils.js';
 import {jsonGet} from "../../RestClient.js";
 import '../styles/indy.css';
@@ -194,4 +195,10 @@ class GroupListItem extends React.Component {
       </div>
     );
   }
+}
+
+GroupListItem.propTypes={
+  store: PropTypes.object.isRequired,
+  storeClass: PropTypes.string,
+  disableMap: PropTypes.object
 }

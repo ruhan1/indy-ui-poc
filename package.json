@@ -9,6 +9,7 @@
     "express": "^4.16.4",
     "jquery": "^3.3.1",
     "popper.js": "^1.14.4",
+    "prop-types": "^15.5.7-alpha.1",
     "react": "16.5.2",
     "react-dom": "16.5.2",
     "react-json-pretty": "^1.7.9",

@@ -1,12 +1,13 @@
 'use strict'
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import '../styles/indy.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-const Hint = (props) => {
-  var hint = 'unknown hint: ' + props.hintKey;
-  switch(props.hintKey){
+const Hint = ({hintKey}) => {
+  var hint = 'unknown hint: ' + hintKey;
+  switch(hintKey){
     case 'passthrough':
       hint = 'subject to a configured minimum cache timeout for performance reasons';
       break;
@@ -21,6 +22,10 @@ const Hint = (props) => {
   return <span className="hint">({hint})</span>;
 }
 
+Hint.propTypes = {
+  hintKey: PropTypes.string.isRequired
+}
+
 const PasswordMask = ()=> <span class="password-mask">********</span>;
 
 /*
@@ -32,20 +37,27 @@ TODO: this DisableTimeoutHint and PrefetchHint has a timeout in original angular
   Not sure what this timeout is doing, will check it later
 */
 
-const DisableTimeoutHint = (props) =>{
-  let suggestion = props.children ? props.children:
+const DisableTimeoutHint = ({children}) =>{
+  let suggestion = children ? children:
     'Integer time in seconds which is used for repo automatically re-enable when set disable by errors,' +
     'positive value means time in seconds, -1 means never disable, empty or 0 means use default timeout.';
 
   return <span className="hint">({suggestion})</span>;
 };
 
-const PrefetchHint = (props) => {
-  let suggestion = props.children ? props.children:
+DisableTimeoutHint.propTypes = {
+  children: PropTypes.object
+}
+
+const PrefetchHint = ({children}) => {
+  let suggestion = children ? children:
     'Integer to indicate the pre-fetching priority of the remote, higher means more eager to do the ' +
     'pre-fetching of the content in the repo, 0 or below means disable the pre-fecthing.';
 
   return <span className="hint">({suggestion})</span>;
 }
 
+PrefetchHint.propTypes = {
+  children: PropTypes.object
+}
 export {Hint, PasswordMask, DisableTimeoutHint, PrefetchHint};

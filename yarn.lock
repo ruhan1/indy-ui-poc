@@ -3633,6 +3633,12 @@ promise@^7.1.1:
   dependencies:
     asap "~2.0.3"
 
+prop-types@^15.5.7-alpha.1:
+  version "15.5.7-alpha.1"
+  resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.5.7-alpha.1.tgz#3403122b39c1aa21f6e5dd1b944e06773f46cb01"
+  dependencies:
+    fbjs "^0.8.9"
+
 prop-types@^15.6.1, prop-types@^15.6.2:
   version "15.6.2"
   resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.6.2.tgz#05d5ca77b4453e985d60fc7ff8c859094a497102"

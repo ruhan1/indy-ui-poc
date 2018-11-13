@@ -1,42 +1,54 @@
 'use strict'
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import '../styles/indy.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import JSONPretty from 'react-json-pretty';
 
-const ListJsonDebugger = (props) =>
+const ListJsonDebugger = ({enableDebug, jsonObj}) =>
 {
-  return props.enableDebug && props.jsonObj &&
+  return enableDebug && jsonObj &&
   (
     <div className="debug">
       JSON:
-      <JSONPretty id="json-pretty" json={props.jsonObj}></JSONPretty>
+      <JSONPretty id="json-pretty" json={jsonObj}></JSONPretty>
     </div>
   );
 };
 
-const ViewJsonDebugger = (props) =>
+ListJsonDebugger.propTypes = {
+  enableDebug: PropTypes.bool,
+  jsonObj: PropTypes.oneOfType([PropTypes.object, PropTypes.array])
+};
+
+const ViewJsonDebugger = ({enableDebug, storeJson, rawJson}) =>
 {
-  return props.enableDebug &&
+  return enableDebug &&
   (
     <div className="debug">
     {
-      props.storeJson &&
+      storeJson &&
       <div className="debug-section">
         <span className="debug-title">JSON FROM SERVER:</span>
-        <JSONPretty id="store-json-pretty" json={props.storeJson}></JSONPretty>
+        <JSONPretty id="store-json-pretty" json={storeJson}></JSONPretty>
       </div>
     }
     {
-      props.rawJson &&
+      rawJson &&
       <div className="debug-section">
         <span className="debug-title">JSON FOR DISPLAY:</span>
-        <JSONPretty id="raw-json-pretty" json={props.rawJson}></JSONPretty>
+        <JSONPretty id="raw-json-pretty" json={rawJson}></JSONPretty>
       </div>
     }
     </div>
   );
+};
+
+ViewJsonDebugger.propTypes = {
+  enableDebug: PropTypes.bool,
+  storeJson: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
+  rawJson: PropTypes.oneOfType([PropTypes.object, PropTypes.array])
 }
 
 export {ListJsonDebugger, ViewJsonDebugger};

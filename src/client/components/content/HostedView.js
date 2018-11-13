@@ -1,5 +1,6 @@
 'use strict'
 import React from 'react';
+import PropTypes from 'prop-types';
 import {StoreViewControlPanel as ControlPanel} from './StoreControlPanels.js';
 import {DisableTimeoutHint} from './Hints.js';
 import {ViewJsonDebugger} from './Debugger.js';
@@ -149,8 +150,7 @@ export default class HostedView extends React.Component {
   }
 }
 
-const BasicSection = (props)=>{
-  let store = props.store;
+const BasicSection = ({store})=>{
   return (
     <div className="fieldset">
       <div className="detail-field">
@@ -211,3 +211,7 @@ const BasicSection = (props)=>{
     </div>
   );
 };
+
+BasicSection.propTypes = {
+  store: PropTypes.object.isRequired
+}

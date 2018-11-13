@@ -19,31 +19,27 @@ const browseCompatible=`<!--[if lt IE 7]>
 
 const isHome = false;
 
-export default class Container extends React.Component {
-  constructor(props){
-    super(props);
-  }
-  render(){
-    return (
-      <div>
-         {/*browseCompatible*/}
-        <div>
-           {
-             isHome?
-             "Welcome! Make a selection from the menu above to proceed.":
-             (
-               <div>
-                <Route exact path={`${APP_ROOT}/remote`} component={RemoteList} />
-                <Route exact path={`${APP_ROOT}/hosted`} component={HostedList} />
-                <Route exact path={`${APP_ROOT}/group`} component={GroupList} />
-                <Route exact path={`${APP_ROOT}/remote/:packageType/view/:name`} component={RemoteView} />
-                <Route exact path={`${APP_ROOT}/hosted/:packageType/view/:name`} component={HostedView} />
-                <Route exact path={`${APP_ROOT}/group/:packageType/view/:name`} component={GroupView} />
-               </div>
-             )
-           }
-          </div>
+const Container = () => (
+  <div>
+     {/*browseCompatible*/}
+    <div>
+       {
+         isHome?
+         "Welcome! Make a selection from the menu above to proceed.":
+         (
+           <div>
+            <Route exact path={`${APP_ROOT}/remote`} component={RemoteList} />
+            <Route exact path={`${APP_ROOT}/hosted`} component={HostedList} />
+            <Route exact path={`${APP_ROOT}/group`} component={GroupList} />
+            <Route exact path={`${APP_ROOT}/remote/:packageType/view/:name`} component={RemoteView} />
+            <Route exact path={`${APP_ROOT}/hosted/:packageType/view/:name`} component={HostedView} />
+            <Route exact path={`${APP_ROOT}/group/:packageType/view/:name`} component={GroupView} />
+           </div>
+         )
+       }
       </div>
-    );
-  }
-}
+  </div>
+);
+
+
+export default Container;

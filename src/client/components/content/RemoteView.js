@@ -1,5 +1,6 @@
 'use strict'
 import React from 'react';
+import PropTypes from 'prop-types';
 import {StoreViewControlPanel as ControlPanel} from './StoreControlPanels.js';
 import {DisableTimeoutHint, PrefetchHint, Hint, PasswordMask} from './Hints.js';
 import {ViewJsonDebugger} from './Debugger.js';
@@ -144,8 +145,7 @@ export default class RemoteView extends React.Component {
   }
 }
 
-const BasicSection = (props)=>{
-  let store = props.store;
+const BasicSection = ({store})=>{  
   return (
     <div className="fieldset">
       <div className="detail-field">
@@ -234,8 +234,11 @@ const BasicSection = (props)=>{
   );
 };
 
-const RemoteAccessSection = (props)=> {
-  let store = props.store;
+BasicSection.propTypes = {
+  store: PropTypes.object.isRequired
+}
+
+const RemoteAccessSection = ({store})=> {
   return (
     <div className="fieldset">
       <div className="detail-field">
@@ -347,4 +350,8 @@ const RemoteAccessSection = (props)=> {
       }
     </div>
   )
+}
+
+RemoteAccessSection.propTypes={
+  store: PropTypes.object.isRequired
 }
