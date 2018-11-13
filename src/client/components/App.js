@@ -5,8 +5,6 @@ import {BrowserRouter as Router, Route} from 'react-router-dom';
 import Root from './Root.js';
 import {APP_ROOT} from './ComponentConstants.js';
 
-
-
 export const App = ()=>{
   return (
     <Router>
