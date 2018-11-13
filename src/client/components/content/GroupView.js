@@ -52,8 +52,10 @@ export default class GroupView extends React.Component {
 
   }
   getStore(){
+    let match = this.props.match;
+    let getUrl = `/api/admin/stores/${match.params.packageType}/group/${match.params.name}`;
     jsonGet({
-      url: '/api/admin/stores/maven/group/build_org-freemarker-freemarker-3-x_20171206.1203',
+      url: getUrl,
       done: response => {
         let raw = response;
         let store = Utils.cloneObj(raw);
@@ -156,6 +158,10 @@ export default class GroupView extends React.Component {
     return null;
   }
 }
+
+GroupView.propTypes={
+  match: PropTypes.object
+};
 
 const BasicSection = ({store})=>{
   return (

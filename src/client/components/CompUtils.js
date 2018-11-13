@@ -49,23 +49,23 @@ export const Utils = {
     return parts[parts.length-1];
   },
   storeHref: key => {
-      let parts = key.split(':');
+    let parts = key.split(':');
 
-      let hostAndPort = window.location.hostname;
-      if ( window.location.port != '' && window.location.port != 80 && window.location.port != 443 ){
-        hostAndPort += ':';
-        hostAndPort += window.location.port;
-      }
+    let hostAndPort = window.location.hostname;
+    if ( window.location.port != '' && window.location.port != 80 && window.location.port != 443 ){
+      hostAndPort += ':';
+      hostAndPort += window.location.port;
+    }
+    //
+    // let basepath = window.location.pathname;
+    // basepath = basepath.replace('/app', '');
+    // basepath = basepath.replace(/index.html.*/, '');
 
-      let basepath = window.location.pathname;
-      basepath = basepath.replace('/app', '');
-      basepath = basepath.replace(/index.html.*/, '');
 
+    let proto = window.location.protocol;
 
-      let proto = window.location.protocol;
-
-      // TODO: In-UI browser that allows simple searching
-      return proto + "//" + hostAndPort + basepath + '/api/content/' + parts[0] + '/' + parts[1] + '/' + parts[2];
+    // TODO: In-UI browser that allows simple searching
+    return proto + "//" + hostAndPort + '/api/content/' + parts[0] + '/' + parts[1] + '/' + parts[2];
   },
   setDisableMap: (listing, stores) => {
     let disabledMap = {};

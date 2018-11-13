@@ -49,8 +49,10 @@ export default class RemoteView extends React.Component {
 
   }
   getStore(){
+    let match = this.props.match;
+    let getUrl = `/api/admin/stores/${match.params.packageType}/remote/${match.params.name}`;
     jsonGet({
-      url: '/api/admin/stores/maven/remote/i-maven-restlet-4',
+      url: getUrl,
       done: response => {
         let raw = response;
         let store = Utils.cloneObj(raw);
@@ -145,7 +147,11 @@ export default class RemoteView extends React.Component {
   }
 }
 
-const BasicSection = ({store})=>{  
+RemoteView.propTypes={
+  match: PropTypes.object
+};
+
+const BasicSection = ({store})=>{
   return (
     <div className="fieldset">
       <div className="detail-field">

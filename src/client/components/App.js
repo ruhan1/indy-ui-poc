@@ -6,11 +6,12 @@ import Root from './Root.js';
 import {APP_ROOT} from './ComponentConstants.js';
 
 
+
 export const App = ()=>{
   return (
     <Router>
       <div>
-        <Route path="/" component={Root} />
+        <Route path={[`${APP_ROOT}`, '/']} component={Root} />
       </div>
     </Router>
   );

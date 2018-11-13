@@ -47,8 +47,10 @@ export default class HostedView extends React.Component {
 
   }
   getStore(){
+    let match = this.props.match;
+    let getUrl = `/api/admin/stores/${match.params.packageType}/hosted/${match.params.name}`;
     jsonGet({
-      url: '/api/admin/stores/maven/hosted/FisZYfNgpR',
+      url: getUrl,
       done: response => {
         let raw = response;
         let store = Utils.cloneObj(raw);
@@ -149,6 +151,10 @@ export default class HostedView extends React.Component {
     return null;
   }
 }
+
+HostedView.propTypes={
+  match: PropTypes.object
+};
 
 const BasicSection = ({store})=>{
   return (
