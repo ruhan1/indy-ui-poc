@@ -1,16 +1,17 @@
 'use strict'
 import React from 'react';
 import {render} from 'react-dom';
-import {Utils} from '../Utils.js';
-import {Filters} from '../Filters.js';
-import {TimeUtils} from '../TimeUtils.js';
+import {StoreViewControlPanel as ControlPanel} from './StoreControlPanels.js';
+import {DisableTimeoutHint} from './Hints.js';
+import {ViewJsonDebugger} from './Debugger.js';
 import '../styles/indy.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import {APP_ROOT} from '../Constants.js';
-import {jsonGet} from '../RestClient.js';
-import {StoreViewControlPanel as ControlPanel} from './common/StoreControlPanels.js';
-import {DisableTimeoutHint} from './common/Hints.js';
-import {ViewJsonDebugger} from './common/Debugger.js';
+import {APP_ROOT} from '../ComponentConstants.js';
+import {Utils} from '../CompUtils.js';
+import {Filters} from '../Filters.js';
+import {TimeUtils} from '../../TimeUtils.js';
+import {jsonGet} from '../../RestClient.js';
+
 
 export default class GroupView extends React.Component {
   constructor(props){

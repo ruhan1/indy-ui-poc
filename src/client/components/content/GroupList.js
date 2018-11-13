@@ -1,13 +1,14 @@
 'use strict'
 
 import React from 'react';
-import {Utils} from '../Utils.js';
+import {Link} from 'react-router-dom';
+import {Utils} from '../CompUtils.js';
+import {jsonGet} from "../../RestClient.js";
 import '../styles/indy.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import {APP_ROOT} from '../Constants.js';
-import ListControl from "./common/ListControl.js";
-import {jsonGet} from "../RestClient.js";
-import {ListJsonDebugger} from './common/Debugger.js';
+import {APP_ROOT} from '../ComponentConstants.js';
+import ListControl from "./ListControl.js";
+import {ListJsonDebugger} from './Debugger.js';
 
 export default class GroupList extends React.Component {
   constructor(props){
@@ -137,9 +138,9 @@ class GroupListItem extends React.Component {
     return (
       <div className="store-listing-item">
         <div className="fieldset-caption">
-          <a href={`${APP_ROOT}/group/${store.packageType}/view/${store.name}`}>
+          <Link to={`${APP_ROOT}/group/${store.packageType}/view/${store.name}`}>
             <span className={storeClass}>{store.packageType}-{store.name}</span>
-          </a>
+          </Link>
         </div>
         <div className="fieldset">
           <div>

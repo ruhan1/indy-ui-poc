@@ -1,9 +1,10 @@
 'use strict'
 
 import React from 'react';
+import {Link} from 'react-router-dom';
 import 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import {APP_ROOT} from '../Constants.js'
+import {APP_ROOT} from '../ComponentConstants.js'
 
 //mock user login
 const isUserloggedIn = true;
@@ -32,20 +33,20 @@ export default class IndyNavHeader extends React.Component {
     ];
     return (
       <nav className="navbar fixed-top navbar-expand-lg navbar-light bg-light" role="navigation">
-        <a className="navbar-brand" href={APP_ROOT}>Indy</a>
+        <Link className="navbar-brand" to={APP_ROOT}>Indy</Link>        
         <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span className="navbar-toggler-icon"></span>
         </button>
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav mr-auto">
             <li key="list-remote" className="nav-item">
-              <a className="nav-link" href={`${APP_ROOT}/remote`}>Remote Repositories</a>
+              <Link className="nav-link" to={`${APP_ROOT}/remote`}>Remote Repositories</Link>
             </li>
             <li key="list-hosted" className="nav-item">
-              <a className="nav-link" href={`${APP_ROOT}/hosted`}>Hosted Repositories</a>
+              <Link className="nav-link" to={`${APP_ROOT}/hosted`}>Hosted Repositories</Link>
             </li>
             <li key="list-group" className="nav-item">
-              <a className="nav-link" href={`${APP_ROOT}/group`}>Groups</a>
+              <Link className="nav-link" to={`${APP_ROOT}/group`}>Groups</Link>
             </li>
             <li key="rest-api" className="nav-item">
               <a className="nav-link"href="rest-api.html">REST API</a>

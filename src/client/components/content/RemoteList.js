@@ -2,13 +2,14 @@
 
 import React from 'react';
 import {render} from 'react-dom';
-import {Utils} from '../Utils.js';
+import {Link} from 'react-router-dom';
+import {ListJsonDebugger} from './Debugger.js';
+import ListControl from "./ListControl.js";
 import '../styles/indy.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import {remoteOptionLegend as options, APP_ROOT} from "../Constants.js";
-import ListControl from "./common/ListControl.js";
-import {jsonGet} from "../RestClient.js";
-import {ListJsonDebugger} from './common/Debugger.js';
+import {remoteOptionLegend as options, APP_ROOT} from "../ComponentConstants.js";
+import {Utils} from '../CompUtils.js';
+import {jsonGet} from "../../RestClient.js";
 
 export default class RemoteList extends React.Component {
   constructor(props){
@@ -96,9 +97,9 @@ export default class RemoteList extends React.Component {
                 return (
                   <div key={store.key} className="store-listing-item">
                     <div className="fieldset-caption">
-                      <a href={`${APP_ROOT}/remote/${store.packageType}/view/${store.name}`}>
+                      <Link to={`${APP_ROOT}/remote/${store.packageType}/view/${store.name}`}>
                         <span className={storeClass}>{store.packageType}-{store.name}</span>
-                      </a>
+                      </Link>
                     </div>
                     <div className="fieldset">
                       <div>

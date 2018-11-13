@@ -12,6 +12,6 @@ const hostedOptionLegend = [
   {icon: 'D', title: 'Deployment allowed'}
 ];
 
-const APP_ROOT = 'view';
+const APP_ROOT = '/view';
 
 export {APP_ROOT, remoteOptionLegend, hostedOptionLegend};

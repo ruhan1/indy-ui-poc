@@ -1,6 +1,6 @@
 'use strict'
 import $ from 'jquery/src/core';
-import {APP_ROOT} from './Constants.js';
+import {APP_ROOT} from './ComponentConstants.js';
 
 export const Utils = {
   remoteOptions: store => {
@@ -65,7 +65,7 @@ export const Utils = {
       let proto = window.location.protocol;
 
       // TODO: In-UI browser that allows simple searching
-      return proto + "//" + hostAndPort + basepath + 'api/content/' + parts[0] + '/' + parts[1] + '/' + parts[2];
+      return proto + "//" + hostAndPort + basepath + '/api/content/' + parts[0] + '/' + parts[1] + '/' + parts[2];
   },
   setDisableMap: (listing, stores) => {
     let disabledMap = {};
