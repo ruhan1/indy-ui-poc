@@ -7,8 +7,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 const StoreEditControlPanel = ({handleSave, handleCancel, handleRemove}) =>(
   <div className="cp-row">
-    <button name="save" onClick={handleSave} className="cp-button">Save</button>
-    <button name="cancel" onClick={handleCancel} className="cp-button">Cancel</button>
+    <button name="save" onClick={handleSave} className="cp-button">Save</button>{'  '}
+    <button name="cancel" onClick={handleCancel} className="cp-button">Cancel</button>{'  '}
     <button name="del" onClick={handleRemove} className="del-button cp-button">
       Delete
     </button>
