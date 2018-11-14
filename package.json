@@ -36,7 +36,7 @@
   },
   "scripts": {
     "start": "webpack-dev-server --open",
-    "deploy": "cp -r ./src/html/* ./build/",
+    "deploy": "cp -r ./public/* ./build/",
     "build": "npm run clean && npm run compile && npm run deploy",
     "prodBuild": "npm run clean && npm run prodCompile && npm run deploy",
     "clean": "rm -rf ./build/*",

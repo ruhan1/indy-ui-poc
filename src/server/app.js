@@ -1,8 +1,11 @@
 const compression = require('compression');
 const express = require('express');
 const os = require('os');
+const path = require("path");
+const Config = require('./config/AppConfig.js');
 
 const app = express();
+
 app.use(compression());
 
 let server = app.listen(4000, function () {
@@ -13,6 +16,13 @@ let server = app.listen(4000, function () {
 });
 
 app.use(express.static('build'));
+
+const indexHtml=path.join(Config.project_root+'/public/index.html');
+
+// For direct url bar addressing, will send home page directly for client router rendering
+app.get(['/view', '/view/*', '/'], function (req, res) {
+    res.sendFile(indexHtml);
+});
 
 app.get('/api/admin/stores/_all/remote', function (req, res){
   let remoteList  = require('./mock/list/FakeRemoteList.json');
