@@ -170,9 +170,9 @@ class GroupListItem extends React.Component {
                         let itemStoreClass = Utils.isDisabled(item.key, disMap)? "disabled-store":"enabled-store";
                         return (
                           <li key={item.key}>
-                            <a href={`${APP_ROOT}/${item.type}/${item.packageType}/view/${item.name}`}>
+                            <Link to={`${APP_ROOT}/${item.type}/${item.packageType}/view/${item.name}`}>
                                 <span className={itemStoreClass}>{item.key}</span>
-                            </a>
+                            </Link>
                             {
                               item.type==='remote' &&
                               (

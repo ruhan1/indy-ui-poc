@@ -17,10 +17,12 @@ let server = app.listen(4000, function () {
 
 app.use(express.static('build'));
 
+const APP_ROOT="/#";
+
 const indexHtml=path.join(Config.project_root+'/public/index.html');
 
 // For direct url bar addressing, will send home page directly for client router rendering
-app.get(['/view', '/view/*', '/'], function (req, res) {
+app.get([APP_ROOT, `${APP_ROOT}/*`, '/'], function (req, res) {
     res.sendFile(indexHtml);
 });
 

@@ -1,6 +1,7 @@
 'use strict'
 import React from 'react';
 import {render} from 'react-dom';
+import {Link} from 'react-router-dom';
 import PropTypes from 'prop-types';
 import {StoreViewControlPanel as ControlPanel} from './StoreControlPanels.js';
 import {DisableTimeoutHint} from './Hints.js';
@@ -137,9 +138,9 @@ export default class GroupView extends React.Component {
                         <li key={item} className="detail-value-list-item">
                         {
                           href?
-                          <a href={href}>
+                          <Link to={href}>
                             <span className={storeClassName} >{item}</span>
-                          </a>:
+                          </Link>:
                           <span>{item}</span>
                         }
                         </li>

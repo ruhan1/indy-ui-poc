@@ -1,17 +1,17 @@
 'use strict'
 
 import React from 'react';
-import {BrowserRouter as Router, Route} from 'react-router-dom';
+import {BrowserRouter as Router, HashRouter, Route} from 'react-router-dom';
 import Root from './Root.js';
 import {APP_ROOT} from './ComponentConstants.js';
 
 export const App = ()=>{
   return (
-    <Router>
+    <HashRouter basename={APP_ROOT}>
       <div>
         <Route path={[`${APP_ROOT}`, '/']} component={Root} />
       </div>
-    </Router>
+    </HashRouter>
   );
 };
 

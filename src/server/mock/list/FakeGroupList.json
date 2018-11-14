@@ -8,7 +8,7 @@
         "changelog" : "Creating repository group for resolving artifacts in build: 1859 (repo: build_org-keycloak-keycloak-parent-4-x_20180515.1724)"
       },
       "disabled" : false,
-      "constituents" : [ "maven:hosted:build_org-keycloak-keycloak-parent-4-x_20180515.1724", "maven:group:builds-untested", "maven:hosted:shared-imports", "maven:group:public", "maven:remote:i-jboss-public-repository-group", "maven:remote:i-jboss-2", "maven:remote:spring-milestone", "maven:remote:spring-snapshot", "maven:remote:spring-milestones", "maven:remote:central", "maven:remote:spring-snapshots", "maven:remote:spring-releases", "maven:remote:UCAR", "maven:remote:confluent", "maven:remote:sonatype-snapshots", "maven:remote:repo.eclipse.org", "maven:remote:microprofile.repo.eclipse.org" ],
+      "constituents" : [ "maven:hosted:FisZYfNgpR", "maven:remote:koji-org.jboss.ws-jbossws-common-tools-1.2.4.Final_redhat_1-1", "maven:group:build_vertx-infinispan-3-5-1_20180705.1313"],
       "packageType" : "maven",
       "name" : "build_org-keycloak-keycloak-parent-4-x_20180515.1724",
       "type" : "group",
@@ -25,7 +25,7 @@
         "changelog" : "Creating repository group for resolving artifacts in build: 1981 (repo: build_org-keycloak-keycloak-parent-4-x_20180531.0218)"
       },
       "disabled" : false,
-      "constituents" : [ "maven:hosted:build_org-keycloak-keycloak-parent-4-x_20180531.0218", "maven:group:builds-untested", "maven:hosted:shared-imports", "maven:group:public", "maven:remote:i-jboss-public-repository-group", "maven:remote:i-jboss", "maven:remote:confluent", "maven:remote:sonatype-snapshots" ],
+      "constituents" : [ "maven:hosted:tYMtROxQUA", "maven:remote:i-maven-restlet-4"],
       "packageType" : "maven",
       "name" : "build_org-keycloak-keycloak-parent-4-x_20180531.0218",
       "type" : "group",
@@ -42,7 +42,7 @@
         "changelog" : "Creating repository group for resolving artifacts in build: 333 (repo: build_org-keycloak-keycloak-nodejs-auth-utils-3-xnpm_1-2-stage-4_20180104.1216)"
       },
       "disabled" : false,
-      "constituents" : [ "maven:hosted:build_org-keycloak-keycloak-nodejs-auth-utils-3-xnpm_1-2-stage-4_20180104.1216", "maven:group:builds-untested", "maven:hosted:shared-imports", "maven:group:public", "maven:remote:ops4j", "maven:remote:aqute", "maven:remote:jetty-releases", "maven:remote:jgit-repository", "maven:remote:nexus-codehaus-snapshot", "maven:remote:sevntu-maven", "maven:remote:spring-milestone", "maven:remote:spring-snapshot", "maven:remote:spring-milestones", "maven:remote:central", "maven:remote:spring-snapshots", "maven:remote:spring-releases", "maven:remote:UCAR", "maven:remote:confluent", "maven:remote:sonatype-snapshots", "maven:remote:repo.eclipse.org", "maven:remote:microprofile.repo.eclipse.org" ],
+      "constituents" : [ "maven:hosted:LYnrVCMAZP", "maven:group:public", "maven:remote:repo.eclipse.org", "maven:remote:microprofile.repo.eclipse.org" ],
       "packageType" : "maven",
       "name" : "build_org-keycloak-keycloak-nodejs-auth-utils-3-xnpm_1-2-stage-4_20180104.1216",
       "type" : "group",
@@ -59,7 +59,7 @@
         "changelog" : "Creating repository group for resolving artifacts in build: 2759 (repo: build_vertx-infinispan-3-5-1_20180705.1313)"
       },
       "disabled" : false,
-      "constituents" : [ "maven:hosted:build_vertx-infinispan-3-5-1_20180705.1313", "maven:group:builds-untested", "maven:hosted:shared-imports", "maven:group:public" ],
+      "constituents" : [ "maven:hosted:build_kie-soup_20180628.0657", "maven:group:public" ],
       "packageType" : "maven",
       "name" : "build_vertx-infinispan-3-5-1_20180705.1313",
       "type" : "group",
@@ -70,15 +70,14 @@
     },
     {
       "type" : "group",
-      "key" : "maven:group:build_org-freemarker-freemarker-3-x_20171206.1203",
-      "description" : "Aggregation group for PNC build #160",
+      "key" : "maven:group:public",
       "metadata" : {
-        "changelog" : "Creating repository group for resolving artifacts in build: 160 (repo: build_org-freemarker-freemarker-3-x_20171206.1203)"
+        "changelog" : "test"
       },
       "disabled" : false,
-      "constituents" : [ "maven:hosted:build_org-freemarker-freemarker-3-x_20171206.1203", "maven:group:builds-untested", "maven:hosted:shared-imports", "maven:group:public", "maven:remote:ops4j", "maven:remote:aqute", "maven:remote:jetty-releases", "maven:remote:jgit-repository", "maven:remote:nexus-codehaus-snapshot", "maven:remote:sevntu-maven", "maven:remote:spring-milestone", "maven:remote:spring-snapshot", "maven:remote:spring-milestones", "maven:remote:central", "maven:remote:spring-snapshots", "maven:remote:spring-releases", "maven:remote:UCAR", "maven:remote:confluent", "maven:remote:sonatype-snapshots", "maven:remote:repo.eclipse.org", "maven:remote:microprofile.repo.eclipse.org" ],
+      "constituents" : [ "maven:remote:central", "maven:remote:mrrc-ga", "maven:remote:repo.eclipse.org", "maven:remote:microprofile.repo.eclipse.org" ],
       "packageType" : "maven",
-      "name" : "build_org-freemarker-freemarker-3-x_20171206.1203",
+      "name" : "public",
       "type" : "group",
       "disable_timeout" : 0,
       "path_style" : "plain",

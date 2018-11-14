@@ -57,7 +57,7 @@ export default class RemoteView extends React.Component {
         let raw = response;
         let store = Utils.cloneObj(raw);
         store.disabled = raw.disabled === undefined ? false : raw.disabled;
-        store.use_x509 = raw.server_certificate_pem || r.key_certificate_pem;
+        store.use_x509 = raw.server_certificate_pem || raw.key_certificate_pem;
         store.use_proxy = raw.proxy_host && true;
         store.use_auth = (store.use_proxy && store.proxy_user) || store.user;
         this.setState({
