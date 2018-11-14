@@ -1,7 +1,7 @@
 'use strict'
 
 import React from 'react';
-import {Route} from 'react-router-dom';
+import {Route, Switch} from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../styles/indy.css';
 import RemoteList from './RemoteList.js';
@@ -27,14 +27,14 @@ const Container = () => (
          isHome?
          "Welcome! Make a selection from the menu above to proceed.":
          (
-           <div>
+           <Switch>
             <Route exact path={`${APP_ROOT}/remote`} component={RemoteList} />
             <Route exact path={`${APP_ROOT}/hosted`} component={HostedList} />
             <Route exact path={`${APP_ROOT}/group`} component={GroupList} />
 
-            <Route exact path={`${APP_ROOT}/remote/:packageType/view/:name`} component={RemoteView} />
-            <Route exact path={`${APP_ROOT}/hosted/:packageType/view/:name`} component={HostedView} />
-            <Route exact path={`${APP_ROOT}/group/:packageType/view/:name`} component={GroupView} />
+            <Route path={`${APP_ROOT}/remote/:packageType/view/:name`} component={RemoteView} />
+            <Route path={`${APP_ROOT}/hosted/:packageType/view/:name`} component={HostedView} />
+            <Route path={`${APP_ROOT}/group/:packageType/view/:name`} component={GroupView} />
             {
             // <Route exact path={[`${APP_ROOT}/remote/new`,`${APP_ROOT}/remote/:packageType/edit/:name`]} component={RemoteEdit} />
             // <Route exact path={[`${APP_ROOT}/hosted/new`,`${APP_ROOT}/hosted/:packageType/edit/:name`]} component={HostedEdit} />
@@ -44,7 +44,7 @@ const Container = () => (
             //
             // <Route exact path={`${APP_ROOT}/logout`} component={} />
             }
-           </div>
+           </Switch>
          )
        }
       </div>
