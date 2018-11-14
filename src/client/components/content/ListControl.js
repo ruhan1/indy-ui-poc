@@ -30,7 +30,7 @@ class ListControl extends React.Component {
           this.props.useSearch &&
           (
             <div className="cp-row">
-              Search:&nbsp;<input name="query" onChange={this.props.handleSearch}/>
+              Search:{' '}<input name="query" onChange={this.props.handleSearch}/>
             </div>
           )
         }
@@ -38,7 +38,7 @@ class ListControl extends React.Component {
           this.props.useOrderBy && this.props.orderBys &&
           (
             <div className="cp-row">
-              Sort by:&nbsp;
+              Sort by:{' '}
               <select name="orderProp">
                 {
                   this.props.orderBys.map(orderBy=><option key={`legend-${orderBy.value}`} value={orderBy.value}>{orderBy.text}</option>)

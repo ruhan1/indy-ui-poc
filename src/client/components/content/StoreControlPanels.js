@@ -30,8 +30,8 @@ const StoreViewControlPanel = function({enabled, handleDisable, handleEnable, ha
         <button onClick={enableHandler}>{enableText}</button>
       </div>
       <div className="cp-row">
-        <button onClick={handleEdit}>Edit</button> &nbsp;
-    	  <button onClick={handleCreate}>New...</button> &nbsp;
+        <button onClick={handleEdit}>Edit</button>{'  '}
+    	  <button onClick={handleCreate}>New...</button>{'  '}
     	  <button name="del" onClick={handleRemove} className="del-button cp-button">
           Delete
         </button>
