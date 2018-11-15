@@ -18,7 +18,7 @@ class ListControl extends React.Component {
     return (
       <div className="control-panel">
         <div className="cp-row">
-          <button onClick={this.props.handleCreateNew}>New...</button>
+          <button onClick={this.props.handleCreateNew}>New...</button>{' '}
           {
             this.props.useHideAll &&
             (

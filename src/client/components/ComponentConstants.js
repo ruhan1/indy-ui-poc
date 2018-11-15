@@ -12,6 +12,13 @@ const hostedOptionLegend = [
   {icon: 'D', title: 'Deployment allowed'}
 ];
 
+//TODO this should be fetched from backend
+const packageTypes = [
+  'maven',
+  'generic',
+  'npm'
+];
+
 const APP_ROOT = '';
 
-export {APP_ROOT, remoteOptionLegend, hostedOptionLegend};
+export {APP_ROOT, remoteOptionLegend, hostedOptionLegend, packageTypes};

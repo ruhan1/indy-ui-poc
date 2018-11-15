@@ -2,15 +2,15 @@
 
 import React from 'react';
 import {Route, Switch} from 'react-router-dom';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import '../styles/indy.css';
-import RemoteList from './RemoteList.js';
-import HostedList from './HostedList.js';
-import GroupList from './GroupList.js';
-import RemoteView from './RemoteView.js';
-import HostedView from './HostedView.js';
-import GroupView from './GroupView.js';
-import RemoteEdit from './RemoteEdit.js';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import RemoteList from './RemoteList.jsx';
+import HostedList from './HostedList.jsx';
+import GroupList from './GroupList.jsx';
+import RemoteView from './RemoteView.jsx';
+import HostedView from './HostedView.jsx';
+import GroupView from './GroupView.jsx';
+import RemoteEdit from './RemoteEdit.jsx';
 import {APP_ROOT} from '../ComponentConstants.js'
 
 

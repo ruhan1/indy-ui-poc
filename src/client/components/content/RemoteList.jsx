@@ -3,8 +3,8 @@
 import React from 'react';
 import {render} from 'react-dom';
 import {Link} from 'react-router-dom';
-import {ListJsonDebugger} from './Debugger.js';
-import ListControl from "./ListControl.js";
+import {ListJsonDebugger} from './Debugger.jsx';
+import ListControl from "./ListControl.jsx";
 import '../styles/indy.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {remoteOptionLegend as options, APP_ROOT} from "../ComponentConstants.js";

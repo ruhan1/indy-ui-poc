@@ -46,7 +46,7 @@ const DisableTimeoutHint = ({children}) =>{
 };
 
 DisableTimeoutHint.propTypes = {
-  children: PropTypes.object
+  children: PropTypes.oneOfType([PropTypes.object, PropTypes.string])
 }
 
 const PrefetchHint = ({children}) => {
@@ -58,6 +58,16 @@ const PrefetchHint = ({children}) => {
 }
 
 PrefetchHint.propTypes = {
-  children: PropTypes.object
+  children: PropTypes.oneOfType([PropTypes.object, PropTypes.string])
 }
-export {Hint, PasswordMask, DisableTimeoutHint, PrefetchHint};
+
+const DurationHint = ({children}) => {
+  let suggestion = children ? children : "24h 36m 00s";
+  return <span className="hint">({`eg. ${suggestion}`})</span>;
+}
+
+DurationHint.propTypes = {
+  children: PropTypes.oneOfType([PropTypes.object, PropTypes.string])
+}
+
+export {Hint, PasswordMask, DisableTimeoutHint, PrefetchHint, DurationHint};

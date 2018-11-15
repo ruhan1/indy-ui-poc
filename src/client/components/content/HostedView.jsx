@@ -1,9 +1,9 @@
 'use strict'
 import React from 'react';
 import PropTypes from 'prop-types';
-import {StoreViewControlPanel as ControlPanel} from './StoreControlPanels.js';
-import {DisableTimeoutHint} from './Hints.js';
-import {ViewJsonDebugger} from './Debugger.js';
+import {StoreViewControlPanel as ControlPanel} from './StoreControlPanels.jsx';
+import {DisableTimeoutHint} from './Hints.jsx';
+import {ViewJsonDebugger} from './Debugger.jsx';
 import '../styles/indy.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {Utils} from '../CompUtils.js';

@@ -8,8 +8,8 @@ import {jsonGet} from "../../RestClient.js";
 import '../styles/indy.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {APP_ROOT} from '../ComponentConstants.js';
-import ListControl from "./ListControl.js";
-import {ListJsonDebugger} from './Debugger.js';
+import ListControl from "./ListControl.jsx";
+import {ListJsonDebugger} from './Debugger.jsx';
 
 export default class GroupList extends React.Component {
   constructor(props){

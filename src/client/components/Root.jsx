@@ -1,11 +1,10 @@
 'use strict'
 
 import React from 'react';
-import NavHeader from './nav/NavHeader.js';
-import NavFooter from './nav/NavFooter.js';
-import Container from './content/Container.js';
 import {BrowserRouter as Router} from 'react-router-dom';
-import './styles/indy.css';
+import NavHeader from './nav/NavHeader.jsx';
+import NavFooter from './nav/NavFooter.jsx';
+import Container from './content/Container.jsx';
 
 const Root = (props)=>(
   <div>

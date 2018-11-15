@@ -2,7 +2,7 @@
 
 import React from 'react';
 import {BrowserRouter as Router, HashRouter, Route} from 'react-router-dom';
-import Root from './Root.js';
+import Root from './Root.jsx';
 import {APP_ROOT} from './ComponentConstants.js';
 
 export const App = ()=>{

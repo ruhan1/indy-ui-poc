@@ -2,8 +2,8 @@
 
 import React from 'react';
 import {Link} from 'react-router-dom';
-import ListControl from "./ListControl.js";
-import {ListJsonDebugger} from './Debugger.js';
+import ListControl from "./ListControl.jsx";
+import {ListJsonDebugger} from './Debugger.jsx';
 import '../styles/indy.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {Utils} from '../CompUtils.js';
