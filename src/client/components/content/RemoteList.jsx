@@ -40,9 +40,9 @@ export default class RemoteList extends React.Component {
         });
         this.getDisTimeouts();
       },
-      fail: xhr => {
+      fail: errorText => {
         this.setState({
-          message: JSON.parse(xhr.responseText).error
+          message: JSON.parse(errorText).error
         });
       }
     });
@@ -56,7 +56,7 @@ export default class RemoteList extends React.Component {
           disabledMap: disabledMap
         });
       },
-      fail: xhr => {
+      fail: errorText => {
           console.log("disable timeout get failed in remote listing.")
       }
     });

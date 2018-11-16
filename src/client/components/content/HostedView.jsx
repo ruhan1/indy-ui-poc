@@ -60,9 +60,9 @@ export default class HostedView extends React.Component {
         });
         this.getStoreDisableTimeout(store);
       },
-      fail: xhr => {
+      fail: errorText => {
         this.setState({
-          message: JSON.parse(xhr.responseText).error
+          message: JSON.parse(errorText).error
         });
       }
     });
@@ -77,11 +77,11 @@ export default class HostedView extends React.Component {
           store: newStore
         })
       },
-      fail: (xhr, status, error) => {
+      fail: (errorText, status, error) => {
         console.log("disable timeout getting failed");
         this.setState({
           store: store
-        })
+        });
       }
     });
   }

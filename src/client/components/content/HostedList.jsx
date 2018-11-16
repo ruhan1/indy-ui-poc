@@ -41,9 +41,9 @@ export default class HostedList extends React.Component {
         });
         this.getDisTimeouts();
       },
-      fail: jqxhr => {
+      fail: errorText => {
         this.setState({
-          message: JSON.parse(jqxhr.responseText).error
+          message: JSON.parse(errorText).error
         });
       }
     });

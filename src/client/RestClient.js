@@ -1,24 +1,21 @@
 'use strict'
 
-import $ from 'jquery/src/core';
-import 'jquery/src/ajax';
-import 'jquery/src/ajax/xhr';
-
 const jsonGet = function(payload){
-  $.getJSON({
-    url: payload.url,
-    data: payload.data ? payload.data: {},
-    type: "GET",
-    responseType: "application/json",
-    contentType: "application/json",
-    dataType: "json"
-  }).done((response) => {
-    if(payload.done){
-      payload.done(response);
-    }
-  }).fail((jqxhr, textStatus, error) => {
-    if(payload.fail){
-      payload.fail(jqxhr, textStatus, error);
+  fetch(payload.url, {
+    method: "GET",
+    credentials: 'same-origin',
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: payload.data ? payload.data : undefined
+  })
+  .then(response => {
+    if(response.ok && payload.done){
+      response.json().then(data=>payload.done(data));
+    }else if(!response.ok && payload.fail){
+      response.text().then(data=>{        
+        payload.fail(data, response.status, response.statusText)
+      });
     }
   });
 }

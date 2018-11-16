@@ -1,5 +1,4 @@
 'use strict'
-import $ from 'jquery/src/core';
 import {APP_ROOT} from './ComponentConstants.js';
 
 export const Utils = {

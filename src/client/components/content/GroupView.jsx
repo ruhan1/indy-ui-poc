@@ -66,9 +66,9 @@ export default class GroupView extends React.Component {
         });
         this.getDisTimeouts(store);
       },
-      fail: jqxhr => {
+      fail: errorText => {
         this.setState({
-          message: JSON.parse(jqxhr.responseText).error
+          message: JSON.parse(errorText).error
         });
       }
     });
@@ -88,11 +88,11 @@ export default class GroupView extends React.Component {
           disabledMap: disabledMap
         });
       },
-      fail: jqxhr => {
+      fail: (errorText, status, error) => {
         console.log("disable timeout getting failed");
         this.setState({
           store: store
-        })
+        });
       }
     });
   }
