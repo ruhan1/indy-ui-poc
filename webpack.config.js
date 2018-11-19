@@ -55,7 +55,10 @@ module.exports = {
             loader: 'url-loader'
           },
         ]
-      }
+      },
+      {test: /\.eot(\?[0-9a-z\-=]+)?$/, loader: 'file-loader'},
+      {test: /\.woff2*(\?[0-9a-z\-=]+)?$/, loader: "url-loader?limit=10000&mimetype=application/font-woff"},
+      {test: /\.ttf(\?[0-9a-z\-=]+)?$/, loader: 'file-loader?limit=10000&mimetype=application/octet-stream'}
     ]
   }
 
