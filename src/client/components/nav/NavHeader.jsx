@@ -2,6 +2,7 @@
 
 import React from 'react';
 import {Link} from 'react-router-dom';
+import PropTypes from 'prop-types';
 import {
   Avatar,
   BackgroundImage,
@@ -9,8 +10,6 @@ import {
   Brand,
   Button,
   ButtonVariant,
-  Card,
-  CardBody,
   Dropdown,
   DropdownToggle,
   DropdownItem,
@@ -42,6 +41,9 @@ const isUserloggedIn = true;
 const username = "mock";
 
 class NavHeader extends React.Component {
+  static contextTypes = {
+    router: ()=>null
+  };
   constructor(props) {
     super(props);
     // Set initial isNavOpen state based on window width
@@ -90,6 +92,12 @@ class NavHeader extends React.Component {
     });
   };
 
+  handleDropDownItemClick = e => {
+    e.preventDefault();
+    let path = e.target.dataset.to;    
+    this.context.router.history.push(path);
+  };
+
   render(){
     const { isDropdownOpen, isKebabDropdownOpen, activeItem, isNavOpen } = this.state;
     const PageNav = (
@@ -110,7 +118,7 @@ class NavHeader extends React.Component {
        </NavList>
      </Nav>
     );
-    
+
     const PageToolbar = (
       <Toolbar>
         <ToolbarGroup>
@@ -127,21 +135,21 @@ class NavHeader extends React.Component {
               <DropdownItem href="/api/diag/repo">
                 Repo Bundle
               </DropdownItem>
-              <DropdownItem>
-                <Link to={`${APP_ROOT}/nfc`}>Not-Found Cache</Link>
+              <DropdownItem data-to={`${APP_ROOT}/nfc`} onClick={this.handleDropDownItemClick}>
+                Not-Found Cache
               </DropdownItem>
-              <DropdownItem>
-                <Link to={`${APP_ROOT}/cache/delete`}>Delete Cache</Link>
+              <DropdownItem data-to={`cache/delete`} onClick={this.handleDropDownItemClick}>
+                Delete Cache
               </DropdownItem>
               <DropdownSeparator />
-              <DropdownItem>
-                <Link to={`${APP_ROOT}/autoprox/calc`}>AutoProx Calculator</Link>
+              <DropdownItem data-to={`autoprox/calc`} onClick={this.handleDropDownItemClick}>
+                AutoProx Calculator
               </DropdownItem>
-              <DropdownItem>
-                <Link to={`${APP_ROOT}/autoprox/rules`}>AutoProx Rules</Link>,
+              <DropdownItem data-to={`autoprox/rules`} onClick={this.handleDropDownItemClick}>
+                AutoProx Rules
               </DropdownItem>
-              <DropdownItem>
-                <Link to={`${APP_ROOT}/revisions/changelog/stores`}>Store Changelogs</Link>
+              <DropdownItem data-to={`revisions/changelog/stores`} onClick={this.handleDropDownItemClick}>
+                Store Changelogs
               </DropdownItem>
             </Dropdown>
           </ToolbarItem>
@@ -163,6 +171,7 @@ class NavHeader extends React.Component {
     return(
       <PageHeader
        logo={<Brand src={brandImg} alt="Indy Logo" />}
+       logoProps={{href:`${APP_ROOT}`}}
        toolbar={PageToolbar}
        topNav={PageNav} />
    );
