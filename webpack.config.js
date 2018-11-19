@@ -47,7 +47,15 @@ module.exports = {
             loader: "less-loader"
           }
         ]
-      }
+      },
+      {
+        test: /\.(pdf|jpg|png|gif|svg|ico)$/,
+        use: [
+          {
+            loader: 'url-loader'
+          },
+        ]
+      },
     ]
   }
 
