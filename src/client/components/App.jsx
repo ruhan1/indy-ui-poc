@@ -8,9 +8,7 @@ import {APP_ROOT} from './ComponentConstants.js';
 export const App = ()=>{
   return (
     <HashRouter basename={APP_ROOT}>
-      <div>
-        <Route path={[`${APP_ROOT}`, '/']} component={Root} />
-      </div>
+        <Route path={[`${APP_ROOT}`, '/']} component={Root} />      
     </HashRouter>
   );
 };

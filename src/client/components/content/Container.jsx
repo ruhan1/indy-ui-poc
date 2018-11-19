@@ -23,34 +23,31 @@ const isHome = false;
 const Container = () => (
   <div>
      {/*browseCompatible*/}
-    <div>
-       {
-         isHome?
-         "Welcome! Make a selection from the menu above to proceed.":
-         (
-           <Switch>
-            <Route exact path={`${APP_ROOT}/remote`} component={RemoteList} />
-            <Route exact path={`${APP_ROOT}/hosted`} component={HostedList} />
-            <Route exact path={`${APP_ROOT}/group`} component={GroupList} />
+    <React.Fragment>
+      <Switch>
+        <Route exact path={[`${APP_ROOT}`]} component={Home} />
+        <Route exact path={`${APP_ROOT}/remote`} component={RemoteList} />
+        <Route exact path={`${APP_ROOT}/hosted`} component={HostedList} />
+        <Route exact path={`${APP_ROOT}/group`} component={GroupList} />
 
-            <Route path={`${APP_ROOT}/remote/:packageType/view/:name`} component={RemoteView} />
-            <Route path={`${APP_ROOT}/hosted/:packageType/view/:name`} component={HostedView} />
-            <Route path={`${APP_ROOT}/group/:packageType/view/:name`} component={GroupView} />
-            {
-            <Route exact path={[`${APP_ROOT}/remote/new`,`${APP_ROOT}/remote/:packageType/edit/:name`]} component={RemoteEdit} />
-            // <Route exact path={[`${APP_ROOT}/hosted/new`,`${APP_ROOT}/hosted/:packageType/edit/:name`]} component={HostedEdit} />
-            // <Route exact path={[`${APP_ROOT}/group/new`,`${APP_ROOT}/group/:packageType/edit/:name`]} component={GroupEdit} />
+        <Route path={`${APP_ROOT}/remote/:packageType/view/:name`} component={RemoteView} />
+        <Route path={`${APP_ROOT}/hosted/:packageType/view/:name`} component={HostedView} />
+        <Route path={`${APP_ROOT}/group/:packageType/view/:name`} component={GroupView} />
+        {
+        <Route exact path={[`${APP_ROOT}/remote/new`,`${APP_ROOT}/remote/:packageType/edit/:name`]} component={RemoteEdit} />
+        // <Route exact path={[`${APP_ROOT}/hosted/new`,`${APP_ROOT}/hosted/:packageType/edit/:name`]} component={HostedEdit} />
+        // <Route exact path={[`${APP_ROOT}/group/new`,`${APP_ROOT}/group/:packageType/edit/:name`]} component={GroupEdit} />
 
-            // <Route exact path={[`${APP_ROOT}/nfc`, `${APP_ROOT}/nfc/view/all`, `${APP_ROOT}/nfc/view/:packageType/:type/:name`]} component={} />
-            //
-            // <Route exact path={`${APP_ROOT}/logout`} component={} />
-            }
-           </Switch>
-         )
-       }
-      </div>
+        // <Route exact path={[`${APP_ROOT}/nfc`, `${APP_ROOT}/nfc/view/all`, `${APP_ROOT}/nfc/view/:packageType/:type/:name`]} component={} />
+        //
+        // <Route exact path={`${APP_ROOT}/logout`} component={} />
+        }
+      </Switch>
+    </React.Fragment>
+
   </div>
 );
 
+const Home = () => <React.Fragment>Welcome! Make a selection from the menu above to proceed.</React.Fragment>;
 
 export default Container;

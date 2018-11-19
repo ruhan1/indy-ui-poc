@@ -7,11 +7,11 @@ import NavFooter from './nav/NavFooter.jsx';
 import Container from './content/Container.jsx';
 
 const Root = (props)=>(
-  <div>
+  <React.Fragment>
     <NavHeader />
     <Container />
     <NavFooter />
-  </div>
+  </React.Fragment>
 );
 
 export default Root;
