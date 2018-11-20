@@ -49,7 +49,7 @@ class NavHeader extends React.Component {
     this.state = {
       isDropdownOpen: false,
       isKebabDropdownOpen: false,
-      activeItem: 0,
+      activeItem: 'i-1',
       isNavOpen
     };
   }
@@ -97,25 +97,23 @@ class NavHeader extends React.Component {
   };
 
   render(){
-    const { isDropdownOpen, isKebabDropdownOpen, activeItem, isNavOpen } = this.state;
+    const { isDropdownOpen, isKebabDropdownOpen, isNavOpen, activeItem } = this.state;
     const PageNav = (
-     <Nav aria-label="Nav">
+     <Nav onSelect={this.onNavSelect} aria-label="Nav">
        <NavList variant={NavVariants.horizontal}>
-         <NavItem itemId={0} isActive={activeItem === 0}>
+         <NavItem itemId='i-1' isActive={activeItem === 'i-1'}>
            <Link to={`${APP_ROOT}/remote`}>Remote Repositories</Link>
          </NavItem>
-         <NavItem itemId={1} isActive={activeItem === 1}>
+         <NavItem itemId='i-2' isActive={activeItem === 'i-2'}>
            <Link to={`${APP_ROOT}/hosted`}>Hosted Repositories</Link>
          </NavItem>
-         <NavItem itemId={2} isActive={activeItem === 2}>
+         <NavItem itemId='i-3' isActive={activeItem === 'i-3'}>
            <Link to={`${APP_ROOT}/group`}>Group</Link>
-         </NavItem>
-         <NavItem to="rest-api.html" itemId={3} isActive={activeItem === 3}>
-           REST API
          </NavItem>
        </NavList>
      </Nav>
     );
+
 
     const PageToolbar = (
       <Toolbar>
@@ -126,7 +124,7 @@ class NavHeader extends React.Component {
               position="right"
               onSelect={this.onDropdownSelect}
               isOpen={isDropdownOpen}
-              toggle={<DropdownToggle onToggle={this.onDropdownToggle}>Kyle Baker</DropdownToggle>}>
+              toggle={<DropdownToggle onToggle={this.onDropdownToggle}>Tools</DropdownToggle>}>
               <DropdownItem href="/api/diag/bundle">
                 Diagnostic Bundle
               </DropdownItem>
@@ -149,23 +147,15 @@ class NavHeader extends React.Component {
               <DropdownItem data-to={`revisions/changelog/stores`} onClick={this.handleDropDownItemClick}>
                 Store Changelogs
               </DropdownItem>
+              <DropdownSeparator />
+              <DropdownItem href="rest-api.html" >
+                REST API
+              </DropdownItem>
             </Dropdown>
           </ToolbarItem>
         </ToolbarGroup>
       </Toolbar>
     );
-
-    // const bgImages = {
-    //   [BackgroundImageSrc.lg]: '/assets/images/pfbg_1200.jpg',
-    //   [BackgroundImageSrc.md]: '/assets/images/pfbg_992.jpg',
-    //   [BackgroundImageSrc.md2x]: '/assets/images/pfbg_992@2x.jpg',
-    //   [BackgroundImageSrc.sm]: '/assets/images/pfbg_768.jpg',
-    //   [BackgroundImageSrc.sm2x]: '/assets/images/pfbg_768@2x.jpg',
-    //   [BackgroundImageSrc.xl]: '/assets/images/pfbg_2000.jpg',
-    //   [BackgroundImageSrc.xs]: '/assets/images/pfbg_576.jpg',
-    //   [BackgroundImageSrc.xs2x]: '/assets/images/pfbg_576@2x.jpg',
-    //   [BackgroundImageSrc.filter]: '/assets/images/background-filter.svg#image_overlay'
-    // };
     return(
       <PageHeader
        logo={<Brand src={brandImg} alt="Indy Logo" />}
