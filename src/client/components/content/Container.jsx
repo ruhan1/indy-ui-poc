@@ -2,8 +2,6 @@
 
 import React from 'react';
 import {Route, Switch} from 'react-router-dom';
-import '../styles/indy.css';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import RemoteList from './RemoteList.jsx';
 import HostedList from './HostedList.jsx';
 import GroupList from './GroupList.jsx';

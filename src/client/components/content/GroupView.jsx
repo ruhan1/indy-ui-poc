@@ -6,8 +6,6 @@ import PropTypes from 'prop-types';
 import {StoreViewControlPanel as ControlPanel} from './StoreControlPanels.jsx';
 import {DisableTimeoutHint} from './Hints.jsx';
 import {ViewJsonDebugger} from './Debugger.jsx';
-import '../styles/indy.css';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import {APP_ROOT} from '../ComponentConstants.js';
 import {Utils} from '../CompUtils.js';
 import {Filters} from '../Filters.js';

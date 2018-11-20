@@ -5,8 +5,6 @@ import {Link} from 'react-router-dom';
 import PropTypes from 'prop-types';
 import {Utils} from '../CompUtils.js';
 import {jsonGet} from "../../RestClient.js";
-import '../styles/indy.css';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import {APP_ROOT} from '../ComponentConstants.js';
 import ListControl from "./ListControl.jsx";
 import {ListJsonDebugger} from './Debugger.jsx';

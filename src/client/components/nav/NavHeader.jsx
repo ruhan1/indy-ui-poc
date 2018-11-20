@@ -2,8 +2,6 @@
 
 import React from 'react';
 import {Link} from 'react-router-dom';
-import 'bootstrap';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import {APP_ROOT} from '../ComponentConstants.js'
 
 //mock user login
