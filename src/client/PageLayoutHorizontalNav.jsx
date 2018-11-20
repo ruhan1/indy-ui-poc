@@ -1,6 +1,5 @@
 import React from 'react';
 import {
-  Avatar,
   BackgroundImage,
   BackgroundImageSrc,
   Brand,
@@ -36,7 +35,6 @@ import { css } from '@patternfly/react-styles';
 import '@patternfly/react-core/dist/styles/base.css';
 import { BellIcon, CogIcon } from '@patternfly/react-icons';
 import brandImg from './l_pf-reverse-164x11.png';
-import avatarImg from './img_avatar.png';
 
 class PageLayoutHorizontalNav extends React.Component {
   constructor(props) {
@@ -180,7 +178,6 @@ class PageLayoutHorizontalNav extends React.Component {
       <PageHeader
         logo={<Brand src={brandImg} alt="Patternfly Logo" />}
         toolbar={PageToolbar}
-        avatar={<Avatar src={avatarImg} alt="Avatar image" />}
         topNav={PageNav}
       />
     );

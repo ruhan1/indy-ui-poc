@@ -47,34 +47,34 @@ class NavHeader extends React.Component {
     // Set initial isNavOpen state based on window width
     const isNavOpen = typeof window !== 'undefined' && window.innerWidth >= parseInt(breakpointMd.value, 10);
     this.state = {
-      isDropdownOpen: false,
-      isKebabDropdownOpen: false,
+      isToolsDropdownOpen: false,
+      isUserDropdownOpen: false,
       activeItem: 'i-1',
       isNavOpen
     };
   }
 
-  onDropdownToggle = isDropdownOpen => {
+  onToolsDropdownToggle = isToolsDropdownOpen => {
     this.setState({
-      isDropdownOpen
+      isToolsDropdownOpen
     });
   };
 
-  onDropdownSelect = event => {
+  onToolsDropdownSelect = event => {
     this.setState({
-      isDropdownOpen: !this.state.isDropdownOpen
+      isToolsDropdownOpen: !this.state.isToolsDropdownOpen
     });
   };
 
-  onKebabDropdownToggle = isKebabDropdownOpen => {
+  onUserDropdownToggle = isUserDropdownOpen => {
     this.setState({
-      isKebabDropdownOpen
+      isUserDropdownOpen
     });
   };
 
-  onKebabDropdownSelect = event => {
+  onUserDropdownSelect = event => {
     this.setState({
-      isKebabDropdownOpen: !this.state.isKebabDropdownOpen
+      isUserDropdownOpen: !this.state.isUserDropdownOpen
     });
   };
 
@@ -97,7 +97,7 @@ class NavHeader extends React.Component {
   };
 
   render(){
-    const { isDropdownOpen, isKebabDropdownOpen, isNavOpen, activeItem } = this.state;
+    const { isToolsDropdownOpen, isUserDropdownOpen, isNavOpen, activeItem } = this.state;
     const PageNav = (
      <Nav onSelect={this.onNavSelect} aria-label="Nav">
        <NavList variant={NavVariants.horizontal}>
@@ -114,17 +114,16 @@ class NavHeader extends React.Component {
      </Nav>
     );
 
-
-    const PageToolbar = (
+    const PageToolBar = (
       <Toolbar>
         <ToolbarGroup>
           <ToolbarItem>
             <Dropdown
               isPlain
               position="right"
-              onSelect={this.onDropdownSelect}
-              isOpen={isDropdownOpen}
-              toggle={<DropdownToggle onToggle={this.onDropdownToggle}>Tools</DropdownToggle>}>
+              onSelect={this.onToolsDropdownSelect}
+              isOpen={isToolsDropdownOpen}
+              toggle={<DropdownToggle onToggle={this.onToolsDropdownToggle}>Tools</DropdownToggle>}>
               <DropdownItem href="/api/diag/bundle">
                 Diagnostic Bundle
               </DropdownItem>
@@ -153,6 +152,18 @@ class NavHeader extends React.Component {
               </DropdownItem>
             </Dropdown>
           </ToolbarItem>
+          <ToolbarItem>
+            <Dropdown
+              isPlain
+              position="right"
+              onSelect={this.onUserDropdownSelect}
+              isOpen={isUserDropdownOpen}
+              toggle={<DropdownToggle onToggle={this.onUserDropdownToggle}>User</DropdownToggle>}>
+              <DropdownItem href="/logout">
+                Log out
+              </DropdownItem>
+            </Dropdown>
+          </ToolbarItem>
         </ToolbarGroup>
       </Toolbar>
     );
@@ -160,7 +171,7 @@ class NavHeader extends React.Component {
       <PageHeader
        logo={<Brand src={brandImg} alt="Indy Logo" />}
        logoProps={{href:`${APP_ROOT}`}}
-       toolbar={PageToolbar}
+       toolbar={PageToolBar}
        topNav={PageNav} />
    );
   }
