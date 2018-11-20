@@ -3,6 +3,14 @@
 import React from 'react';
 import {render} from 'react-dom';
 import {Link} from 'react-router-dom';
+import {
+  Grid,
+  GridItem,
+  PageSection,
+  PageSectionVariants,
+  TextContent,
+  Text
+} from '@patternfly/react-core/'
 import {ListJsonDebugger} from './Debugger.jsx';
 import ListControl from "./ListControl.jsx";
 import {remoteOptionLegend as options, APP_ROOT} from "../ComponentConstants.js";
@@ -80,62 +88,77 @@ export default class RemoteList extends React.Component {
       {value: 'url', text: 'Remote URL'}
     ]
     return (
-      <div className="container-fluid">
-        <ListControl
-          useSearch={true} handleSearch={this.handleSearch}
-          useOrderBy={true} orderBys={orderBys}
-          useLegend={true} legends={options}
-          useDebug={true} handleDebug={this.handleDebug}
-          handleCreateNew={this.createNew} />
-        <div className="content-panel">
-          <div className="store-listing">
-            {
-              listing.map(function(store){
-                let storeClass = Utils.isDisabled(store.key, disMap)? "disabled-store":"enabled-store";
-                return (
-                  <div key={store.key} className="store-listing-item">
-                    <div className="fieldset-caption">
-                      <Link to={`${APP_ROOT}/remote/${store.packageType}/view/${store.name}`}>
-                        <span className={storeClass}>{store.packageType}-{store.name}</span>
-                      </Link>
-                    </div>
-                    <div className="fieldset">
-                      <div>
-                        <div className="left-half">
-                          <label>Local URL:</label>
-                          <a href={Utils.storeHref(store.key)} target="_new">{Utils.storeHref(store.key)}</a>
-                        </div>
-                        <div className="right-half">
-                          <label>Remote URL:</label>
-                          <a href={store.url} target="_new">{store.url}</a>
-                        </div>
+      <React.Fragment>
+        <PageSection variant={PageSectionVariants.light}>
+          <TextContent>
+            <Text component="h1">Remote Repositories List</Text>
+          </TextContent>
+        </PageSection>
+        <PageSection>
+          <Grid gutter="md">
+          </Grid>
+        </PageSection>
+        {
+        /*
+        <div className="container-fluid">
+          <ListControl
+            useSearch={true} handleSearch={this.handleSearch}
+            useOrderBy={true} orderBys={orderBys}
+            useLegend={true} legends={options}
+            useDebug={true} handleDebug={this.handleDebug}
+            handleCreateNew={this.createNew} />
+          <div className="content-panel">
+            <div className="store-listing">
+              {
+                listing.map(function(store){
+                  let storeClass = Utils.isDisabled(store.key, disMap)? "disabled-store":"enabled-store";
+                  return (
+                    <div key={store.key} className="store-listing-item">
+                      <div className="fieldset-caption">
+                        <Link to={`${APP_ROOT}/remote/${store.packageType}/view/${store.name}`}>
+                          <span className={storeClass}>{store.packageType}-{store.name}</span>
+                        </Link>
                       </div>
-                      <div>
-                        <div className="left-half">
-                          <label>Capabilities:</label>
-                          {
-                            Utils.remoteOptions(store).map(
-                              option =>
-                              (
-                                <div key={option.title} className="options">
-                                  <span className="key">{option.icon} </span>
-                                </div>
+                      <div className="fieldset">
+                        <div>
+                          <div className="left-half">
+                            <label>Local URL:</label>
+                            <a href={Utils.storeHref(store.key)} target="_new">{Utils.storeHref(store.key)}</a>
+                          </div>
+                          <div className="right-half">
+                            <label>Remote URL:</label>
+                            <a href={store.url} target="_new">{store.url}</a>
+                          </div>
+                        </div>
+                        <div>
+                          <div className="left-half">
+                            <label>Capabilities:</label>
+                            {
+                              Utils.remoteOptions(store).map(
+                                option =>
+                                (
+                                  <div key={option.title} className="options">
+                                    <span className="key">{option.icon} </span>
+                                  </div>
+                                )
                               )
-                            )
-                          }
+                            }
+                          </div>
                         </div>
+                        <div className="description field"><span>{store.description}</span></div>
                       </div>
-                      <div className="description field"><span>{store.description}</span></div>
                     </div>
-                  </div>
-                );
-              })
-            }
+                  );
+                })
+              }
+            </div>
           </div>
-        </div>
 
-        <ListJsonDebugger enableDebug={this.state.enableDebug} jsonObj={this.state.listing} />
-      </div>
+          <ListJsonDebugger enableDebug={this.state.enableDebug} jsonObj={this.state.listing} />
+        </div>
+        */
+        }
+      </React.Fragment>
     );
   }
 }

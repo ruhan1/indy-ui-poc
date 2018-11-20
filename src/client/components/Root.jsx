@@ -11,6 +11,7 @@ import {
 } from '@patternfly/react-core';
 
 import NavHeader from './nav/NavHeader.jsx';
+import RemoteList from './content/RemoteList.jsx';
 // import NavFooter from './nav/NavFooter.jsx';
 // import Container from './content/Container.jsx';
 import '@patternfly/react-core/dist/styles/base.css';
@@ -35,6 +36,7 @@ const Root = ()=>(
   <React.Fragment>
     <BackgroundImage src={bgImages} />
     <Page header={header}>
+      <RemoteList />
     </Page>
   </React.Fragment>
 );
