@@ -15,7 +15,7 @@ import RemoteList from './content/RemoteList.jsx';
 // import NavFooter from './nav/NavFooter.jsx';
 // import Container from './content/Container.jsx';
 import '@patternfly/react-core/dist/styles/base.css';
-// import './styles/indy.css';
+import './styles/new-indy.css';
 // import 'bootstrap/dist/css/bootstrap.min.css';
 
 const header = <NavHeader />;
