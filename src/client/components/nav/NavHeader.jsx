@@ -31,8 +31,6 @@ import { global_breakpoint_md as breakpointMd } from '@patternfly/react-tokens';
 // import spacingStyles from '@patternfly/patternfly-next/utilities/Spacing/spacing.css';
 import { css } from '@patternfly/react-styles';
 import { BellIcon, CogIcon } from '@patternfly/react-icons';
-// import 'bootstrap';
-// import 'bootstrap/dist/css/bootstrap.min.css';
 import {APP_ROOT} from '../ComponentConstants.js'
 import brandImg from '../images/indy.png';
 
@@ -94,7 +92,7 @@ class NavHeader extends React.Component {
 
   handleDropDownItemClick = e => {
     e.preventDefault();
-    let path = e.target.dataset.to;    
+    let path = e.target.dataset.to;
     this.context.router.history.push(path);
   };
 

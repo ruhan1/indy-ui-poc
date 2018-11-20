@@ -7,10 +7,13 @@ import {
   PageSection,
   PageSectionVariants
 } from '@patternfly/react-core';
-import '@patternfly/react-core/dist/styles/base.css';
+
 import NavHeader from './nav/NavHeader.jsx';
 // import NavFooter from './nav/NavFooter.jsx';
 // import Container from './content/Container.jsx';
+import '@patternfly/react-core/dist/styles/base.css';
+import './styles/indy.css';
+// import 'bootstrap/dist/css/bootstrap.min.css';
 
 const header = <NavHeader />;
 

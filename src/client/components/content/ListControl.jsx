@@ -2,9 +2,6 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import '../styles/indy.css';
-import 'bootstrap/dist/css/bootstrap.min.css';
-
 
 class ListControl extends React.Component {
   constructor(props){

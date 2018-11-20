@@ -4,8 +4,6 @@ import PropTypes from 'prop-types';
 import {StoreEditControlPanel as EditControlPanel} from './StoreControlPanels.jsx';
 import {DisableTimeoutHint, DurationHint, PrefetchHint, Hint, PasswordMask} from './Hints.jsx';
 import {ViewJsonDebugger} from './Debugger.jsx';
-import '../styles/indy.css';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import {Utils} from '../CompUtils.js';
 import {Filters} from '../Filters.js';
 import {TimeUtils} from '../../TimeUtils.js';

@@ -2,8 +2,6 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import '../styles/indy.css';
-import 'bootstrap/dist/css/bootstrap.min.css';
 
 const Hint = ({hintKey}) => {
   var hint = 'unknown hint: ' + hintKey;

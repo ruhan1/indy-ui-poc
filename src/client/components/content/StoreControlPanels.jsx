@@ -2,8 +2,6 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import '../styles/indy.css';
-import 'bootstrap/dist/css/bootstrap.min.css';
 
 const StoreEditControlPanel = ({handleSave, handleCancel, handleRemove}) =>(
   <div className="cp-row">

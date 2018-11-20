@@ -2,8 +2,6 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import '../styles/indy.css';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import JSONPretty from 'react-json-pretty';
 
 const ListJsonDebugger = ({enableDebug, jsonObj}) =>
