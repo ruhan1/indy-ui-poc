@@ -70,14 +70,14 @@ export default class RemoteList extends React.Component {
   createNew(){
     //mock
   }
-  handleDebug(event){
+  handleDebug(checked){
     this.setState({
-      enableDebug: event.target.checked
+      enableDebug: checked
     })
   }
-  handleSearch(event){
+  handleSearch(value){
     this.setState({
-      listing: Utils.searchByKeyForNewStores(event.target.value, this.state.rawListing)
+      listing: Utils.searchByKeyForNewStores(value, this.state.rawListing)
     });
   }
   render(){
@@ -88,12 +88,12 @@ export default class RemoteList extends React.Component {
     ]
     return (
       <React.Fragment>
-        <PageSection variant={PageSectionVariants.light}>
+        <PageSection>
           <TextContent>
             <Text component="h1">Remote Repositories List</Text>
           </TextContent>
         </PageSection>
-        <PageSection>
+        <PageSection variant={PageSectionVariants.light}>
           <Grid gutter="md">
             <GridItem className="right-control">
               <ListControl
@@ -147,7 +147,7 @@ export default class RemoteList extends React.Component {
             }
             {
               enableDebug &&
-              <GridItem span={12}>
+              <GridItem span={8}>
                 <ListJsonDebugger enableDebug={enableDebug} jsonObj={listing} />
               </GridItem>
             }

@@ -3,6 +3,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
+  TextInput,
+  Checkbox,
+  Select,
+  SelectOption,
   Button,
   ButtonVariant
 } from '@patternfly/react-core';
@@ -11,19 +15,44 @@ class ListControl extends React.Component {
   constructor(props){
     super(props);
     this.state = {
-      enableDebug: false
+      enableDebug: false,
+      searchValue: '',
+      orderByValue:'',
+      debugChecked:false
     }
   }
 
+  handleSearchChange = value => {
+    this.setState({
+      searchValue: value
+    })
+    this.props.handleSearch(value);
+  };
+
+  handleOrderByChange = value =>{
+    this.setState({
+      orderByValue: value
+    })
+  };
+
+  handleDebugChange = checked => {
+    this.setState({
+      debugChecked: checked
+    })
+    this.props.handleDebug(checked);
+  };
+
+
   render(){
+    const {enableDebug, searchValue, orderByValue, debugChecked} = this.state;
     return (
       <div className="control-panel">
         <div className="cp-row">
-          <Button variant={ButtonVariant.primary} onClick={this.props.handleCreateNew}>New...</Button>{' '}
+          <Button variant={ButtonVariant.secondary} onClick={this.props.handleCreateNew}>New...</Button>{' '}
           {
             this.props.useHideAll &&
             (
-              <Button variant={ButtonVariant.tertiary} onClick={this.props.handleHideAll}>Hide All</Button>
+              <Button variant={ButtonVariant.secondary} onClick={this.props.handleHideAll}>Hide All</Button>
             )
           }
         </div>
@@ -31,7 +60,13 @@ class ListControl extends React.Component {
           this.props.useSearch &&
           (
             <div className="cp-row">
-              Search:{' '}<input name="query" onChange={this.props.handleSearch}/>
+              Search:{' '}
+              <TextInput
+              type="text"
+              id="search-query"
+              name="query"
+              value={searchValue}
+              onChange={this.handleSearchChange} />
             </div>
           )
         }
@@ -40,11 +75,11 @@ class ListControl extends React.Component {
           (
             <div className="cp-row">
               Sort by:{' '}
-              <select name="orderProp">
+              <Select value={this.state.orderByValue} onChange={this.handleOrderByChange} id="sortBy">
                 {
-                  this.props.orderBys.map(orderBy=><option key={`legend-${orderBy.value}`} value={orderBy.value}>{orderBy.text}</option>)
+                  this.props.orderBys.map(orderBy=><SelectOption key={`legend-${orderBy.value}`} value={orderBy.value} label={orderBy.text} />)
                 }
-              </select>
+              </Select>
             </div>
           )
         }
@@ -77,7 +112,12 @@ class ListControl extends React.Component {
           this.props.useDebug &&
           (
             <div className="cp-row cp-debug">
-              <input type="checkbox" name="enableDebug" checked={this.state.enableDebug} onChange={this.props.handleDebug} /> Debug Data
+              <Checkbox
+                label="Debug Data"
+                isChecked={debugChecked}
+                onChange={this.handleDebugChange}
+                aria-label="Debug Data"
+                id="debug-data"/>              
             </div>
           )
         }

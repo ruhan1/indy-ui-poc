@@ -2,7 +2,7 @@
 
 import React from 'react';
 import {Route, Switch} from 'react-router-dom';
-import {  
+import {
   PageSection,
   PageSectionVariants,
   TextContent,
@@ -54,7 +54,7 @@ const Container = () => (
 
 const Home = () => (
   <React.Fragment>
-    <PageSection variant={PageSectionVariants.light}>
+    <PageSection>
       <TextContent>
         <Text component="h1">Welcome! Make a selection from the menu above to proceed.</Text>
       </TextContent>
