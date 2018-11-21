@@ -10,7 +10,7 @@ import {
   PageSectionVariants,
   TextContent,
   Text
-} from '@patternfly/react-core/'
+} from '@patternfly/react-core';
 import {ListJsonDebugger} from './Debugger.jsx';
 import ListControl from "./ListControl.jsx";
 import {remoteOptionLegend as options, APP_ROOT} from "../ComponentConstants.js";
@@ -95,11 +95,19 @@ export default class RemoteList extends React.Component {
         </PageSection>
         <PageSection>
           <Grid gutter="md">
+            <GridItem className="right-control">
+              <ListControl
+                useSearch={true} handleSearch={this.handleSearch}
+                useOrderBy={true} orderBys={orderBys}
+                useLegend={true} legends={options}
+                useDebug={true} handleDebug={this.handleDebug}
+                handleCreateNew={this.createNew} />
+            </GridItem>
             {
               listing.map( store => {
                 let storeClass = Utils.isDisabled(store.key, disabledMap)? "disabled-store":"enabled-store";
                 return (
-                  <GridItem key={store.key} span={10}>
+                  <GridItem key={store.key} span={8}>
                     <div className="fieldset-caption">
                       <Link to={`${APP_ROOT}/remote/${store.packageType}/view/${store.name}`}>
                         <span className={storeClass}>{store.packageType}-{store.name}</span>

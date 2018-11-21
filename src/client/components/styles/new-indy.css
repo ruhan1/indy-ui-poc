@@ -69,3 +69,43 @@
   margin: -1px;
   /*cursor: help;*/
 }
+
+.right-control{
+  position: fixed;
+  right: 20px;
+  top: 180px;
+  width: 400px;
+  height: 150px;
+}
+
+.control-panel{
+  border-left: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+  float: right;
+  min-width: 15%;
+  margin: 0px;
+  padding-right: 1%;
+  margin-top: 0.5%;
+  padding-left: 1%;
+  display: inline-block;
+}
+
+.cp-row{
+  margin-bottom: 10px;
+}
+
+.legend{
+	border: 1px solid #333;
+	padding: 1px;
+}
+
+label, .fieldset-caption, .label, .detail-label{
+	color: #333;
+  font-weight: bold;
+  text-align: left;
+}
+
+label, .label{
+  padding-right: 5px;
+  min-width: 12%;
+}

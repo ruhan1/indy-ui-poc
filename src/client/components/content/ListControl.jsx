@@ -2,6 +2,10 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import {
+  Button,
+  ButtonVariant
+} from '@patternfly/react-core';
 
 class ListControl extends React.Component {
   constructor(props){
@@ -15,11 +19,11 @@ class ListControl extends React.Component {
     return (
       <div className="control-panel">
         <div className="cp-row">
-          <button onClick={this.props.handleCreateNew}>New...</button>{' '}
+          <Button variant={ButtonVariant.primary} onClick={this.props.handleCreateNew}>New...</Button>{' '}
           {
             this.props.useHideAll &&
             (
-              <button onClick={this.props.handleHideAll}>Hide All</button>
+              <Button variant={ButtonVariant.tertiary} onClick={this.props.handleHideAll}>Hide All</Button>
             )
           }
         </div>

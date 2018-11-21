@@ -61,7 +61,7 @@ export default class NavHeader extends React.Component {
       isToolsDropdownOpen: false,
       isUserDropdownOpen: false,
       activeItem: '',
-      isNavOpen
+      isNavOpen: false
     };
   }
 
@@ -202,4 +202,11 @@ export default class NavHeader extends React.Component {
        topNav={PageNav} />
    );
   }
+}
+
+NavHeader.propTypes={
+  isToolsDropdownOpen: PropTypes.bool,
+  isUserDropdownOpen: PropTypes.bool,
+  activeItem: PropTypes.string,
+  isNavOpen: PropTypes.bool
 }
