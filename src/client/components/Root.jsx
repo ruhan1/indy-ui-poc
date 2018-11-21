@@ -13,9 +13,10 @@ import {
 import NavHeader from './nav/NavHeader.jsx';
 import RemoteList from './content/RemoteList.jsx';
 // import NavFooter from './nav/NavFooter.jsx';
-// import Container from './content/Container.jsx';
-import '@patternfly/react-core/dist/styles/base.css';
+import Container from './content/Container.jsx';
 import './styles/new-indy.css';
+import '@patternfly/react-core/dist/styles/base.css';
+
 // import 'bootstrap/dist/css/bootstrap.min.css';
 
 const header = <NavHeader />;
@@ -36,7 +37,7 @@ const Root = ()=>(
   <React.Fragment>
     <BackgroundImage src={bgImages} />
     <Page header={header}>
-      <RemoteList />
+      <Container />
     </Page>
   </React.Fragment>
 );

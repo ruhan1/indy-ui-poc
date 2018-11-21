@@ -5,18 +5,11 @@ import {Link} from 'react-router-dom';
 import PropTypes from 'prop-types';
 import {
   Avatar,
-  BackgroundImage,
-  BackgroundImageSrc,
   Brand,
-  Button,
-  ButtonVariant,
   Dropdown,
   DropdownToggle,
   DropdownItem,
   DropdownSeparator,
-  Gallery,
-  GalleryItem,
-  KebabToggle,
   Nav,
   NavItem,
   NavList,
@@ -31,14 +24,32 @@ import { global_breakpoint_md as breakpointMd } from '@patternfly/react-tokens';
 // import spacingStyles from '@patternfly/patternfly-next/utilities/Spacing/spacing.css';
 import { css } from '@patternfly/react-styles';
 import { BellIcon, CogIcon } from '@patternfly/react-icons';
-import {APP_ROOT} from '../ComponentConstants.js'
+import { APP_ROOT } from '../ComponentConstants.js'
 import brandImg from '../images/indy.png';
 
 //mock user login
 const isUserloggedIn = true;
 const username = "mock";
 
-class NavHeader extends React.Component {
+const navItems = {
+  remote: {
+    path: `${APP_ROOT}/remote`,
+    activeItem: 'i-1',
+    showText: 'Remote Repositories'
+  },
+  hosted: {
+    path: `${APP_ROOT}/hosted`,
+    activeItem: 'i-2',
+    showText: 'Hosted Repositories'
+  },
+  group: {
+    path: `${APP_ROOT}/group`,
+    activeItem: 'i-3',
+    showText: 'Group'
+  }
+}
+
+export default class NavHeader extends React.Component {
   static contextTypes = {
     router: ()=>null
   };
@@ -49,9 +60,25 @@ class NavHeader extends React.Component {
     this.state = {
       isToolsDropdownOpen: false,
       isUserDropdownOpen: false,
-      activeItem: 'i-1',
+      activeItem: '',
       isNavOpen
     };
+  }
+
+  componentDidMount(){
+    let pathname = this.context.router.route.location.pathname;
+    let found = false;
+    for(let key in navItems){
+      let item = navItems[key];
+      if(pathname===item.path){
+        this.setState({activeItem: item.activeItem});
+        found = true;
+        break;
+      }
+    }
+    if(!found){
+      this.setState({activeItem: ''})
+    }
   }
 
   onToolsDropdownToggle = isToolsDropdownOpen => {
@@ -101,15 +128,15 @@ class NavHeader extends React.Component {
     const PageNav = (
      <Nav onSelect={this.onNavSelect} aria-label="Nav">
        <NavList variant={NavVariants.horizontal}>
-         <NavItem itemId='i-1' isActive={activeItem === 'i-1'}>
-           <Link to={`${APP_ROOT}/remote`}>Remote Repositories</Link>
-         </NavItem>
-         <NavItem itemId='i-2' isActive={activeItem === 'i-2'}>
-           <Link to={`${APP_ROOT}/hosted`}>Hosted Repositories</Link>
-         </NavItem>
-         <NavItem itemId='i-3' isActive={activeItem === 'i-3'}>
-           <Link to={`${APP_ROOT}/group`}>Group</Link>
-         </NavItem>
+         {
+           Object.entries(navItems).map(entry=>{
+             let item=entry[1];
+             return (
+               <NavItem key={item.activeItem} itemId={item.activeItem} isActive={activeItem === item.activeItem}>
+                 <Link to={item.path}>{item.showText}</Link>
+               </NavItem>);
+           })
+         }
        </NavList>
      </Nav>
     );
@@ -175,6 +202,4 @@ class NavHeader extends React.Component {
        topNav={PageNav} />
    );
   }
-};
-
-export default NavHeader;
+}
