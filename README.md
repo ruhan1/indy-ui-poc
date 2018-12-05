@@ -2,7 +2,7 @@
 
 
 ### Set up project    
-  * Need to install node & npm: `sudo install node -y`   
+  * Need to install node & npm: `sudo dnf install node -y`   
   * After node installation, install yarn: `sudo npm install yarn --global`   
   * Make sure yarn installed: `yarn --version `   
 
