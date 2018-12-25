@@ -1,29 +1,22 @@
-'use strict'
+
 
 import React from 'react';
 import PropTypes from 'prop-types';
 import JSONPretty from 'react-json-pretty';
 
-const ListJsonDebugger = ({enableDebug, jsonObj}) =>
-{
-  return enableDebug && jsonObj &&
-  (
+const ListJsonDebugger = ({enableDebug, jsonObj}) => enableDebug && jsonObj &&
+
     <div className="debug">
       JSON:
       <JSONPretty id="json-pretty" json={jsonObj}></JSONPretty>
-    </div>
-  );
-};
-
+    </div>;
 ListJsonDebugger.propTypes = {
   enableDebug: PropTypes.bool,
   jsonObj: PropTypes.oneOfType([PropTypes.object, PropTypes.array])
 };
 
-const ViewJsonDebugger = ({enableDebug, storeJson, rawJson}) =>
-{
-  return enableDebug &&
-  (
+const ViewJsonDebugger = ({enableDebug, storeJson, rawJson}) => enableDebug &&
+
     <div className="debug">
     {
       storeJson &&
@@ -39,14 +32,11 @@ const ViewJsonDebugger = ({enableDebug, storeJson, rawJson}) =>
         <JSONPretty id="raw-json-pretty" json={rawJson}></JSONPretty>
       </div>
     }
-    </div>
-  );
-};
-
+    </div>;
 ViewJsonDebugger.propTypes = {
   enableDebug: PropTypes.bool,
   storeJson: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
   rawJson: PropTypes.oneOfType([PropTypes.object, PropTypes.array])
-}
+};
 
 export {ListJsonDebugger, ViewJsonDebugger};

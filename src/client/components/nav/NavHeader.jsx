@@ -1,10 +1,7 @@
-'use strict'
-
 import React from 'react';
 import {Link} from 'react-router-dom';
 import PropTypes from 'prop-types';
 import {
-  Avatar,
   Brand,
   Dropdown,
   DropdownToggle,
@@ -19,17 +16,16 @@ import {
   ToolbarGroup,
   ToolbarItem
 } from '@patternfly/react-core';
-import { global_breakpoint_md as breakpointMd } from '@patternfly/react-tokens';
+import {global_breakpoint_md as breakpointMd} from '@patternfly/react-tokens';
 // import accessibleStyles from '@patternfly/patternfly-next/utilities/Accessibility/accessibility.css';
 // import spacingStyles from '@patternfly/patternfly-next/utilities/Spacing/spacing.css';
-import { css } from '@patternfly/react-styles';
-import { BellIcon, CogIcon } from '@patternfly/react-icons';
-import { APP_ROOT } from '../ComponentConstants.js'
+// import {css} from '@patternfly/react-styles';
+import {APP_ROOT} from '../ComponentConstants.js';
 import brandImg from '../images/indy.png';
 
-//mock user login
-const isUserloggedIn = true;
-const username = "mock";
+// mock user login
+// const isUserloggedIn = true;
+// const username = "mock";
 
 const navItems = {
   remote: {
@@ -47,12 +43,13 @@ const navItems = {
     activeItem: 'i-3',
     showText: 'Group'
   }
-}
+};
 
 export default class NavHeader extends React.Component {
   static contextTypes = {
     router: ()=>null
   };
+
   constructor(props) {
     super(props);
     // Set initial isNavOpen state based on window width
@@ -61,7 +58,7 @@ export default class NavHeader extends React.Component {
       isToolsDropdownOpen: false,
       isUserDropdownOpen: false,
       activeItem: '',
-      isNavOpen: false
+      isNavOpen
     };
   }
 
@@ -69,15 +66,17 @@ export default class NavHeader extends React.Component {
     let pathname = this.context.router.route.location.pathname;
     let found = false;
     for(let key in navItems){
-      let item = navItems[key];
-      if(pathname===item.path){
-        this.setState({activeItem: item.activeItem});
-        found = true;
-        break;
+      if(navItems[key]){
+        let item = navItems[key];
+        if(pathname===item.path){
+          this.setState({activeItem: item.activeItem});
+          found = true;
+          break;
+        }
       }
     }
     if(!found){
-      this.setState({activeItem: ''})
+      this.setState({activeItem: ''});
     }
   }
 
@@ -87,7 +86,7 @@ export default class NavHeader extends React.Component {
     });
   };
 
-  onToolsDropdownSelect = event => {
+  onToolsDropdownSelect = () => {
     this.setState({
       isToolsDropdownOpen: !this.state.isToolsDropdownOpen
     });
@@ -99,7 +98,7 @@ export default class NavHeader extends React.Component {
     });
   };
 
-  onUserDropdownSelect = event => {
+  onUserDropdownSelect = () => {
     this.setState({
       isUserDropdownOpen: !this.state.isUserDropdownOpen
     });
@@ -124,8 +123,8 @@ export default class NavHeader extends React.Component {
   };
 
   render(){
-    const { isToolsDropdownOpen, isUserDropdownOpen, isNavOpen, activeItem } = this.state;
-    const PageNav = (
+    const {isToolsDropdownOpen, isUserDropdownOpen, activeItem} = this.state;
+    const PageNav =
      <Nav onSelect={this.onNavSelect} aria-label="Nav">
        <NavList variant={NavVariants.horizontal}>
          {
@@ -138,10 +137,8 @@ export default class NavHeader extends React.Component {
            })
          }
        </NavList>
-     </Nav>
-    );
-
-    const PageToolBar = (
+     </Nav>;
+const PageToolBar =
       <Toolbar>
         <ToolbarGroup>
           <ToolbarItem>
@@ -192,12 +189,11 @@ export default class NavHeader extends React.Component {
             </Dropdown>
           </ToolbarItem>
         </ToolbarGroup>
-      </Toolbar>
-    );
-    return(
+      </Toolbar>;
+return(
       <PageHeader
        logo={<Brand src={brandImg} alt="Indy Logo" />}
-       logoProps={{href:`${APP_ROOT}`}}
+       logoProps={{href: `${APP_ROOT}`}}
        toolbar={PageToolBar}
        topNav={PageNav} />
    );
@@ -209,4 +205,4 @@ NavHeader.propTypes={
   isUserDropdownOpen: PropTypes.bool,
   activeItem: PropTypes.string,
   isNavOpen: PropTypes.bool
-}
+};

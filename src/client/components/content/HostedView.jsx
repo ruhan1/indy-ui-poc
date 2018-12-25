@@ -1,9 +1,8 @@
-'use strict'
 import React from 'react';
 import PropTypes from 'prop-types';
 import {StoreViewControlPanel as ControlPanel} from './StoreControlPanels.jsx';
 import {DisableTimeoutHint} from './Hints.jsx';
-import {ViewJsonDebugger} from './Debugger.jsx';
+// import {ViewJsonDebugger} from './Debugger.jsx';
 import {Utils} from '../CompUtils.js';
 import {Filters} from '../Filters.js';
 import {TimeUtils} from '../../TimeUtils.js';
@@ -17,34 +16,33 @@ export default class HostedView extends React.Component {
       raw: {},
       message: ''
     };
-
-    this.getStore = this.getStore.bind(this);
-    this.handleDisable = this.handleDisable.bind(this);
-    this.handleEnable = this.handleEnable.bind(this);
-    this.handleEdit = this.handleEdit.bind(this);
-    this.handleCreate = this.handleCreate.bind(this);
-    this.handleRemove = this.handleRemove.bind(this);
   }
 
   componentDidMount() {
     this.getStore();
   }
-  handleDisable(event){
 
+  handleDisable = () => {
+    // Mock
   }
-  handleEnable(event){
 
+  handleEnable = () => {
+    // Mock
   }
-  handleEdit(event){
 
+  handleEdit = () => {
+    // Mock
   }
-  handleCreate(event){
 
+  handleCreate = () => {
+    // Mock
   }
-  handleRemove(event){
 
+  handleRemove = () => {
+    // Mock
   }
-  getStore(){
+
+  getStore = () => {
     let match = this.props.match;
     let getUrl = `/api/admin/stores/${match.params.packageType}/hosted/${match.params.name}`;
     jsonGet({
@@ -54,7 +52,7 @@ export default class HostedView extends React.Component {
         let store = Utils.cloneObj(raw);
         store.disabled = raw.disabled === undefined ? false : raw.disabled;
         this.setState({
-          raw: raw
+          raw
         });
         this.getStoreDisableTimeout(store);
       },
@@ -65,7 +63,8 @@ export default class HostedView extends React.Component {
       }
     });
   }
-  getStoreDisableTimeout(store){
+
+  getStoreDisableTimeout = store => {
     jsonGet({
       url: `/api/admin/schedule/store/${store.packageType}/${store.type}/${store.name}/disable-timeout`,
       done: response => {
@@ -73,12 +72,12 @@ export default class HostedView extends React.Component {
         newStore.disableExpiration = response.expiration;
         this.setState({
           store: newStore
-        })
+        });
       },
-      fail: (errorText, status, error) => {
+      fail: () => {
         console.log("disable timeout getting failed");
         this.setState({
-          store: store
+          store
         });
       }
     });
@@ -86,8 +85,7 @@ export default class HostedView extends React.Component {
 
   render() {
     let store = this.state.store;
-    if(!Utils.isEmptyObj(store))
-    {
+    if(!Utils.isEmptyObj(store)) {
       return (
         <div className="container-fluid">
           <div className="control-panel">
@@ -114,10 +112,10 @@ export default class HostedView extends React.Component {
             <div className="detail-table">
               {
                 (store.allow_releases || store.allow_snapshots) &&
-                (
+
                   <div>
                     <div className="detail-field">
-                      <span>{Filters.checkmark((store.allow_releases || store.allow_snapshots))}</span>
+                      <span>{Filters.checkmark(store.allow_releases || store.allow_snapshots)}</span>
                       <label>Allow Uploads</label>
                     </div>
                     <div className="detail-field">
@@ -138,13 +136,15 @@ export default class HostedView extends React.Component {
                       </div>
                     }
                   </div>
-                )
+
               }
             </div>
           </div>
-          {/* <ViewJsonDebugger enableDebug={false} storeJson={store} rawJson={raw} /> */}
+          {
+            // <ViewJsonDebugger enableDebug={false} storeJson={store} rawJson={raw} />
+          }
         </div>
-      )
+      );
     }
     return null;
   }
@@ -154,9 +154,7 @@ HostedView.propTypes={
   match: PropTypes.object
 };
 
-const BasicSection = ({store})=>{
-  return (
-    <div className="fieldset">
+const BasicSection = ({store})=> <div className="fieldset">
       <div className="detail-field">
           <label>Package Type:</label>
           <span className="key">{store.packageType}</span>
@@ -199,7 +197,7 @@ const BasicSection = ({store})=>{
       <div className="detail-field">
         <label>Local URL:</label>
         {
-          //TODO: is this store.demo still available now?
+          // TODO: is this store.demo still available now?
           store.demo ?
           <span>{Utils.storeHref(store.key)}</span> :
           <span><a href={Utils.storeHref(store.key)} target="_new">{Utils.storeHref(store.key)}</a></span>
@@ -212,10 +210,7 @@ const BasicSection = ({store})=>{
           <span>{store.storage}</span>
         </div>
       }
-    </div>
-  );
-};
-
+    </div>;
 BasicSection.propTypes = {
   store: PropTypes.object.isRequired
-}
+};

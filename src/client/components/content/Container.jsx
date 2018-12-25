@@ -1,13 +1,12 @@
-'use strict'
+
 
 import React from 'react';
 import {Route, Switch} from 'react-router-dom';
 import {
   PageSection,
-  PageSectionVariants,
   TextContent,
   Text
-} from '@patternfly/react-core/'
+} from '@patternfly/react-core/';
 import RemoteList from './RemoteList.jsx';
 import HostedList from './HostedList.jsx';
 import GroupList from './GroupList.jsx';
@@ -15,18 +14,27 @@ import RemoteView from './RemoteView.jsx';
 import HostedView from './HostedView.jsx';
 import GroupView from './GroupView.jsx';
 import RemoteEdit from './RemoteEdit.jsx';
-import {APP_ROOT} from '../ComponentConstants.js'
+import {APP_ROOT} from '../ComponentConstants.js';
 
 
-const browseCompatible=`<!--[if lt IE 7]>
-    <p className="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-<![endif]-->`;
+// const browseCompatible=`<!--[if lt IE 7]>
+//     <p className="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+// <![endif]-->`;
+//
+// const isHome = false;
 
-const isHome = false;
+const Home = () => <React.Fragment>
+    <PageSection>
+      <TextContent>
+        <Text component="h1">Welcome! Make a selection from the menu above to proceed.</Text>
+      </TextContent>
+    </PageSection>
+  </React.Fragment>;
 
-const Container = () => (
-  <div>
-     {/*browseCompatible*/}
+const Container = () => <div>
+    {
+      // browseCompatible
+    }
     <React.Fragment>
       <Switch>
         <Route exact path={[`${APP_ROOT}`]} component={Home} />
@@ -48,18 +56,6 @@ const Container = () => (
         }
       </Switch>
     </React.Fragment>
-
-  </div>
-);
-
-const Home = () => (
-  <React.Fragment>
-    <PageSection>
-      <TextContent>
-        <Text component="h1">Welcome! Make a selection from the menu above to proceed.</Text>
-      </TextContent>
-    </PageSection>
-  </React.Fragment>
-);
+  </div>;
 
 export default Container;

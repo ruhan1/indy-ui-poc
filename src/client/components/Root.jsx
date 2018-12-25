@@ -1,18 +1,11 @@
-'use strict'
-
 import React from 'react';
-import {BrowserRouter as Router} from 'react-router-dom';
 import {
   BackgroundImage,
   BackgroundImageSrc,
-  Page,
-  PageSection,
-  PageSectionVariants
+  Page
 } from '@patternfly/react-core';
 
 import NavHeader from './nav/NavHeader.jsx';
-import RemoteList from './content/RemoteList.jsx';
-// import NavFooter from './nav/NavFooter.jsx';
 import Container from './content/Container.jsx';
 import './styles/new-indy.css';
 import '@patternfly/react-core/dist/styles/base.css';
@@ -33,13 +26,10 @@ const bgImages = {
   [BackgroundImageSrc.filter]: '/assets/images/background-filter.svg#image_overlay'
 };
 
-const Root = ()=>(
-  <React.Fragment>
+const Root = ()=> <React.Fragment>
     <BackgroundImage src={bgImages} />
     <Page header={header}>
       <Container />
     </Page>
-  </React.Fragment>
-);
-
+  </React.Fragment>;
 export default Root;

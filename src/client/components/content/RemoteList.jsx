@@ -1,7 +1,4 @@
-'use strict'
-
 import React from 'react';
-import {render} from 'react-dom';
 import {Link} from 'react-router-dom';
 import {
   Grid,
@@ -26,17 +23,14 @@ export default class RemoteList extends React.Component {
       disabledMap: {},
       enableDebug: false,
       message: ''
-    }
-    this.createNew = this.createNew.bind(this);
-    this.handleDebug = this.handleDebug.bind(this);
-    this.handleSearch = this.handleSearch.bind(this);
-    this.getStores = this.getStores.bind(this);
-    this.getDisTimeouts = this.getDisTimeouts.bind(this);
+    };
   }
+
   componentDidMount() {
     this.getStores();
   }
-  getStores(){
+
+  getStores = () => {
     jsonGet({
       url: '/api/admin/stores/_all/remote',
       done: response => {
@@ -53,39 +47,44 @@ export default class RemoteList extends React.Component {
       }
     });
   }
-  getDisTimeouts(){
+
+  getDisTimeouts = () => {
     jsonGet({
       url: '/api/admin/schedule/store/all/disable-timeout',
       done: response => {
         let disabledMap = Utils.setDisableMap(response, this.state.listing);
         this.setState({
-          disabledMap: disabledMap
+          disabledMap
         });
       },
-      fail: errorText => {
-          console.log("disable timeout get failed in remote listing.")
+      fail: () => {
+          console.log("disable timeout get failed in remote listing.");
       }
     });
   }
-  createNew(){
-    //mock
+
+  createNew = () => {
+    // mock
   }
-  handleDebug(checked){
+
+  handleDebug = checked => {
     this.setState({
       enableDebug: checked
-    })
+    });
   }
-  handleSearch(value){
+
+  handleSearch = value => {
     this.setState({
       listing: Utils.searchByKeyForNewStores(value, this.state.rawListing)
     });
   }
+
   render(){
-    let {listing, rawListing, disabledMap, enableDebug} = this.state;
+    let {listing, disabledMap, enableDebug} = this.state;
     let orderBys = [
       {value: 'key', text: 'Name'},
       {value: 'url', text: 'Remote URL'}
-    ]
+    ];
     return (
       <React.Fragment>
         <PageSection>
@@ -104,7 +103,7 @@ export default class RemoteList extends React.Component {
                 handleCreateNew={this.createNew} />
             </GridItem>
             {
-              listing.map( store => {
+              listing.map(store => {
                 let storeClass = Utils.isDisabled(store.key, disabledMap)? "disabled-store":"enabled-store";
                 return (
                   <GridItem key={store.key} span={8}>
@@ -128,14 +127,9 @@ export default class RemoteList extends React.Component {
                         <div className="left-half">
                           <label>Capabilities:</label>{' '}
                           {
-                            Utils.remoteOptions(store).map(
-                              option =>
-                              (
-                                <div key={option.title} className="options">
+                            Utils.remoteOptions(store).map(option => <div key={option.title} className="options">
                                   <span className="key">{option.icon} </span>
-                                </div>
-                              )
-                            )
+                                </div>)
                           }
                         </div>
                       </div>

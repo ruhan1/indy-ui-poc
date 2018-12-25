@@ -1,2 +1,7 @@
 **/*.css
 **/*.json
+**/*.png
+**/*.ico
+**/*.svg
+public/*
+src/client/components/images/*

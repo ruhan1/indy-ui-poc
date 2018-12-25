@@ -1,4 +1,4 @@
-'use strict'
+
 
 // mock data: options
 const remoteOptionLegend = [
@@ -12,7 +12,7 @@ const hostedOptionLegend = [
   {icon: 'D', title: 'Deployment allowed'}
 ];
 
-//TODO this should be fetched from backend
+// TODO this should be fetched from backend
 const packageTypes = [
   'maven',
   'generic',

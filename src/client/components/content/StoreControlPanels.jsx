@@ -1,18 +1,15 @@
-'use strict'
+
 
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const StoreEditControlPanel = ({handleSave, handleCancel, handleRemove}) =>(
-  <div className="cp-row">
+const StoreEditControlPanel = ({handleSave, handleCancel, handleRemove}) => <div className="cp-row">
     <button name="save" onClick={handleSave} className="cp-button">Save</button>{'  '}
     <button name="cancel" onClick={handleCancel} className="cp-button">Cancel</button>{'  '}
     <button name="del" onClick={handleRemove} className="del-button cp-button">
       Delete
     </button>
-  </div>
-);
-
+  </div>;
 StoreEditControlPanel.propTypes={
   handleSave: PropTypes.func,
   handleCancel: PropTypes.func,
@@ -29,11 +26,11 @@ const StoreViewControlPanel = function({enabled, handleDisable, handleEnable, ha
       </div>
       <div className="cp-row">
         <button onClick={handleEdit}>Edit</button>{'  '}
-    	  <button onClick={handleCreate}>New...</button>{'  '}
-    	  <button name="del" onClick={handleRemove} className="del-button cp-button">
+        <button onClick={handleCreate}>New...</button>{'  '}
+        <button name="del" onClick={handleRemove} className="del-button cp-button">
           Delete
         </button>
-    	</div>
+      </div>
     </div>
   );
 };
@@ -45,6 +42,6 @@ StoreViewControlPanel.propTypes={
   handleEdit: PropTypes.func,
   handleCreate: PropTypes.func,
   handleRemove: PropTypes.func
-}
+};
 
 export {StoreEditControlPanel, StoreViewControlPanel};

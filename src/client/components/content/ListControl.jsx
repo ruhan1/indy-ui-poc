@@ -1,4 +1,4 @@
-'use strict'
+
 
 import React from 'react';
 import PropTypes from 'prop-types';
@@ -17,28 +17,28 @@ class ListControl extends React.Component {
     this.state = {
       enableDebug: false,
       searchValue: '',
-      orderByValue:'',
-      debugChecked:false
-    }
+      orderByValue: '',
+      debugChecked: false
+    };
   }
 
   handleSearchChange = value => {
     this.setState({
       searchValue: value
-    })
+    });
     this.props.handleSearch(value);
   };
 
   handleOrderByChange = value =>{
     this.setState({
       orderByValue: value
-    })
+    });
   };
 
   handleDebugChange = checked => {
     this.setState({
       debugChecked: checked
-    })
+    });
     this.props.handleDebug(checked);
   };
 
@@ -51,14 +51,11 @@ class ListControl extends React.Component {
           <Button variant={ButtonVariant.secondary} onClick={this.props.handleCreateNew}>New...</Button>{' '}
           {
             this.props.useHideAll &&
-            (
               <Button variant={ButtonVariant.secondary} onClick={this.props.handleHideAll}>Hide All</Button>
-            )
           }
         </div>
         {
           this.props.useSearch &&
-          (
             <div className="cp-row">
               Search:{' '}
               <TextInput
@@ -68,11 +65,9 @@ class ListControl extends React.Component {
               value={searchValue}
               onChange={this.handleSearchChange} />
             </div>
-          )
         }
         {
           this.props.useOrderBy && this.props.orderBys &&
-          (
             <div className="cp-row">
               Sort by:{' '}
               <Select value={this.state.orderByValue} onChange={this.handleOrderByChange} id="sortBy">
@@ -81,45 +76,35 @@ class ListControl extends React.Component {
                 }
               </Select>
             </div>
-          )
         }
         {
           this.props.useLegend && this.props.legends &&
-          (
             <div className="cp-row">
               <div className="legend">
-                <div className="label" style={{fontSize:"75%", padding: ".2em .6em .3em"}}>Capability Legend:</div>
+                <div className="label" style={{fontSize: "75%", padding: ".2em .6em .3em"}}>Capability Legend:</div>
                 <ul>
                   {
-                    this.props.legends.map(
-                      option =>
-                       (
-                         <li key={option.title}>
+                    this.props.legends.map(option => <li key={option.title}>
                            <div>
                              <span className="key">{option.icon} </span>
                              <span>{option.title}</span>
                            </div>
-                         </li>
-                      )
-                    )
+                         </li>)
                   }
                 </ul>
               </div>
             </div>
-          )
         }
         {
           this.props.useDebug &&
-          (
             <div className="cp-row cp-debug">
               <Checkbox
                 label="Debug Data"
                 isChecked={debugChecked}
                 onChange={this.handleDebugChange}
                 aria-label="Debug Data"
-                id="debug-data"/>              
+                id="debug-data"/>
             </div>
-          )
         }
       </div>
     );
