@@ -1,58 +1,55 @@
-'use strict'
 import React from 'react';
 import PropTypes from 'prop-types';
 import {StoreEditControlPanel as EditControlPanel} from './StoreControlPanels.jsx';
-import {DisableTimeoutHint, DurationHint, PrefetchHint, Hint, PasswordMask} from './Hints.jsx';
-import {ViewJsonDebugger} from './Debugger.jsx';
-import {Utils} from '../CompUtils.js';
-import {Filters} from '../Filters.js';
+import {DisableTimeoutHint, DurationHint, PrefetchHint, Hint} from './Hints.jsx';
+// import {ViewJsonDebugger} from './Debugger.jsx';
+// import {Utils} from '../CompUtils.js';
+// import {Filters} from '../Filters.js';
 import {TimeUtils} from '../../TimeUtils.js';
-import {APP_ROOT, packageTypes} from '../ComponentConstants.js';
-import {jsonGet} from '../../RestClient.js';
+import {packageTypes} from '../ComponentConstants.js';
+// import {jsonGet} from '../../RestClient.js';
 
 
 export default class RemoteEdit extends React.Component {
   constructor(props){
-    super(props)
+    super(props);
 
     let [location, match] = [props.location, props.match];
     let path = location.pathname;
     let mode = path.endsWith('remote/new')? 'new':'edit';
-    let packageType='', name='';
+    let name='', packageType='';
 
     if(mode === 'edit'){
       [packageType, name] = [match.params.packageType, match.params.name];
     }
 
     this.state={
-      mode: mode,
-      packageType: packageType,
-      name: name,
+      mode,
+      packageType,
+      name,
       store: {},
       rawStore: {}
-    }
-
-    this.handleSave = this.handleSave.bind(this);
-    this.handleCancel = this.handleCancel.bind(this);
-    this.handleRemove = this.handleRemove.bind(this);
+    };
   }
 
-  handleSave(){
-    //TODO need to implement save logic
+  handleSave = () => {
+    // TODO need to implement save logic
   }
-  handleCancel(){
-    //TODO need to implement cancel logic
+
+  handleCancel = () => {
+    // TODO need to implement cancel logic
   }
-  handleRemove(){
-    //TODO need to implement remove logic
+
+  handleRemove = () => {
+    // TODO need to implement remove logic
   }
 
   render(){
     let mode = this.state.mode;
-    console.log(mode);
-    let raw = this.state.rawStore;
-    let store = this.state.store;
-    //TODO this package types should be fetched from backend
+    // console.log(mode);
+    // let raw = this.state.rawStore;
+    // let store = this.state.store;
+    // TODO this package types should be fetched from backend
     let pkgTypes = packageTypes;
     return (
       <div className="container-fluid">
@@ -182,7 +179,9 @@ export default class RemoteEdit extends React.Component {
               <Hint hintKey="request_timeout" />
             </div>
 
-            {/*HTTP Proxy*/}
+            {
+             // HTTP Proxy
+            }
             <div className="detail-field">
               <input type="checkbox" ng-model="raw.use_proxy" />{' '}
               <label>Use Proxy?</label>
@@ -198,7 +197,9 @@ export default class RemoteEdit extends React.Component {
                 </div>
             </div>
 
-            {/* X.509 / auth */}
+            {
+              // X.509 / auth
+            }
             <div className="detail-field">
               <input type="checkbox" ng-model="raw.use_auth" />{' '}
               <label>Use Authentication?</label>
@@ -237,32 +238,34 @@ export default class RemoteEdit extends React.Component {
                   <div className="textarea-label">
                     <label>Client Key</label><span className="hint">(PEM Format)</span>
                   </div>
-                  {/*64 columns is the original PEM line-length spec*/}
+                  {
+                    // 64 columns is the original PEM line-length spec
+                  }
                   <textarea className="cert" cols="68" ng-model="store.key_certificate_pem"></textarea>
                 </div>
                 <div className="right-col">
                   <div className="textarea-label">
                     <label>Server Certificate</label><span className="hint">(PEM Format)</span>
                   </div>
-                  {/*64 columns is the original PEM line-length spec*/}
+                  {
+                    // 64 columns is the original PEM line-length spec
+                  }
                   <textarea className="cert" cols="68" ng-model="store.server_certificate_pem"></textarea>
                 </div>
               </div>
             </div>
-
           </div>
-
         </div>
-
-        {/* <ViewJsonDebugger enableDebug={enableDebug} storeJson={storeJson} rawJson={rawJson} */}
-
+        {
+          // <ViewJsonDebugger enableDebug={enableDebug} storeJson={storeJson} rawJson={rawJson}
+        }
       </div>
-
     );
   }
-
 }
 
 RemoteEdit.propTypes={
-  store: PropTypes.object
-}
+  store: PropTypes.object,
+  location: PropTypes.object,
+  match: PropTypes.object
+};

@@ -1,12 +1,11 @@
-'use strict'
 import React from 'react';
-import {render} from 'react-dom';
+
 import {Link} from 'react-router-dom';
 import PropTypes from 'prop-types';
 import {StoreViewControlPanel as ControlPanel} from './StoreControlPanels.jsx';
 import {DisableTimeoutHint} from './Hints.jsx';
-import {ViewJsonDebugger} from './Debugger.jsx';
-import {APP_ROOT} from '../ComponentConstants.js';
+
+
 import {Utils} from '../CompUtils.js';
 import {Filters} from '../Filters.js';
 import {TimeUtils} from '../../TimeUtils.js';
@@ -22,35 +21,33 @@ export default class GroupView extends React.Component {
       disabledMap: [],
       message: ''
     };
-
-    this.getStore = this.getStore.bind(this);
-    this.getDisTimeouts = this.getDisTimeouts.bind(this);
-    this.handleDisable = this.handleDisable.bind(this);
-    this.handleEnable = this.handleEnable.bind(this);
-    this.handleEdit = this.handleEdit.bind(this);
-    this.handleCreate = this.handleCreate.bind(this);
-    this.handleRemove = this.handleRemove.bind(this);
   }
 
   componentDidMount() {
     this.getStore();
   }
-  handleDisable(event){
 
+  handleDisable = () => {
+    // Mock
   }
-  handleEnable(event){
 
+  handleEnable = () => {
+    // Mock
   }
-  handleEdit(event){
 
+  handleEdit = () => {
+    // Mock
   }
-  handleCreate(event){
 
+  handleCreate = () => {
+    // Mock
   }
-  handleRemove(event){
 
+  handleRemove = () => {
+    // Mock
   }
-  getStore(){
+
+  getStore = () => {
     let match = this.props.match;
     let getUrl = `/api/admin/stores/${match.params.packageType}/group/${match.params.name}`;
     jsonGet({
@@ -71,7 +68,8 @@ export default class GroupView extends React.Component {
       }
     });
   }
-  getDisTimeouts(store){
+
+  getDisTimeouts = store => {
     jsonGet({
       url: '/api/admin/schedule/store/all/disable-timeout',
       done: response => {
@@ -83,13 +81,13 @@ export default class GroupView extends React.Component {
         }
         this.setState({
           store: newStore,
-          disabledMap: disabledMap
+          disabledMap
         });
       },
-      fail: (errorText, status, error) => {
+      fail: () => {
         console.log("disable timeout getting failed");
         this.setState({
-          store: store
+          store
         });
       }
     });
@@ -97,8 +95,7 @@ export default class GroupView extends React.Component {
 
   render() {
     let store = this.state.store;
-    if(!Utils.isEmptyObj(store))
-    {
+    if(!Utils.isEmptyObj(store)) {
       return (
         <div className="container-fluid">
           <div className="control-panel">
@@ -125,10 +122,10 @@ export default class GroupView extends React.Component {
             <div className="fieldset">
             {
               store.constituents && store.constituents.length>0 &&
-              (
+
                 <ol className="detail-value detail-value-list">
                   {
-                    store.constituents.map((item)=>{
+                    store.constituents.map(item=>{
                       let href = Utils.detailHref(item);
                       let isDisabled = Utils.isDisabled(item, this.state.disabledMap);
                       let storeClassName = isDisabled? 'disabled-store': 'enabled-store';
@@ -145,14 +142,15 @@ export default class GroupView extends React.Component {
                       );
                     })
                   }
-              	</ol>
-              )
+              </ol>
             }
             </div>
           </div>
-          {/* <ViewJsonDebugger enableDebug={false} storeJson={store} rawJson={raw} /> */}
+          {
+           // <ViewJsonDebugger enableDebug={false} storeJson={store} rawJson={raw} />
+          }
         </div>
-      )
+      );
     }
     return null;
   }
@@ -162,9 +160,7 @@ GroupView.propTypes={
   match: PropTypes.object
 };
 
-const BasicSection = ({store})=>{
-  return (
-    <div className="fieldset">
+const BasicSection = ({store})=> <div className="fieldset">
       <div className="detail-field">
           <label>Package Type:</label>
           <span className="key">{store.packageType}</span>
@@ -182,10 +178,10 @@ const BasicSection = ({store})=>{
           }
       </div>
       <div className="detail-field">
-    		<span>{Filters.checkmark(store.prepend_constituent)}</span>
-    		<label>Prepend Constituents?</label>
-    		<span className="hint">If enabled, all new constituents which are added not manually(like promotion) will be at the top of constituents list</span>
-    	</div>
+        <span>{Filters.checkmark(store.prepend_constituent)}</span>
+        <label>Prepend Constituents?</label>
+        <span className="hint">If enabled, all new constituents which are added not manually(like promotion) will be at the top of constituents list</span>
+      </div>
       <div className="sub-fields">
         <div className="detail-field">
           <label>Disable Timeout:</label>
@@ -196,16 +192,13 @@ const BasicSection = ({store})=>{
       <div className="detail-field">
         <label>Local URL:</label>
         {
-          //TODO: is this store.demo still available now?
+          // TODO: is this store.demo still available now?
           store.demo ?
           <span>{Utils.storeHref(store.key)}</span> :
           <span><a href={Utils.storeHref(store.key)} target="_new">{Utils.storeHref(store.key)}</a></span>
         }
       </div>
-    </div>
-  );
-};
-
+    </div>;
 BasicSection.propTypes = {
   store: PropTypes.object.isRequired
-}
+};

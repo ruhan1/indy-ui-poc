@@ -1,10 +1,8 @@
-'use strict'
-
 import React from 'react';
 import {Link} from 'react-router-dom';
-import {APP_ROOT} from '../ComponentConstants.js'
+import {APP_ROOT} from '../ComponentConstants.js';
 
-//mock user login
+// mock user login
 const isUserloggedIn = true;
 const username = "mock";
 
@@ -16,6 +14,7 @@ export default class IndyNavHeader extends React.Component {
       isOpen: false
     };
   }
+
   toggle() {
     this.setState({
       isOpen: !this.state.isOpen
@@ -25,9 +24,9 @@ export default class IndyNavHeader extends React.Component {
   render(){
     // addons will be render based on the backend addons response, this is a mock;
     let addons=[
-      <Link key='autoproxy-calc' className="dropdown-item" to={`${APP_ROOT}/autoprox/calc`}>AutoProx Calculator</Link>,
-      <Link key='autoproxy-rules' className="dropdown-item" to={`${APP_ROOT}/autoprox/rules`}>AutoProx Rules</Link>,
-      <Link key='store-changelog' className="dropdown-item" to={`${APP_ROOT}/revisions/changelog/stores`}>Store Changelogs</Link>
+      <Link key="autoproxy-calc" className="dropdown-item" to={`${APP_ROOT}/autoprox/calc`}>AutoProx Calculator</Link>,
+      <Link key="autoproxy-rules" className="dropdown-item" to={`${APP_ROOT}/autoprox/rules`}>AutoProx Rules</Link>,
+      <Link key="store-changelog" className="dropdown-item" to={`${APP_ROOT}/revisions/changelog/stores`}>Store Changelogs</Link>
     ];
     return (
       <nav className="navbar fixed-top navbar-expand-lg navbar-light bg-light" role="navigation">
@@ -68,7 +67,7 @@ export default class IndyNavHeader extends React.Component {
                   {username}
                 </a>
                 <div className="dropdown-menu" aria-labelledby="navbarDropdown">
-                  <Link className="dropdown-item"  to={`${APP_ROOT}/logout`}>Log Out</Link>
+                  <Link className="dropdown-item" to={`${APP_ROOT}/logout`}>Log Out</Link>
                 </div>
               </li>
             }

@@ -1,7 +1,5 @@
-'use strict'
-
 import React from 'react';
-import {render} from 'react-dom';
+
 import {Link} from 'react-router-dom';
 import {ListJsonDebugger} from './Debugger.jsx';
 import ListControl from "./ListControl.jsx";
@@ -18,17 +16,14 @@ export default class RemoteList extends React.Component {
       disabledMap: {},
       enableDebug: false,
       message: ''
-    }
-    this.createNew = this.createNew.bind(this);
-    this.handleDebug = this.handleDebug.bind(this);
-    this.handleSearch = this.handleSearch.bind(this);
-    this.getStores = this.getStores.bind(this);
-    this.getDisTimeouts = this.getDisTimeouts.bind(this);
+    };
   }
+
   componentDidMount() {
     this.getStores();
   }
-  getStores(){
+
+  getStores = () => {
     jsonGet({
       url: '/api/admin/stores/_all/remote',
       done: response => {
@@ -45,40 +40,45 @@ export default class RemoteList extends React.Component {
       }
     });
   }
-  getDisTimeouts(){
+
+  getDisTimeouts = () => {
     jsonGet({
       url: '/api/admin/schedule/store/all/disable-timeout',
       done: response => {
         let disabledMap = Utils.setDisableMap(response, this.state.listing);
         this.setState({
-          disabledMap: disabledMap
+          disabledMap
         });
       },
-      fail: errorText => {
-          console.log("disable timeout get failed in remote listing.")
+      fail: () => {
+        console.log("disable timeout get failed in remote listing.");
       }
     });
   }
-  createNew(){
-    //mock
+
+  createNew = () => {
+    // mock
   }
-  handleDebug(event){
+
+  handleDebug = event => {
     this.setState({
       enableDebug: event.target.checked
-    })
+    });
   }
-  handleSearch(event){
+
+  handleSearch = event => {
     this.setState({
       listing: Utils.searchByKeyForNewStores(event.target.value, this.state.rawListing)
     });
   }
+
   render(){
     let listing = this.state.listing;
     let disMap = this.state.disabledMap;
     let orderBys = [
       {value: 'key', text: 'Name'},
       {value: 'url', text: 'Remote URL'}
-    ]
+    ];
     return (
       <div className="container-fluid">
         <ListControl
@@ -90,7 +90,7 @@ export default class RemoteList extends React.Component {
         <div className="content-panel">
           <div className="store-listing">
             {
-              listing.map(function(store){
+              listing.map(store => {
                 let storeClass = Utils.isDisabled(store.key, disMap)? "disabled-store":"enabled-store";
                 return (
                   <div key={store.key} className="store-listing-item">
@@ -114,14 +114,9 @@ export default class RemoteList extends React.Component {
                         <div className="left-half">
                           <label>Capabilities:</label>
                           {
-                            Utils.remoteOptions(store).map(
-                              option =>
-                              (
-                                <div key={option.title} className="options">
+                            Utils.remoteOptions(store).map(option => <div key={option.title} className="options">
                                   <span className="key">{option.icon} </span>
-                                </div>
-                              )
-                            )
+                                </div>)
                           }
                         </div>
                       </div>

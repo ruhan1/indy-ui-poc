@@ -1,5 +1,3 @@
-'use strict'
-
 import React from 'react';
 import PropTypes from 'prop-types';
 
@@ -8,7 +6,7 @@ class ListControl extends React.Component {
     super(props);
     this.state = {
       enableDebug: false
-    }
+    };
   }
 
   render(){
@@ -18,22 +16,17 @@ class ListControl extends React.Component {
           <button onClick={this.props.handleCreateNew}>New...</button>{' '}
           {
             this.props.useHideAll &&
-            (
               <button onClick={this.props.handleHideAll}>Hide All</button>
-            )
           }
         </div>
         {
           this.props.useSearch &&
-          (
             <div className="cp-row">
               Search:{' '}<input name="query" onChange={this.props.handleSearch}/>
             </div>
-          )
         }
         {
           this.props.useOrderBy && this.props.orderBys &&
-          (
             <div className="cp-row">
               Sort by:{' '}
               <select name="orderProp">
@@ -42,40 +35,32 @@ class ListControl extends React.Component {
                 }
               </select>
             </div>
-          )
         }
         {
           this.props.useLegend && this.props.legends &&
-          (
             <div className="cp-row">
               <div className="legend">
-                <div className="label" style={{fontSize:"75%", padding: ".2em .6em .3em"}}>Capability Legend:</div>
+                <div className="label" style={{fontSize: "75%",
+                  padding: ".2em .6em .3em"}}>Capability Legend:</div>
                 <ul>
                   {
-                    this.props.legends.map(
-                      option =>
-                       (
-                         <li key={option.title}>
+                    this.props.legends.map(option => <li key={option.title}>
                            <div>
                              <span className="key">{option.icon} </span>
                              <span>{option.title}</span>
                            </div>
-                         </li>
-                      )
-                    )
+                         </li>)
                   }
                 </ul>
               </div>
             </div>
-          )
+
         }
         {
           this.props.useDebug &&
-          (
             <div className="cp-row cp-debug">
               <input type="checkbox" name="enableDebug" checked={this.state.enableDebug} onChange={this.props.handleDebug} /> Debug Data
             </div>
-          )
         }
       </div>
     );

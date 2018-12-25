@@ -1,13 +1,12 @@
-'use strict'
 import React from 'react';
 import PropTypes from 'prop-types';
 import {StoreViewControlPanel as ControlPanel} from './StoreControlPanels.jsx';
 import {DisableTimeoutHint, PrefetchHint, Hint, PasswordMask} from './Hints.jsx';
-import {ViewJsonDebugger} from './Debugger.jsx';
+// import {ViewJsonDebugger} from './Debugger.jsx';
 import {Utils} from '../CompUtils.js';
 import {Filters} from '../Filters.js';
 import {TimeUtils} from '../../TimeUtils.js';
-import {APP_ROOT} from '../ComponentConstants.js';
+// import {APP_ROOT} from '../ComponentConstants.js';
 import {jsonGet} from '../../RestClient.js';
 
 export default class RemoteView extends React.Component {
@@ -18,35 +17,33 @@ export default class RemoteView extends React.Component {
       raw: {},
       message: ''
     };
-
-    this.getStore = this.getStore.bind(this);
-    this.getStoreDisableTimeout = this.getStoreDisableTimeout.bind(this);
-    this.handleDisable = this.handleDisable.bind(this);
-    this.handleEnable = this.handleEnable.bind(this);
-    this.handleEdit = this.handleEdit.bind(this);
-    this.handleCreate = this.handleCreate.bind(this);
-    this.handleRemove = this.handleRemove.bind(this);
   }
 
   componentDidMount() {
     this.getStore();
   }
-  handleDisable(event){
 
+  handleDisable = () => {
+    // Mock
   }
-  handleEnable(event){
 
+  handleEnable = () => {
+    // Mock
   }
-  handleEdit(event){
 
+  handleEdit = () => {
+    // Mock
   }
-  handleCreate(event){
 
+  handleCreate = () => {
+    // Mock
   }
-  handleRemove(event){
 
+  handleRemove = () => {
+    // Mock
   }
-  getStore(){
+
+  getStore = () => {
     let match = this.props.match;
     let getUrl = `/api/admin/stores/${match.params.packageType}/remote/${match.params.name}`;
     jsonGet({
@@ -55,11 +52,11 @@ export default class RemoteView extends React.Component {
         let raw = response;
         let store = Utils.cloneObj(raw);
         store.disabled = raw.disabled === undefined ? false : raw.disabled;
-        store.use_x509 = raw.server_certificate_pem || raw.key_certificate_pem;
-        store.use_proxy = raw.proxy_host && true;
-        store.use_auth = (store.use_proxy && store.proxy_user) || store.user;
+        store.useX509 = raw.server_certificate_pem || raw.key_certificate_pem;
+        store.useProxy = raw.proxy_host && true;
+        store.useAuth = store.useProxy && store.proxy_user || store.user;
         this.setState({
-          raw: raw
+          raw
         });
         this.getStoreDisableTimeout(store);
       },
@@ -70,7 +67,8 @@ export default class RemoteView extends React.Component {
       }
     });
   }
-  getStoreDisableTimeout(store){
+
+  getStoreDisableTimeout = store => {
     jsonGet({
       url: `/api/admin/schedule/store/${store.packageType}/${store.type}/${store.name}/disable-timeout`,
       done: response => {
@@ -78,12 +76,12 @@ export default class RemoteView extends React.Component {
         newStore.disableExpiration = response.expiration;
         this.setState({
           store: newStore
-        })
+        });
       },
-      fail: (errorText, status, error) => {
+      fail: () => {
         console.log("disable timeout getting failed");
         this.setState({
-          store: store
+          store
         });
       }
     });
@@ -91,8 +89,7 @@ export default class RemoteView extends React.Component {
 
   render() {
     let store = this.state.store;
-    if(!Utils.isEmptyObj(store))
-    {
+    if(!Utils.isEmptyObj(store)) {
       return (
         <div className="container-fluid">
           <div className="control-panel">
@@ -119,7 +116,7 @@ export default class RemoteView extends React.Component {
             <div className="fieldset">
               {
                 (store.allow_releases || store.allow_snapshots) &&
-                (
+
                   <div>
                     <div className="detail-field">
                       <span>{Filters.checkmark(store.allow_releases)}</span>
@@ -130,16 +127,18 @@ export default class RemoteView extends React.Component {
                       <label>Snapshots Allowed?</label>
                     </div>
                   </div>
-                )
+
               }
             </div>
 
             <div className="fieldset-caption">Remote Access</div>
             <RemoteAccessSection store={store} />
           </div>
-          {/* <ViewJsonDebugger enableDebug={false} storeJson={store} rawJson={raw} /> */}
+          {
+            // <ViewJsonDebugger enableDebug={false} storeJson={store} rawJson={raw} />
+          }
         </div>
-      )
+      );
     }
     return null;
   }
@@ -149,9 +148,7 @@ RemoteView.propTypes={
   match: PropTypes.object
 };
 
-const BasicSection = ({store})=>{
-  return (
-    <div className="fieldset">
+const BasicSection = ({store})=> <div className="fieldset">
       <div className="detail-field">
           <label>Package Type:</label>
           <span className="key">{store.packageType}</span>
@@ -186,7 +183,7 @@ const BasicSection = ({store})=>{
       <div className="detail-field">
         <label>Local URL:</label>
         {
-          //TODO: is this store.demo still available now?
+          // TODO: is this store.demo still available now?
           store.demo ?
           <span>{Utils.storeHref(store.key)}</span> :
           <span><a href={Utils.storeHref(store.key)} target="_new">{Utils.storeHref(store.key)}</a></span>
@@ -204,7 +201,7 @@ const BasicSection = ({store})=>{
         </div>
         {
           !store.is_passthrough &&
-          (
+
             <div>
               <div className="detail-field">
                 <label>Content Cache Timeout:</label>
@@ -215,7 +212,7 @@ const BasicSection = ({store})=>{
                 <span>{TimeUtils.secondsToDuration(store.metadata_timeout_seconds, true)}</span>
               </div>
             </div>
-          )
+
         }
       </div>
 
@@ -234,31 +231,28 @@ const BasicSection = ({store})=>{
           <span>{store.prefetch_listing_type}</span>
         </div>
       </div>
-    </div>
-  );
-};
-
+    </div>;
 BasicSection.propTypes = {
   store: PropTypes.object.isRequired
-}
+};
 
-const RemoteAccessSection = ({store})=> {
-  return (
-    <div className="fieldset">
+const RemoteAccessSection = ({store})=> <div className="fieldset">
       <div className="detail-field">
         <label>Request Timeout:</label>
         <span>{TimeUtils.secondsToDuration(store.timeout_seconds)}</span>
         <span><Hint hintKey="request_timeout" /></span>
       </div>
 
-      {/* HTTP Proxy */}
+      {
+       // HTTP Proxy
+      }
       <div className="detail-field">
-        <span>{Filters.checkmark(store.use_proxy)}</span>
+        <span>{Filters.checkmark(store.useProxy)}</span>
         <label>Use Proxy?</label>
       </div>
       {
-        store.use_proxy &&
-        (
+        store.useProxy &&
+
           <div className="sub-fields">
             <div className="detail-field">
               <label>Proxy Host:</label>
@@ -269,16 +263,17 @@ const RemoteAccessSection = ({store})=> {
               <span>{store.proxy_port}</span>
             </div>
           </div>
-        )
+
       }
-      {/* X.509 / auth */}
+      {
+        // X.509 / auth
+      }
       <div className="detail-field">
-        <span>{Filters.checkmark(store.use_auth)}</span>
+        <span>{Filters.checkmark(store.useAuth)}</span>
         <label>Use Authentication?</label>
       </div>
       {
-         store.use_auth &&
-         (
+         store.useAuth &&
            <div className="sub-fields">
            {
              store.user &&
@@ -295,29 +290,29 @@ const RemoteAccessSection = ({store})=> {
              </div>
            }
            {
-             store.use_proxy && store.proxy_user &&
+             store.useProxy && store.proxy_user &&
              <div className="detail-field">
                <label>Proxy Username:</label>
                <span>{store.proxy_user}</span>
              </div>
            }
            {
-             store.use_proxy && store.proxy_password &&
+             store.useProxy && store.proxy_password &&
              <div className="detail-field">
                <label>Proxy Password:</label>
                <span><PasswordMask /></span>
              </div>
            }
            </div>
-         )
+
       }
       <div className="detail-field">
-          <span>{Filters.checkmark(store.use_x509)}</span>
+          <span>{Filters.checkmark(store.useX509)}</span>
           <label>Use Custom X.509 Configuration?</label>
       </div>
       {
-        store.use_x509 &&
-        (
+        store.useX509 &&
+
           <div className="sub-fields">
           {
             store.key_password &&
@@ -333,7 +328,9 @@ const RemoteAccessSection = ({store})=> {
                 <div className="textarea-label">
                   <label>Client Key</label><span className="hint">(PEM Format)</span>
                 </div>
-                {/* 64 columns is the original PEM line-length spec*/}
+                {
+                  // 64 columns is the original PEM line-length spec
+                }
                 <textarea readOnly className="cert" value={store.key_certificate_pem} />
               </div>
             }
@@ -344,18 +341,19 @@ const RemoteAccessSection = ({store})=> {
                   <label>Server Certificate</label><span className="hint">(PEM
                     Format)</span>
                 </div>
-                {/* 64 columns is the original PEM line-length spec*/}
+                {
+                  // 64 columns is the original PEM line-length spec
+                }
                 <textarea readOnly className="cert" value={store.server_certificate_pem} />
               </div>
             }
             </div>
           </div>
-        )
+
       }
-    </div>
-  )
-}
+    </div>;
+
 
 RemoteAccessSection.propTypes={
   store: PropTypes.object.isRequired
-}
+};

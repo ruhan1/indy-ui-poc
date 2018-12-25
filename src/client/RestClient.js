@@ -1,5 +1,3 @@
-'use strict'
-
 const jsonGet = function(payload){
   fetch(payload.url, {
     method: "GET",
@@ -13,11 +11,11 @@ const jsonGet = function(payload){
     if(response.ok && payload.done){
       response.json().then(data=>payload.done(data));
     }else if(!response.ok && payload.fail){
-      response.text().then(data=>{        
-        payload.fail(data, response.status, response.statusText)
+      response.text().then(data=>{
+        payload.fail(data, response.status, response.statusText);
       });
     }
   });
-}
+};
 
 export {jsonGet};
