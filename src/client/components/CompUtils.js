@@ -63,7 +63,7 @@ export const Utils = {
     // TODO: In-UI browser that allows simple searching
     return `${proto}//${hostAndPort}/api/content/${parts[0]}/${parts[1]}/${parts[2]}`;
   },
-  setDisableMap: (listing, stores) => {
+  setDisableMap: listing => {
     let disabledMap = {};
 
     let items = listing.items;
@@ -108,7 +108,7 @@ export const Utils = {
   cloneObj: src => {
     let target = {};
     for (let prop in src) {
-      if (src.hasOwnProperty(prop)) {
+      if (prop in src) {
         target[prop] = src[prop];
       }
     }

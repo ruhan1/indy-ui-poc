@@ -71,6 +71,7 @@ export default class HostedList extends React.Component {
     });
   }
 
+  /* eslint-disable max-lines-per-function */
   render(){
     let listing = this.state.listing;
     let disMap = this.state.disabledMap;
@@ -123,4 +124,5 @@ export default class HostedList extends React.Component {
       </div>
     );
   }
+  /* eslint-enable max-lines-per-function */
 }

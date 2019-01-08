@@ -83,6 +83,7 @@ export default class HostedView extends React.Component {
     });
   }
 
+  /* eslint-disable max-lines-per-function */
   render() {
     let store = this.state.store;
     if(!Utils.isEmptyObj(store)) {
@@ -148,12 +149,14 @@ export default class HostedView extends React.Component {
     }
     return null;
   }
+  /* eslint-enable max-lines-per-function */
 }
 
 HostedView.propTypes={
   match: PropTypes.object
 };
 
+/* eslint-disable max-lines-per-function */
 const BasicSection = ({store})=> <div className="fieldset">
       <div className="detail-field">
           <label>Package Type:</label>
@@ -211,6 +214,8 @@ const BasicSection = ({store})=> <div className="fieldset">
         </div>
       }
     </div>;
+  /* eslint-enable max-lines-per-function */
+
 BasicSection.propTypes = {
   store: PropTypes.object.isRequired
 };

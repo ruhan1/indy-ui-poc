@@ -1,5 +1,3 @@
-
-
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
@@ -42,9 +40,11 @@ class ListControl extends React.Component {
     this.props.handleDebug(checked);
   };
 
-
+  /* eslint-disable max-lines-per-function */
   render(){
+    /* eslint-disable no-unused-vars*/
     const {enableDebug, searchValue, orderByValue, debugChecked} = this.state;
+    /* eslint-enable no-unused-vars*/
     return (
       <div className="control-panel">
         <div className="cp-row">
@@ -109,6 +109,7 @@ class ListControl extends React.Component {
       </div>
     );
   }
+  /* eslint-enable max-lines-per-function */
 }
 
 ListControl.propTypes={

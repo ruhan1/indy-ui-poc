@@ -26,6 +26,7 @@ export default class GroupListItem extends React.Component {
     });
   }
 
+  /* eslint-disable max-lines-per-function */
   render(){
     let store = this.props.store;
     let storeClass = this.props.storeClass;
@@ -90,6 +91,7 @@ export default class GroupListItem extends React.Component {
       </div>
     );
   }
+  /* eslint-enable max-lines-per-function */
 }
 
 GroupListItem.propTypes={

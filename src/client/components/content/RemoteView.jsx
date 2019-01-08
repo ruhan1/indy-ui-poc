@@ -1,3 +1,4 @@
+/* eslint-disable max-lines */
 import React from 'react';
 import PropTypes from 'prop-types';
 import {StoreViewControlPanel as ControlPanel} from './StoreControlPanels.jsx';
@@ -53,7 +54,8 @@ export default class RemoteView extends React.Component {
         store.disabled = raw.disabled === undefined ? false : raw.disabled;
         store.useX509 = raw.server_certificate_pem || raw.key_certificate_pem;
         store.useProxy = raw.proxy_host && true;
-        store.useAuth = store.useProxy && store.proxy_user || store.user;
+        store.useAuth = store.useProxy && store.proxy_user;
+        store.useAuth = store.useAuth || store.user;
         this.setState({
           raw
         });
@@ -86,6 +88,7 @@ export default class RemoteView extends React.Component {
     });
   }
 
+  /* eslint-disable max-lines-per-function */
   render() {
     let store = this.state.store;
     if(!Utils.isEmptyObj(store)) {
@@ -141,12 +144,14 @@ export default class RemoteView extends React.Component {
     }
     return null;
   }
+  /* eslint-enable max-lines-per-function */
 }
 
 RemoteView.propTypes={
   match: PropTypes.object
 };
 
+/* eslint-disable max-lines-per-function */
 const BasicSection = ({store})=> <div className="fieldset">
       <div className="detail-field">
           <label>Package Type:</label>
@@ -231,10 +236,13 @@ const BasicSection = ({store})=> <div className="fieldset">
         </div>
       </div>
     </div>;
+  /* eslint-enable max-lines-per-function */
+
 BasicSection.propTypes = {
   store: PropTypes.object.isRequired
 };
 
+/* eslint-disable max-lines-per-function */
 const RemoteAccessSection = ({store})=> <div className="fieldset">
       <div className="detail-field">
         <label>Request Timeout:</label>
@@ -351,7 +359,7 @@ const RemoteAccessSection = ({store})=> <div className="fieldset">
 
       }
     </div>;
-
+  /* eslint-enable max-lines-per-function */
 
 RemoteAccessSection.propTypes={
   store: PropTypes.object.isRequired

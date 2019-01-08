@@ -122,6 +122,7 @@ export default class NavHeader extends React.Component {
     this.context.router.history.push(path);
   };
 
+  /* eslint-disable max-lines-per-function */
   render(){
     const {isToolsDropdownOpen, isUserDropdownOpen, activeItem} = this.state;
     const PageNav =
@@ -138,7 +139,7 @@ export default class NavHeader extends React.Component {
          }
        </NavList>
      </Nav>;
-const PageToolBar =
+    const PageToolBar =
       <Toolbar>
         <ToolbarGroup>
           <ToolbarItem>
@@ -190,14 +191,15 @@ const PageToolBar =
           </ToolbarItem>
         </ToolbarGroup>
       </Toolbar>;
-return(
+    return(
       <PageHeader
        logo={<Brand src={brandImg} alt="Indy Logo" />}
        logoProps={{href: `${APP_ROOT}`}}
        toolbar={PageToolBar}
        topNav={PageNav} />
-   );
+    );
   }
+  /* eslint-enable max-lines-per-function */
 }
 
 NavHeader.propTypes={

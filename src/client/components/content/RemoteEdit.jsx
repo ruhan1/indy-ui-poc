@@ -40,6 +40,7 @@ export default class RemoteEdit extends React.Component {
     // TODO need to implement remove logic
   }
 
+  /* eslint-disable max-lines-per-function */
   render(){
     let mode = this.state.mode;
     console.log(mode);
@@ -258,6 +259,7 @@ export default class RemoteEdit extends React.Component {
       </div>
     );
   }
+  /* eslint-enable max-lines-per-function */
 
 }
 

@@ -79,6 +79,7 @@ export default class RemoteList extends React.Component {
     });
   }
 
+  /* eslint-disable max-lines-per-function */
   render(){
     let {listing, disabledMap, enableDebug} = this.state;
     let orderBys = [
@@ -150,4 +151,5 @@ export default class RemoteList extends React.Component {
       </React.Fragment>
     );
   }
+  /* eslint-enable max-lines-per-function */
 }
