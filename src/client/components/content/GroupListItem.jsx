@@ -3,7 +3,10 @@ import {Link} from 'react-router-dom';
 import {GridItem} from '@patternfly/react-core';
 import PropTypes from 'prop-types';
 import {Utils} from '../CompUtils.js';
-import {LocalURLSection} from './CommonPageWidget.jsx';
+import {
+  LocalURLSection,
+  StoreNameSection
+} from './CommonPageWidget.jsx';
 import {APP_ROOT} from '../ComponentConstants.js';
 
 export default class GroupListItem extends React.Component {
@@ -34,11 +37,7 @@ export default class GroupListItem extends React.Component {
     let constituents = this.props.store.constituents ? Utils.reConstituents(store) : undefined;
     return (
       <GridItem key={store.key} span={8}>
-        <div className="fieldset-caption">
-          <Link to={`${APP_ROOT}/group/${store.packageType}/view/${store.name}`}>
-            <span className={storeClass}>{store.packageType}-{store.name}</span>
-          </Link>
-        </div>
+        <StoreNameSection store={store} storeClass={storeClass} />
         <div className="fieldset">
           <div>
             <LocalURLSection storeKey={store.key} />

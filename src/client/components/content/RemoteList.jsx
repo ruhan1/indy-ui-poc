@@ -1,5 +1,4 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
 import {
   Grid,
   GridItem,
@@ -9,9 +8,13 @@ import {
   Text
 } from '@patternfly/react-core';
 import {ListJsonDebugger} from './Debugger.jsx';
-import {LocalURLSection, CapabilitiesSection} from './CommonPageWidget.jsx';
+import {
+  LocalURLSection,
+  CapabilitiesSection,
+  StoreNameSection
+} from './CommonPageWidget.jsx';
 import ListControl from "./ListControl.jsx";
-import {remoteOptionLegend as options, APP_ROOT} from "../ComponentConstants.js";
+import {remoteOptionLegend as options} from "../ComponentConstants.js";
 import {Utils} from '../CompUtils.js';
 import {jsonGet} from "../../RestClient.js";
 
@@ -109,11 +112,7 @@ export default class RemoteList extends React.Component {
                 let storeClass = Utils.isDisabled(store.key, disabledMap)? "disabled-store":"enabled-store";
                 return (
                   <GridItem key={store.key} span={8}>
-                    <div className="fieldset-caption">
-                      <Link to={`${APP_ROOT}/remote/${store.packageType}/view/${store.name}`}>
-                        <span className={storeClass}>{store.packageType}-{store.name}</span>
-                      </Link>
-                    </div>
+                    <StoreNameSection store={store} storeClass={storeClass} />
                     <div className="fieldset">
                       <div><LocalURLSection storeKey={store.key} /></div>
                       <div>
