@@ -50,7 +50,7 @@ export default class HostedList extends React.Component {
         });
       },
       fail: () => {
-        console.log("disable timeout get failed in hosted listing.");
+        Utils.logMessage("disable timeout get failed in hosted listing.");
       }
     });
   }
@@ -71,6 +71,7 @@ export default class HostedList extends React.Component {
     });
   }
 
+  /* eslint-disable-next-line max-lines-per-function */
   render(){
     let listing = this.state.listing;
     let disMap = this.state.disabledMap;

@@ -1,11 +1,8 @@
 import React from 'react';
-
 import {Link} from 'react-router-dom';
 import PropTypes from 'prop-types';
 import {StoreViewControlPanel as ControlPanel} from './StoreControlPanels.jsx';
 import {DisableTimeoutHint} from './Hints.jsx';
-
-
 import {Utils} from '../CompUtils.js';
 import {Filters} from '../Filters.js';
 import {TimeUtils} from '../../TimeUtils.js';
@@ -85,7 +82,7 @@ export default class GroupView extends React.Component {
         });
       },
       fail: () => {
-        console.log("disable timeout getting failed");
+        Utils.logMessage("disable timeout getting failed");
         this.setState({
           store
         });
@@ -93,6 +90,7 @@ export default class GroupView extends React.Component {
     });
   }
 
+  /* eslint-disable-next-line max-lines-per-function */
   render() {
     let store = this.state.store;
     if(!Utils.isEmptyObj(store)) {
@@ -154,6 +152,7 @@ export default class GroupView extends React.Component {
     }
     return null;
   }
+  /* eslint-enable-next-line max-lines-per-function */
 }
 
 GroupView.propTypes={

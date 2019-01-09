@@ -51,7 +51,7 @@ export default class RemoteList extends React.Component {
         });
       },
       fail: () => {
-        console.log("disable timeout get failed in remote listing.");
+        Utils.logMessage("disable timeout get failed in remote listing.");
       }
     });
   }
@@ -72,6 +72,7 @@ export default class RemoteList extends React.Component {
     });
   }
 
+  // eslint-disable-next-line max-lines-per-function
   render(){
     let listing = this.state.listing;
     let disMap = this.state.disabledMap;

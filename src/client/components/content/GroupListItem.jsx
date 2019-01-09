@@ -28,6 +28,7 @@ export default class GroupListItem extends React.Component {
     });
   }
 
+  // eslint-disable-next-line max-lines-per-function
   render(){
     let store = this.props.store;
     let storeClass = this.props.storeClass;

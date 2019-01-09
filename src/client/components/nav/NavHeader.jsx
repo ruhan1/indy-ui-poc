@@ -21,6 +21,7 @@ export default class IndyNavHeader extends React.Component {
     });
   }
 
+  // eslint-disable-next-line max-lines-per-function
   render(){
     // addons will be render based on the backend addons response, this is a mock;
     let addons=[

@@ -1,3 +1,4 @@
+/* eslint-disable max-lines-per-function */
 import React from 'react';
 import PropTypes from 'prop-types';
 import {StoreViewControlPanel as ControlPanel} from './StoreControlPanels.jsx';
@@ -75,7 +76,7 @@ export default class HostedView extends React.Component {
         });
       },
       fail: () => {
-        console.log("disable timeout getting failed");
+        Utils.logMessage("disable timeout getting failed");
         this.setState({
           store
         });
@@ -154,6 +155,7 @@ HostedView.propTypes={
   match: PropTypes.object
 };
 
+/* eslint-disable-next-line max-lines-per-function */
 const BasicSection = ({store})=> <div className="fieldset">
       <div className="detail-field">
           <label>Package Type:</label>

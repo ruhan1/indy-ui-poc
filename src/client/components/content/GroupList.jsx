@@ -48,8 +48,8 @@ export default class GroupList extends React.Component {
           disabledMap
         });
       },
-      fail: errorText => {
-        console.log("disable timeout get failed in group listing.");
+      fail: () => {
+        Utils.logMessage("disable timeout get failed in group listing.");
       }
     });
   }

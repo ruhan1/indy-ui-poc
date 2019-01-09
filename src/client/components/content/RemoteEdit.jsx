@@ -44,9 +44,10 @@ export default class RemoteEdit extends React.Component {
     // TODO need to implement remove logic
   }
 
+  // eslint-disable-next-line max-lines-per-function
   render(){
     let mode = this.state.mode;
-    // console.log(mode);
+    // Utils.logMessage(mode);
     // let raw = this.state.rawStore;
     // let store = this.state.store;
     // TODO this package types should be fetched from backend
