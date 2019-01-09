@@ -1,11 +1,14 @@
 import React from 'react';
-
-import {Link} from 'react-router-dom';
 import {ListJsonDebugger} from './Debugger.jsx';
 import ListControl from "./ListControl.jsx";
-import {remoteOptionLegend as options, APP_ROOT} from "../ComponentConstants.js";
+import {remoteOptionLegend as options} from "../ComponentConstants.js";
 import {Utils} from '../CompUtils.js';
 import {jsonGet} from "../../RestClient.js";
+import {
+  LocalURLSection,
+  CapabilitiesSection,
+  StoreNameSection
+}from './CommonPageWidget.jsx';
 
 export default class RemoteList extends React.Component {
   constructor(props){
@@ -95,31 +98,17 @@ export default class RemoteList extends React.Component {
                 let storeClass = Utils.isDisabled(store.key, disMap)? "disabled-store":"enabled-store";
                 return (
                   <div key={store.key} className="store-listing-item">
-                    <div className="fieldset-caption">
-                      <Link to={`${APP_ROOT}/remote/${store.packageType}/view/${store.name}`}>
-                        <span className={storeClass}>{store.packageType}-{store.name}</span>
-                      </Link>
-                    </div>
+                    <StoreNameSection store={store} storeClass={storeClass} />
                     <div className="fieldset">
                       <div>
-                        <div className="left-half">
-                          <label>Local URL:</label>
-                          <a href={Utils.storeHref(store.key)} target="_new">{Utils.storeHref(store.key)}</a>
-                        </div>
+                        <LocalURLSection storeKey={store.key} />
                         <div className="right-half">
                           <label>Remote URL:</label>
                           <a href={store.url} target="_new">{store.url}</a>
                         </div>
                       </div>
                       <div>
-                        <div className="left-half">
-                          <label>Capabilities:</label>
-                          {
-                            Utils.remoteOptions(store).map(option => <div key={option.title} className="options">
-                                  <span className="key">{option.icon} </span>
-                                </div>)
-                          }
-                        </div>
+                        <CapabilitiesSection options={Utils.remoteOptions(store)} />
                       </div>
                       <div className="description field"><span>{store.description}</span></div>
                     </div>

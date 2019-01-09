@@ -20,9 +20,6 @@ body{
   padding-bottom: 70px;
 }
 
-.enabled-store{
-}
-
 .disabled-store{
   text-decoration: line-through;
 }
@@ -265,17 +262,10 @@ li.option{
   overflow: scroll;
 }
 
-pre{
-}
-
 .detail-table,
 .detail-container{
   width: 90%;
   margin-top: 20px;
-}
-
-.left-and-right {
-
 }
 
 .detail-container-caption {
@@ -383,9 +373,6 @@ label, .label{
 
 .textarea-label{
   margin-top: 10px;
-}
-
-.list-label{
 }
 
 .left-col,

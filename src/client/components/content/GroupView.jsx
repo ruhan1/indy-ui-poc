@@ -8,7 +8,6 @@ import {Filters} from '../Filters.js';
 import {TimeUtils} from '../../TimeUtils.js';
 import {jsonGet} from '../../RestClient.js';
 
-
 export default class GroupView extends React.Component {
   constructor(props){
     super(props);

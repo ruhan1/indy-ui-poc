@@ -3,6 +3,10 @@ import {Link} from 'react-router-dom';
 import PropTypes from 'prop-types';
 import {Utils} from '../CompUtils.js';
 import {APP_ROOT} from '../ComponentConstants.js';
+import {
+  LocalURLSection,
+  StoreNameSection
+}from './CommonPageWidget.jsx';
 
 export default class GroupListItem extends React.Component {
   constructor(props){
@@ -36,17 +40,10 @@ export default class GroupListItem extends React.Component {
     let constituents = this.props.store.constituents ? Utils.reConstituents(store) : undefined;
     return (
       <div className="store-listing-item">
-        <div className="fieldset-caption">
-          <Link to={`${APP_ROOT}/group/${store.packageType}/view/${store.name}`}>
-            <span className={storeClass}>{store.packageType}-{store.name}</span>
-          </Link>
-        </div>
+        <StoreNameSection store={store} storeClass={storeClass} />
         <div className="fieldset">
           <div>
-            <div className="left-half">
-              <label>Local URL:</label>
-              <a href={Utils.storeHref(store.key)} target="_new">{Utils.storeHref(store.key)}</a>
-            </div>
+            <LocalURLSection storeKey={store.key} />
             <div className="options-field field right-half">
               <div className="inline-label">
                 {store.constituents && store.constituents.length} Constituent(s) [

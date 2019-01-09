@@ -1,10 +1,14 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
 import ListControl from "./ListControl.jsx";
 import {ListJsonDebugger} from './Debugger.jsx';
 import {Utils} from '../CompUtils.js';
 import {jsonGet} from "../../RestClient.js";
-import {hostedOptionLegend as options, APP_ROOT} from "../ComponentConstants.js";
+import {hostedOptionLegend as options} from "../ComponentConstants.js";
+import {
+  LocalURLSection,
+  CapabilitiesSection,
+  StoreNameSection
+}from './CommonPageWidget.jsx';
 
 export default class HostedList extends React.Component {
   constructor(props){
@@ -89,27 +93,13 @@ export default class HostedList extends React.Component {
               let storeClass = Utils.isDisabled(store.key, disMap)? "disabled-store":"enabled-store";
               return (
                 <div key={store.key} className="store-listing-item">
-                  <div className="fieldset-caption">
-                    <Link to={`${APP_ROOT}/hosted/${store.packageType}/view/${store.name}`}>
-                      <span className={storeClass}>{store.packageType}-{store.name}</span>
-                    </Link>
-                  </div>
+                  <StoreNameSection store={store} storeClass={storeClass} />
                   <div className="fieldset">
                     <div>
-                      <div className="left-half">
-                        <label>Local URL:</label>
-                        <a href={Utils.storeHref(store.key)} target="_new">{Utils.storeHref(store.key)}</a>
-                      </div>
+                      <LocalURLSection storeKey={store.key} />
                     </div>
                     <div>
-                      <div className="left-half">
-                        <label>Capabilities:</label>
-                        {
-                          Utils.hostedOptions(store).map(option => <div key={option.title} className="options">
-                                <span className="key">{option.icon} </span>
-                              </div>)
-                        }
-                      </div>
+                      <CapabilitiesSection options={Utils.hostedOptions(store)} />
                     </div>
                     <div className="description field"><span>{store.description}</span></div>
                   </div>
