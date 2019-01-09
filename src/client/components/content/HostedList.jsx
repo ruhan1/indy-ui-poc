@@ -9,7 +9,7 @@ import {
   Text
 } from '@patternfly/react-core';
 import {ListJsonDebugger} from './Debugger.jsx';
-import {LocalURLSection} from './CommonPageWidget.jsx';
+import {LocalURLSection, CapabilitiesSection} from './CommonPageWidget.jsx';
 import ListControl from "./ListControl.jsx";
 import {hostedOptionLegend as options, APP_ROOT} from "../ComponentConstants.js";
 import {Utils} from '../CompUtils.js';
@@ -115,14 +115,7 @@ export default class HostedList extends React.Component {
                         <LocalURLSection storeKey={store.key} />
                       </div>
                       <div>
-                        <div className="left-half">
-                          <label>Capabilities:</label>
-                          {
-                            Utils.hostedOptions(store).map(option => <div key={option.title} className="options">
-                                  <span className="key">{option.icon} </span>
-                                </div>)
-                          }
-                        </div>
+                        <CapabilitiesSection options={Utils.hostedOptions(store)} />
                       </div>
                       <div className="description field"><span>{store.description}</span></div>
                     </div>

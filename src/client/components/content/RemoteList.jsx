@@ -9,7 +9,7 @@ import {
   Text
 } from '@patternfly/react-core';
 import {ListJsonDebugger} from './Debugger.jsx';
-import {LocalURLSection} from './CommonPageWidget.jsx';
+import {LocalURLSection, CapabilitiesSection} from './CommonPageWidget.jsx';
 import ListControl from "./ListControl.jsx";
 import {remoteOptionLegend as options, APP_ROOT} from "../ComponentConstants.js";
 import {Utils} from '../CompUtils.js';
@@ -123,14 +123,7 @@ export default class RemoteList extends React.Component {
                         </div>
                       </div>
                       <div>
-                        <div className="left-half">
-                          <label>Capabilities:</label>{' '}
-                          {
-                            Utils.remoteOptions(store).map(option => <div key={option.title} className="options">
-                                  <span className="key">{option.icon} </span>
-                                </div>)
-                          }
-                        </div>
+                        <CapabilitiesSection options={Utils.remoteOptions(store)} />
                       </div>
                       <div className="description"><span>{store.description}</span></div>
                     </div>
