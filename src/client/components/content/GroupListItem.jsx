@@ -1,5 +1,6 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
+import {GridItem} from '@patternfly/react-core';
 import PropTypes from 'prop-types';
 import {Utils} from '../CompUtils.js';
 import {APP_ROOT} from '../ComponentConstants.js';
@@ -28,12 +29,10 @@ export default class GroupListItem extends React.Component {
 
   /* eslint-disable max-lines-per-function */
   render(){
-    let store = this.props.store;
-    let storeClass = this.props.storeClass;
-    let disMap = this.props.disableMap;
+    let {store, storeClass, disableMap} = this.props;
     let constituents = this.props.store.constituents ? Utils.reConstituents(store) : undefined;
     return (
-      <div className="store-listing-item">
+      <GridItem key={store.key} span={8}>
         <div className="fieldset-caption">
           <Link to={`${APP_ROOT}/group/${store.packageType}/view/${store.name}`}>
             <span className={storeClass}>{store.packageType}-{store.name}</span>
@@ -63,7 +62,7 @@ export default class GroupListItem extends React.Component {
                   <ol className="content-panel subsection">
                     {
                       constituents.map(item => {
-                        let itemStoreClass = Utils.isDisabled(item.key, disMap)? "disabled-store":"enabled-store";
+                        let itemStoreClass = Utils.isDisabled(item.key, disableMap)? "disabled-store":"enabled-store";
                         return (
                           <li key={item.key}>
                             <Link to={`${APP_ROOT}/${item.type}/${item.packageType}/view/${item.name}`}>
@@ -71,11 +70,9 @@ export default class GroupListItem extends React.Component {
                             </Link>
                             {
                               item.type==='remote' &&
-
                                 <div className="subfields">
                                  <span className="description field">(Remote URL: <a target="_new" href={Utils.storeHref(item.key)}>{Utils.storeHref(item.key)}</a>)</span>
                                 </div>
-
                             }
                           </li>
                         );
@@ -88,7 +85,7 @@ export default class GroupListItem extends React.Component {
           </div>
           <div className="description field"><span>{store.description}</span></div>
         </div>
-      </div>
+      </GridItem>
     );
   }
   /* eslint-enable max-lines-per-function */

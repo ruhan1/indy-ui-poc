@@ -1,8 +1,16 @@
 import React from 'react';
+import {
+  Grid,
+  GridItem,
+  PageSection,
+  PageSectionVariants,
+  TextContent,
+  Text
+} from '@patternfly/react-core';
+import {ListJsonDebugger} from './Debugger.jsx';
+import ListControl from "./ListControl.jsx";
 import {Utils} from '../CompUtils.js';
 import {jsonGet} from "../../RestClient.js";
-import ListControl from "./ListControl.jsx";
-import {ListJsonDebugger} from './Debugger.jsx';
 import GroupListItem from './GroupListItem.jsx';
 
 export default class GroupList extends React.Component {
@@ -27,7 +35,7 @@ export default class GroupList extends React.Component {
       done: response => {
         this.setState({
           listing: response.items,
-          rawListing: response.items,
+          rawListing: response.items
         });
         this.getDisTimeouts();
       },
@@ -62,43 +70,54 @@ export default class GroupList extends React.Component {
     // mock
   }
 
-  handleSearch = event => {
+  handleDebug = checked => {
     this.setState({
-      listing: Utils.searchByKeyForNewStores(event.target.value, this.state.rawListing)
+      enableDebug: checked
     });
   }
 
-  handleDebug = event => {
+  handleSearch = value => {
     this.setState({
-      enableDebug: event.target.checked
+      listing: Utils.searchByKeyForNewStores(value, this.state.rawListing)
     });
   }
 
   render(){
-    let listing = this.state.listing;
-    let disMap = this.state.disabledMap;
+    let {listing, disabledMap, enableDebug} = this.state;
+
     return (
-      <div className="container-fluid">
-        <ListControl
-          useHideAll={true} handleHideAll={this.hideAll}
-          useSearch={true} handleSearch={this.handleSearch}
-          useDebug={true} handleDebug={this.handleDebug}
-          handleCreateNew={this.createNew} />
-        <div className="content-panel">
-          <div className="store-listing">
+      <React.Fragment>
+        <PageSection>
+          <TextContent>
+            <Text component="h1">Group List</Text>
+          </TextContent>
+        </PageSection>
+        <PageSection variant={PageSectionVariants.light}>
+          <Grid gutter="md">
+            <GridItem className="right-control">
+              <ListControl
+                useHideAll={true} handleHideAll={this.hideAll}
+                useSearch={true} handleSearch={this.handleSearch}
+                useDebug={true} handleDebug={this.handleDebug}
+                handleCreateNew={this.createNew} />
+            </GridItem>
             {
               listing.map(store => {
-                let storeClass = Utils.isDisabled(store.key, disMap)? "disabled-store":"enabled-store";
+                let storeClass = Utils.isDisabled(store.key, disabledMap)? "disabled-store":"enabled-store";
                 return (
-                  <GroupListItem key={store.key} store={store} storeClass={storeClass} disableMap={disMap} />
+                  <GroupListItem key={store.key} store={store} storeClass={storeClass} disableMap={disabledMap} />
                 );
               })
             }
-          </div>
-        </div>
-
-        <ListJsonDebugger enableDebug={this.state.enableDebug} jsonObj={this.state.listing} />
-      </div>
+            {
+              enableDebug &&
+              <GridItem span={8}>
+                <ListJsonDebugger enableDebug={enableDebug} jsonObj={listing} />
+              </GridItem>
+            }
+          </Grid>
+        </PageSection>
+      </React.Fragment>
     );
   }
 }
