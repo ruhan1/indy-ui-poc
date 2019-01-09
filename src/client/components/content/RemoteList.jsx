@@ -9,6 +9,7 @@ import {
   Text
 } from '@patternfly/react-core';
 import {ListJsonDebugger} from './Debugger.jsx';
+import {LocalURLSection} from './CommonPageWidget.jsx';
 import ListControl from "./ListControl.jsx";
 import {remoteOptionLegend as options, APP_ROOT} from "../ComponentConstants.js";
 import {Utils} from '../CompUtils.js';
@@ -114,12 +115,9 @@ export default class RemoteList extends React.Component {
                       </Link>
                     </div>
                     <div className="fieldset">
+                      <div><LocalURLSection storeKey={store.key} /></div>
                       <div>
                         <div className="left-half">
-                          <label>Local URL:</label>{' '}
-                          <a href={Utils.storeHref(store.key)} target="_new">{Utils.storeHref(store.key)}</a>
-                        </div>
-                        <div className="right-half">
                           <label>Remote URL:</label>{' '}
                           <a href={store.url} target="_new">{store.url}</a>
                         </div>

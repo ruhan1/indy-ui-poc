@@ -3,6 +3,7 @@ import {Link} from 'react-router-dom';
 import {GridItem} from '@patternfly/react-core';
 import PropTypes from 'prop-types';
 import {Utils} from '../CompUtils.js';
+import {LocalURLSection} from './CommonPageWidget.jsx';
 import {APP_ROOT} from '../ComponentConstants.js';
 
 export default class GroupListItem extends React.Component {
@@ -40,11 +41,10 @@ export default class GroupListItem extends React.Component {
         </div>
         <div className="fieldset">
           <div>
-            <div className="left-half">
-              <label>Local URL:</label>
-              <a href={Utils.storeHref(store.key)} target="_new">{Utils.storeHref(store.key)}</a>
-            </div>
-            <div className="options-field field right-half">
+            <LocalURLSection storeKey={store.key} />
+          </div>
+          <div>
+            <div className="options-field field left-half">
               <div className="inline-label">
                 {store.constituents && store.constituents.length} Constituent(s) [
                 <span className="option">
@@ -58,7 +58,6 @@ export default class GroupListItem extends React.Component {
               </div>
               {
                 !this.state.hideConstituents && constituents &&
-
                   <ol className="content-panel subsection">
                     {
                       constituents.map(item => {
@@ -79,7 +78,6 @@ export default class GroupListItem extends React.Component {
                       })
                     }
                   </ol>
-
               }
             </div>
           </div>

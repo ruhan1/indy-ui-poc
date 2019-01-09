@@ -9,6 +9,7 @@ import {
   Text
 } from '@patternfly/react-core';
 import {ListJsonDebugger} from './Debugger.jsx';
+import {LocalURLSection} from './CommonPageWidget.jsx';
 import ListControl from "./ListControl.jsx";
 import {hostedOptionLegend as options, APP_ROOT} from "../ComponentConstants.js";
 import {Utils} from '../CompUtils.js';
@@ -111,10 +112,7 @@ export default class HostedList extends React.Component {
                     </div>
                     <div className="fieldset">
                       <div>
-                        <div className="left-half">
-                          <label>Local URL:</label>
-                          <a href={Utils.storeHref(store.key)} target="_new">{Utils.storeHref(store.key)}</a>
-                        </div>
+                        <LocalURLSection storeKey={store.key} />
                       </div>
                       <div>
                         <div className="left-half">
