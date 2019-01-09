@@ -50,7 +50,7 @@ export default class HostedList extends React.Component {
         });
       },
       fail: () => {
-        console.log("disable timeout get failed in hosted listing.");
+        Utils.logMessage("disable timeout get failed in hosted listing.");
       }
     });
   }

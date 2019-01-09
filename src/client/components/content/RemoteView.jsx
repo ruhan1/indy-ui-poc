@@ -80,7 +80,7 @@ export default class RemoteView extends React.Component {
         });
       },
       fail: () => {
-        console.log("disable timeout getting failed");
+        Utils.logMessage("disable timeout getting failed");
         this.setState({
           store
         });

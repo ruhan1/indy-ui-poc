@@ -7,11 +7,13 @@ const app = express();
 
 app.use(compression());
 
+const log = message => console.log(message);
+
 let server = app.listen(4000, () => {
    let host = server.address().address;
    let port = server.address().port;
 
-   console.log("Example app listening at http://%s:%s", host, port);
+   log("Example app listening at http://%s:%s", host, port);
 });
 
 app.use(express.static('build'));

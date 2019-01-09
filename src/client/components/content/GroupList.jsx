@@ -49,7 +49,7 @@ export default class GroupList extends React.Component {
         });
       },
       fail: () => {
-        console.log("disable timeout get failed in group listing.");
+        Utils.logMessage("disable timeout get failed in group listing.");
       }
     });
   }

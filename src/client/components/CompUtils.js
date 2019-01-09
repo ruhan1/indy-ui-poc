@@ -113,5 +113,6 @@ export const Utils = {
       }
     }
     return target;
-  }
+  },
+  logMessage: message => console.log(message)
 };

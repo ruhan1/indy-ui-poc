@@ -58,7 +58,7 @@ export default class RemoteList extends React.Component {
         });
       },
       fail: () => {
-          console.log("disable timeout get failed in remote listing.");
+          Utils.logMessage("disable timeout get failed in remote listing.");
       }
     });
   }

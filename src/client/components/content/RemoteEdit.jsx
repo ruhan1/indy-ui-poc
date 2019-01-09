@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import {Utils} from '../CompUtils';
 import {StoreEditControlPanel as EditControlPanel} from './StoreControlPanels.jsx';
 import {DisableTimeoutHint, DurationHint, PrefetchHint, Hint} from './Hints.jsx';
 // import {ViewJsonDebugger} from './Debugger.jsx';
@@ -43,7 +44,7 @@ export default class RemoteEdit extends React.Component {
   /* eslint-disable max-lines-per-function */
   render(){
     let mode = this.state.mode;
-    console.log(mode);
+    Utils.logMessage(mode);
     // let raw = this.state.rawStore;
     // let store = this.state.store;
     // TODO this package types should be fetched from backend
