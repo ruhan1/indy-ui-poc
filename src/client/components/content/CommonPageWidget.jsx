@@ -11,4 +11,17 @@ LocalURLSection.propTypes = {
     storeKey: PropTypes.string
 };
 
-export {LocalURLSection};
+const CapabilitiesSection = ({options}) => <div className="left-half">
+    <label>Capabilities:</label>{' '}
+    {
+        options.map(option => <div key={option.title} className="options">
+                <span className="key">{option.icon} </span>
+            </div>)
+    }
+    </div>;
+
+CapabilitiesSection.propTypes = {
+    options: PropTypes.array
+};
+
+export {LocalURLSection, CapabilitiesSection};
