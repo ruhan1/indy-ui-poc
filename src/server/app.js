@@ -7,7 +7,11 @@ const app = express();
 
 app.use(compression());
 
-const log = message => console.log(message);
+const log = (message, ...params) => {
+  let allParams = [message];
+  params.forEach(p=>allParams.push(p));
+  Reflect.apply(console.log, undefined, allParams);
+};
 
 let server = app.listen(4000, () => {
    let host = server.address().address;

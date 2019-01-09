@@ -114,5 +114,9 @@ export const Utils = {
     }
     return target;
   },
-  logMessage: message => console.log(message)
+  logMessage: (message, ...params) => {
+    let allParams = [message];
+    params.forEach(p=>allParams.push(p));
+    Reflect.apply(console.log, undefined, allParams);
+  }
 };

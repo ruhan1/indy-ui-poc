@@ -1,10 +1,19 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
-import ListControl from "./ListControl.jsx";
+import {
+  Grid,
+  GridItem,
+  PageSection,
+  PageSectionVariants,
+  TextContent,
+  Text
+} from '@patternfly/react-core';
 import {ListJsonDebugger} from './Debugger.jsx';
+import ListControl from "./ListControl.jsx";
+import {hostedOptionLegend as options, APP_ROOT} from "../ComponentConstants.js";
 import {Utils} from '../CompUtils.js';
 import {jsonGet} from "../../RestClient.js";
-import {hostedOptionLegend as options, APP_ROOT} from "../ComponentConstants.js";
+
 
 export default class HostedList extends React.Component {
   constructor(props){
@@ -28,7 +37,7 @@ export default class HostedList extends React.Component {
       done: response => {
         this.setState({
           listing: response.items,
-          rawListing: response.items,
+          rawListing: response.items
         });
         this.getDisTimeouts();
       },
@@ -59,69 +68,80 @@ export default class HostedList extends React.Component {
     // mock
   }
 
-  handleDebug = event => {
+  handleDebug = checked => {
     this.setState({
-      enableDebug: event.target.checked
+      enableDebug: checked
     });
   }
 
-  handleSearch = event => {
+  handleSearch = value => {
     this.setState({
-      listing: Utils.searchByKeyForNewStores(event.target.value, this.state.rawListing)
+      listing: Utils.searchByKeyForNewStores(value, this.state.rawListing)
     });
   }
 
   /* eslint-disable max-lines-per-function */
   render(){
-    let listing = this.state.listing;
-    let disMap = this.state.disabledMap;
+    let {listing, disabledMap, enableDebug} = this.state;
     return (
-      <div className="container-fluid">
-        <ListControl
-          useSearch={true} handleSearch={this.handleSearch}
-          useLegend={true} legends={options}
-          useDebug={true} handleDebug={this.handleDebug}
-          handleCreateNew={this.createNew} />
-        <div className="content-panel">
-          <div className="store-listing">
-          {
-            listing.map(store => {
-              let storeClass = Utils.isDisabled(store.key, disMap)? "disabled-store":"enabled-store";
-              return (
-                <div key={store.key} className="store-listing-item">
-                  <div className="fieldset-caption">
-                    <Link to={`${APP_ROOT}/hosted/${store.packageType}/view/${store.name}`}>
-                      <span className={storeClass}>{store.packageType}-{store.name}</span>
-                    </Link>
-                  </div>
-                  <div className="fieldset">
-                    <div>
-                      <div className="left-half">
-                        <label>Local URL:</label>
-                        <a href={Utils.storeHref(store.key)} target="_new">{Utils.storeHref(store.key)}</a>
-                      </div>
+      <React.Fragment>
+        <PageSection>
+          <TextContent>
+            <Text component="h1">Hosted Respositories List</Text>
+          </TextContent>
+        </PageSection>
+        <PageSection variant={PageSectionVariants.light}>
+          <Grid gutter="md">
+            <GridItem className="right-control">
+              <ListControl
+                useSearch={true} handleSearch={this.handleSearch}
+                useLegend={true} legends={options}
+                useDebug={true} handleDebug={this.handleDebug}
+                handleCreateNew={this.createNew} />
+            </GridItem>
+            {
+              listing.map(store => {
+                let storeClass = Utils.isDisabled(store.key, disabledMap)? "disabled-store":"enabled-store";
+                return (
+                  <GridItem key={store.key} span={8}>
+                    <div className="fieldset-caption">
+                      <Link to={`${APP_ROOT}/hosted/${store.packageType}/view/${store.name}`}>
+                        <span className={storeClass}>{store.packageType}-{store.name}</span>
+                      </Link>
                     </div>
-                    <div>
-                      <div className="left-half">
-                        <label>Capabilities:</label>
-                        {
-                          Utils.hostedOptions(store).map(option => <div key={option.title} className="options">
-                                <span className="key">{option.icon} </span>
-                              </div>)
-                        }
+                    <div className="fieldset">
+                      <div>
+                        <div className="left-half">
+                          <label>Local URL:</label>
+                          <a href={Utils.storeHref(store.key)} target="_new">{Utils.storeHref(store.key)}</a>
+                        </div>
                       </div>
+                      <div>
+                        <div className="left-half">
+                          <label>Capabilities:</label>
+                          {
+                            Utils.hostedOptions(store).map(option => <div key={option.title} className="options">
+                                  <span className="key">{option.icon} </span>
+                                </div>)
+                          }
+                        </div>
+                      </div>
+                      <div className="description field"><span>{store.description}</span></div>
                     </div>
-                    <div className="description field"><span>{store.description}</span></div>
-                  </div>
-                </div>
-              );
-            })
-          }
-          </div>
-        </div>
+                  </GridItem>
+                );
+              })
+            }
+            {
+              enableDebug &&
+              <GridItem span={8}>
+                <ListJsonDebugger enableDebug={this.state.enableDebug} jsonObj={this.state.listing} />
+              </GridItem>
+            }
+          </Grid>
 
-        <ListJsonDebugger enableDebug={this.state.enableDebug} jsonObj={this.state.listing} />
-      </div>
+        </PageSection>
+      </React.Fragment>
     );
   }
   /* eslint-enable max-lines-per-function */
