@@ -1,7 +1,7 @@
-const compression = require('compression');
-const express = require('express');
-const path = require("path");
-const Config = require('./config/AppConfig.js');
+import compression from 'compression';
+import express from 'express';
+import path from 'path';
+import {Config} from './config/AppConfig.js';
 
 const app = express();
 
